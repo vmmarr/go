@@ -343,6 +343,402 @@
 | **Entrega**     | v1             |
 
 
+| **R39**     | **Registro de un usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | La aplicación de registrar usuarios             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R40**     | **Modificar usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | La aplicación permitirá a cada usuario modificar su perfil             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R41**     | **Eliminar usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | La eliminación de usuarios             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R42**     | **Administrar usuarios**         |
+| --------------: | :------------------- |
+| **Descripción** | Permitirá a un administrador, borrar o modificar un usuario             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v3             |
+
+
+| **R43**     | **Correo de confirmación**         |
+| --------------: | :------------------- |
+| **Descripción** | Enviará un correo de confirmación al usuario registrado             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v1             |
+
+
+| **R44**     | **Imagen de perfil**         |
+| --------------: | :------------------- |
+| **Descripción** | Cada usuario podrá subir una imagen de perfil             |
+| **Prioridad**   | Opcional           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v1             |
+
+
+| **R45**     | **Búsqueda de usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | Permitirá a un usuario buscar a otro usuario por su nombre de registro             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v2             |
+
+
+| **R46**     | **Ver usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | Permitirá ver el perfil de otro usuario             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v2             |
+
+
+| **R47**     | **Recuperar Contraseña**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá recuperar su contraseña mediante el envio de un correo electrónico de recuperación             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v1             |
+
+
+| **R48**     | **Iniciar sesión**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario registrado y con la confirmación de correo, podrá iniciar sesión mediante un formulario donde introducirá su usuario y contraseña             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R49**     | **Cerrar sesión**         |
+| --------------: | :------------------- |
+| **Descripción** | El usuario que este con la sesión iniciada, podrá cerrarla             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R50**     | **Insertar imagen**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá subir imágenes             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v1             |
+
+
+| **R51**     | **Eliminar imagen**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá eliminar imágenes subidas por el             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R52**     | **Modificar una imagen**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá modificar algunos de los datos de su imagen             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v1             |
+
+
+| **R53**     | **Insertar localización**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá indicar a través de un mapa donde se a realizado la imagen si lo desea             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Difícil         |
+| **Entrega**     | v3             |
+
+
+| **R54**     | **Ver todos los usuarios**         |
+| --------------: | :------------------- |
+| **Descripción** | Permitirá ver los usuarios registrados             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R55**     | **Ver imagen**         |
+| --------------: | :------------------- |
+| **Descripción** | Ofrecer toda la información de una imagen             |
+| **Prioridad**   | Mínimo           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v1             |
+
+
+| **R56**     | **Añadir comentario **         |
+| --------------: | :------------------- |
+| **Descripción** | Permitirá a un usuario comentar sobre otras fotos             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R57**     | **Modificar comentario**         |
+| --------------: | :------------------- |
+| **Descripción** | Permitirá a un usuario modificar un comentario             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R58**     | **Eliminar comentario**         |
+| --------------: | :------------------- |
+| **Descripción** | Permitirá a un usuario eliminar un comentario             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R59**     | **Insertar video**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá subir video             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R60**     | **Eliminar video**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá eliminar imágenes subidas por el             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R61**     | **Modificar un video**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá modificar algunos de los datos de su video             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R62**     | **Añadir like a una imagen**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá dar like a una imagen             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R63**     | **Añadir like a un video**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá dar like a un video             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v2             |
+
+
+| **R64**     | **Borrar like de foto**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá quitar el like de una imagen             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v1             |
+
+
+| **R65**     | **Borrar like de video**         |
+| --------------: | :------------------- |
+| **Descripción** | Un usuario podrá quitar el like de un video             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Fácil         |
+| **Entrega**     | v2             |
+
+
+| **R66**     | **Guardado de archivos en la nube**         |
+| --------------: | :------------------- |
+| **Descripción** | Guardar archivos en Amazon Web Service             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Técnico                |
+| **Complejidad** | Difícil         |
+| **Entrega**     | v1             |
+
+
+| **R67**     | **Seguir a un usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | Seguir a un usuario             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R68**     | **Ser seguido por otros usuarios**         |
+| --------------: | :------------------- |
+| **Descripción** | Ser seguido por otros usuarios             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R69**     | **Dejar de seguir a un usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | Dejar de seguir a un usuario             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R70**     | **Bloquear a un usuario**         |
+| --------------: | :------------------- |
+| **Descripción** | Bloquear a un usuario, por lo que el usuario bloqueado no podrá seguir tu cuenta ni entrar en tu perfil ni ver tu publicaciones publicas.             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R71**     | **Ver números de like de una foto**         |
+| --------------: | :------------------- |
+| **Descripción** | Ver números de like de una foto              |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R72**     | **Ver números de like de un video**         |
+| --------------: | :------------------- |
+| **Descripción** | Ver número de like de un video             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v2             |
+
+
+| **R73**     | **Chat**         |
+| --------------: | :------------------- |
+| **Descripción** | Incorporar un chat con otros usuarios             |
+| **Prioridad**   | Opcional           |
+| **Tipo**        | Técnico                |
+| **Complejidad** | Difícil         |
+| **Entrega**     | v3             |
+
+
+| **R74**     | **Ver los seguidores**         |
+| --------------: | :------------------- |
+| **Descripción** | Ver que usuarios te siguen             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
+| **R75**     | **Ver numero de seguidores**         |
+| --------------: | :------------------- |
+| **Descripción** | Ver número de seguidores de un usuario             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
+| **R76**     | **Descargar una imagen**         |
+| --------------: | :------------------- |
+| **Descripción** | Descargar una imagen             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
+| **R77**     | **Descargar un video**         |
+| --------------: | :------------------- |
+| **Descripción** | Descargar un video             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
+| **R78**     | **Guardar un video**         |
+| --------------: | :------------------- |
+| **Descripción** | Guardar un video             |
+| **Prioridad**   | Opcional           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
+| **R79**     | **Guardar una foto **         |
+| --------------: | :------------------- |
+| **Descripción** | Guardar una imagen             |
+| **Prioridad**   | Opcional           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
+| **R80**     | **Ver la fecha de subida**         |
+| --------------: | :------------------- |
+| **Descripción** | Ver la fecha de subida             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v1             |
+
+
+| **R81**     | **Ordenar por fecha**         |
+| --------------: | :------------------- |
+| **Descripción** | Ordenar por fecha de subida             |
+| **Prioridad**   | Importante           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
+| **R82**     | **Buscar un archivo por fecha**         |
+| --------------: | :------------------- |
+| **Descripción** | Buscar una foto o video por la fecha de subida             |
+| **Prioridad**   | Opcional           |
+| **Tipo**        | Funcional                |
+| **Complejidad** | Media         |
+| **Entrega**     | v3             |
+
+
 
 ## Cuadro resumen
 
@@ -386,3 +782,47 @@
 | (**R36**) Varios navegadores | Mínimo | Técnico | Fácil | v1 | 
 | (**R37**) Despliegue en un Host | Mínimo | Técnico | Fácil | v1 | 
 | (**R38**) Despliegue en un servidor local | Mínimo | Técnico | Fácil | v1 | 
+| (**R39**) Registro de un usuario | Mínimo | Funcional | Fácil | v1 | 
+| (**R40**) Modificar usuario | Mínimo | Funcional | Fácil | v1 | 
+| (**R41**) Eliminar usuario | Mínimo | Funcional | Fácil | v1 | 
+| (**R42**) Administrar usuarios | Importante | Funcional | Fácil | v3 | 
+| (**R43**) Correo de confirmación | Importante | Funcional | Media | v1 | 
+| (**R44**) Imagen de perfil | Opcional | Funcional | Media | v1 | 
+| (**R45**) Búsqueda de usuario | Mínimo | Funcional | Fácil | v2 | 
+| (**R46**) Ver usuario | Mínimo | Funcional | Fácil | v2 | 
+| (**R47**) Recuperar Contraseña | Importante | Funcional | Media | v1 | 
+| (**R48**) Iniciar sesión | Mínimo | Funcional | Fácil | v1 | 
+| (**R49**) Cerrar sesión | Mínimo | Funcional | Fácil | v1 | 
+| (**R50**) Insertar imagen | Importante | Funcional | Media | v1 | 
+| (**R51**) Eliminar imagen | Importante | Funcional | Fácil | v1 | 
+| (**R52**) Modificar una imagen | Importante | Funcional | Media | v1 | 
+| (**R53**) Insertar localización | Importante | Funcional | Difícil | v3 | 
+| (**R54**) Ver todos los usuarios | Mínimo | Funcional | Fácil | v1 | 
+| (**R55**) Ver imagen | Mínimo | Funcional | Media | v1 | 
+| (**R56**) Añadir comentario  | Importante | Funcional | Fácil | v1 | 
+| (**R57**) Modificar comentario | Importante | Funcional | Fácil | v1 | 
+| (**R58**) Eliminar comentario | Importante | Funcional | Fácil | v1 | 
+| (**R59**) Insertar video | Importante | Funcional | Media | v2 | 
+| (**R60**) Eliminar video | Importante | Funcional | Media | v2 | 
+| (**R61**) Modificar un video | Importante | Funcional | Media | v2 | 
+| (**R62**) Añadir like a una imagen | Importante | Funcional | Fácil | v1 | 
+| (**R63**) Añadir like a un video | Importante | Funcional | Fácil | v2 | 
+| (**R64**) Borrar like de foto | Importante | Funcional | Fácil | v1 | 
+| (**R65**) Borrar like de video | Importante | Funcional | Fácil | v2 | 
+| (**R66**) Guardado de archivos en la nube | Importante | Técnico | Difícil | v1 | 
+| (**R67**) Seguir a un usuario | Importante | Funcional | Media | v2 | 
+| (**R68**) Ser seguido por otros usuarios | Importante | Funcional | Media | v2 | 
+| (**R69**) Dejar de seguir a un usuario | Importante | Funcional | Media | v2 | 
+| (**R70**) Bloquear a un usuario | Importante | Funcional | Media | v2 | 
+| (**R71**) Ver números de like de una foto | Importante | Funcional | Media | v2 | 
+| (**R72**) Ver números de like de un video | Importante | Funcional | Media | v2 | 
+| (**R73**) Chat | Opcional | Técnico | Difícil | v3 | 
+| (**R74**) Ver los seguidores | Importante | Funcional | Media | v3 | 
+| (**R75**) Ver numero de seguidores | Importante | Funcional | Media | v3 | 
+| (**R76**) Descargar una imagen | Importante | Funcional | Media | v3 | 
+| (**R77**) Descargar un video | Importante | Funcional | Media | v3 | 
+| (**R78**) Guardar un video | Opcional | Funcional | Media | v3 | 
+| (**R79**) Guardar una foto  | Opcional | Funcional | Media | v3 | 
+| (**R80**) Ver la fecha de subida | Importante | Funcional | Media | v1 | 
+| (**R81**) Ordenar por fecha | Importante | Funcional | Media | v3 | 
+| (**R82**) Buscar un archivo por fecha | Opcional | Funcional | Media | v3 | 
