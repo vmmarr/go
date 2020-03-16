@@ -6,7 +6,7 @@
 
 La aplicación permitirá a un usuario poder compartir fotos con los otros usuarios al igual que la red social Instagram.
 
-## Funcionalidad principal de la aplicación
+### Funcionalidad principal de la aplicación
 
 La funcionalidad principal del proyecto será la posibilidad a los usuarios logueados, de la visualización de fotos de otros usuarios.
 Los usuarios podran comentar sobre las imagenes de otros usuarios y dar like.
