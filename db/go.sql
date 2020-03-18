@@ -2,3 +2,44 @@
 -- Archivo de base de datos --
 ------------------------------
 
+DROP TABLE IF EXISTS publicaciones CASCADE;
+
+CREATE TABLE publicaciones
+(
+    id         bigserial    PRIMARY KEY
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , descripcion varchar(255)
+  , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
+  , update_at timestamp(0) NOT NULL DEFAULT current_timestamp
+);
+
+DROP TABLE IF EXISTS comentarios CASCADE;
+
+CREATE TABLE comentarios
+(
+    id         bigserial    PRIMARY KEY
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id)
+  , comentario varchar(255)
+  , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
+  , update_at timestamp(0) NOT NULL DEFAULT current_timestamp
+);
+
+DROP TABLE IF EXISTS likes CASCADE;
+
+CREATE TABLE likes
+(
+    id         bigserial    PRIMARY KEY
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id)
+);
+
+DROP TABLE IF EXISTS seguidores CASCADE;
+
+CREATE TABLE seguidores
+(
+    id         bigserial    PRIMARY KEY
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , seguidor_id bigint       NOT NULL REFERENCES usuarios (id)
+  , aceptacion boolean
+);
