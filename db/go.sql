@@ -2,6 +2,18 @@
 -- Archivo de base de datos --
 ------------------------------
 
+DROP TABLE IF EXISTS usuarios CASCADE;
+
+CREATE TABLE usuarios
+(
+    id         bigserial    PRIMARY KEY
+  , nombre       varchar(13)  NOT NULL
+  , uesername     varchar(255) NOT NULL UNIQUE
+  , email   varchar(255)  NOT NULL
+  , password  varchar(60) NOT NULL
+  , auth_key varchar(255)
+);
+
 DROP TABLE IF EXISTS publicaciones CASCADE;
 
 CREATE TABLE publicaciones
