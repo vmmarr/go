@@ -30,7 +30,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => Html::img('@web/logo.ico') . Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => ['/publicaciones/index'],
         'options' => [
             'class' => 'navbar-light bg-light navbar-expand-md fixed-top',
         ],
