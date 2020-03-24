@@ -7,11 +7,14 @@ DROP TABLE IF EXISTS usuarios CASCADE;
 CREATE TABLE usuarios
 (
     id         bigserial    PRIMARY KEY
-  , nombre       varchar(13)  NOT NULL
-  , uesername     varchar(255) NOT NULL UNIQUE
+  , nombre       varchar(255)  NOT NULL
+  , uesername     varchar(60) NOT NULL UNIQUE
   , email   varchar(255)  NOT NULL
-  , password  varchar(60) NOT NULL
-  , auth_key varchar(255)
+  , password  varchar(255) NOT NULL
+  , authKey varchar(255) NOT NULL
+  , accessToken varchar(250) NOT NULL
+  , activate tinyint(1) NOT NULL DEFAULT '0'
+
 );
 
 DROP TABLE IF EXISTS publicaciones CASCADE;
