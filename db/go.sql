@@ -8,12 +8,11 @@ CREATE TABLE usuarios
 (
     id         bigserial    PRIMARY KEY
   , nombre       varchar(255)  NOT NULL
-  , uesername     varchar(60) NOT NULL UNIQUE
+  , username     varchar(60) NOT NULL UNIQUE
   , email   varchar(255)  NOT NULL
   , password  varchar(255) NOT NULL
   , authKey varchar(255) NOT NULL
-  , accessToken varchar(250) NOT NULL
-  , activate tinyint(1) NOT NULL DEFAULT '0'
+  , activate numeric(1) NOT NULL DEFAULT '0'
 
 );
 

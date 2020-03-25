@@ -50,11 +50,12 @@ AppAsset::register($this);
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-dark nav-link logout']
+                    ['class' => 'btn btn-dark nav-link logout'],
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
+            ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
         ],
     ]);
     NavBar::end();
