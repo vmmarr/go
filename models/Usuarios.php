@@ -92,9 +92,9 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->authkey === $authKey;
     }
 
-    public static function findPorNombre($username)
+    public static function findByUsername($username)
     {
-        return static::findOne(['usernanme' => $username]);
+        return static::findOne(['username' => $username]);
     }
 
     public function validatePassword($password)
