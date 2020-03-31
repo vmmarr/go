@@ -29,6 +29,12 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+        $username = '';
+
+    if (!Yii::$app->user->isGuest) {
+        $username = Yii::$app->user->identity->username;
+    }
+    //$n = Yii::$app->user->identity->username;
     NavBar::begin([
         'brandLabel' => Html::img('@web/logo.ico') . Yii::$app->name,
         'brandUrl' => ['/publicaciones/index'],
@@ -38,26 +44,31 @@ AppAsset::register($this);
         'collapseOptions' => [
             'class' => 'justify-content-end',
         ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => Icon::show('home', ['framework' => Icon::BSG]), 'url' => ['/publicaciones/index']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li class="nav-item">'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-dark nav-link logout'],
-                )
-                . Html::endForm()
-                . '</li>'
-            ),
-            ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
-        ],
-    ]);
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav'],
+            'items' => [
+                ['label' => Icon::show('home', ['framework' => Icon::BSG]), 'url' => ['/publicaciones/index']],
+                ['label' => 'usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
+                [
+
+                    // va por aqui para poner imagen de perfil
+                    'label' => '<img src="' . Yii::$app->request->baseUrl . '/images/" class="image_inner_container"/> ' . $username,
+                    'items' => [
+                        ['label' => 'Mi perfil', 'url' => ['usuarios/perfil', 'id' => Yii::$app->user->id]],
+                        Html::beginForm(['/site/logout'], 'post')
+                        . Html::submitButton(
+                            'Logout (' . $username . ')',
+                            ['class' => 'btn btn-ligth nav-link logout']
+                        )
+                        . Html::endForm()
+                    ],
+                    'visible' => !Yii::$app->user->isGuest
+                ]
+                ],
+                'encodeLabels' => false
+        ]);
     NavBar::end();
     ?>
 

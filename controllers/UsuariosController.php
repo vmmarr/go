@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\models\Usuarios;
+use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class UsuariosController extends Controller
 {
@@ -28,6 +30,30 @@ class UsuariosController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        $searchModel = new UsuariosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+     /**
+     * Displays a single Usuarios model.
+     * @param int $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionPerfil($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
@@ -40,5 +66,14 @@ class UsuariosController extends Controller
         return $this->render('registrar', [
             'model' => $model,
         ]);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Usuarios::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

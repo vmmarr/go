@@ -1,7 +1,11 @@
 html,
 body {
     height: 100%;
+    font-family: "Open Sans", Arial, sans-serif;
+    background-color: #fafafa;
+    color: #262626;
 }
+
 
 .wrap {
     min-height: 100%;
@@ -11,7 +15,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 150px 15px 20px;
 }
 
 .footer {

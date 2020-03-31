@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce2f9526ca917994b830a861926e4a72",
+    "content-hash": "8a83bc1014d1c0f37cbbd4fd14ed512b",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -369,16 +369,16 @@
         },
         {
             "name": "kartik-v/yii2-icons",
-            "version": "v1.4.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-icons.git",
-                "reference": "70d287c3364b0cb9a34ed70fc69bd438a2e5bb8e"
+                "reference": "81d174a445d66042f257e2818d6e2e09ebdd8a15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/70d287c3364b0cb9a34ed70fc69bd438a2e5bb8e",
-                "reference": "70d287c3364b0cb9a34ed70fc69bd438a2e5bb8e",
+                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/81d174a445d66042f257e2818d6e2e09ebdd8a15",
+                "reference": "81d174a445d66042f257e2818d6e2e09ebdd8a15",
                 "shasum": ""
             },
             "require": {
@@ -417,7 +417,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2018-11-05T11:57:39+00:00"
+            "time": "2019-05-25T07:24:34+00:00"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -7109,6 +7109,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "kartik-v/yii2-icons": 20,
         "xtetis/yii2-bootstrap4-glyphicons": 20,
         "yiisoft/yii2-apidoc": 20,
         "codeception/verify": 20

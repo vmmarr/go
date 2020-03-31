@@ -1,0 +1,130 @@
+*{
+    box-sizing: border-box;
+}
+
+/**********************************A partir de aquí********************************/
+
+
+
+header h1{
+    align-self: center;
+    text-align: center;
+}
+
+
+
+
+header {grid-area: header;}
+main {grid-area: main;}
+aside {grid-area: aside;}
+footer {grid-area: footer;}
+
+.grid-container{
+    display: grid;
+    
+    grid-template-areas:
+        'header header header header'
+        'main main main main'
+        'aside aside aside aside'
+        'footer footer footer footer';
+}
+header{
+    display: grid;
+    justify-content: center;
+}
+
+aside section{
+    display: grid;
+}
+
+main section{
+    display: grid;
+}
+
+footer{
+    display: grid;
+}
+
+
+/*Menores de 768*/
+@media (max-width:767px){
+
+header h1{
+    display: none;
+}
+
+}
+
+/*Escritorio de 768 hacia arriba*/
+
+@media (min-width:768px){
+header{
+    grid-template-columns: 25% 75%;
+}
+
+header img{
+    margin: 0 auto;
+}
+
+aside section{
+    grid-template-columns: auto auto;
+}
+
+aside section h2{
+    grid-column: 1 / span 2;
+}
+
+main section{
+    grid-template-columns: auto auto;
+}
+
+main section h2{
+    grid-column: 1 / span 2;
+}
+
+footer {
+    grid-template-columns: auto auto;
+}
+}
+
+/*Escritorio de 992 hacia arriba*/
+
+@media (min-width:992px){
+
+    .grid-container{
+        display: grid;
+        
+        grid-template-areas:
+            'header header header header'
+            'aside main main main'
+            'footer footer footer footer';
+    }
+
+    aside section{
+        grid-template-columns: auto;
+    }
+
+    aside section >*{
+        grid-column: 1 / span 1;
+    }
+}
+
+/*Escritorio de 1200 hacia arriba*/
+
+@media (min-width:1200px){
+
+main section{
+    grid-template-columns: auto auto auto;
+}
+
+main section h2{
+    grid-column: 1 / span 3;
+}
+
+footer {
+    grid-template-columns: auto auto auto auto;
+}
+}
+
+/**********************************Hasta aquí********************************/
+
