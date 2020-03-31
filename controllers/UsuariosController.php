@@ -68,6 +68,34 @@ class UsuariosController extends Controller
         ]);
     }
 
+    public function actionUpdate($id = null)
+    {
+        if ($id === null) {
+            if (Yii::$app->user->isGuest) {
+                Yii::$app->session->setFlash('error', 'Debe estar logueado.');
+                return $this->goHome();
+            } else {
+                $model = Yii::$app->user->identity;
+            }
+        } else {
+            $model = Usuarios::findOne($id);
+        }
+
+        $model->scenario = Usuarios::SCENARIO_UPDATE;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
+            return $this->goHome();
+        }
+
+        $model->password = '';
+        $model->password_repeat = '';
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {

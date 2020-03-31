@@ -19,6 +19,7 @@ $this->title = $model->username;
 
                 <div class="profile-user-settings">
                     <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
+                    <p><?= Html::encode($model->nombre) ?></p>
                     <p>
                         <?= Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'btn profile-edit-btn']) ?>
                     </p>
