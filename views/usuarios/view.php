@@ -1,14 +1,18 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
 
+
+// $this->registerCss('body { background: #f00; }');
 $this->title = $model->username;
+$this->registerCssFile('@web/css/perfil.css');
+// $this->registerCssFile('@web/css/perfil.css', ['depends' => [yii\bootstrap\BootstrapAsset::className()]]);
 \yii\web\YiiAsset::register($this);
 ?>
-<link rel="stylesheet" href="perfil.css">
 <div class="usuarios-view">
     <header>
         <div class="container">
@@ -19,20 +23,18 @@ $this->title = $model->username;
 
                 <div class="profile-user-settings">
                     <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
-                    <p><?= Html::encode($model->nombre) ?></p>
-                    <p>
-                        <?= Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'btn profile-edit-btn']) ?>
-                    </p>
-                    <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                    <?= Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary']) ?>
+                    
                 </div>
-
+                
                 <div class="profile-stats">
                     <ul>
-                        <li><span class="profile-stat-count">164</span> posts</li>
-                        <li><span class="profile-stat-count">188</span> followers</li>
-                        <li><span class="profile-stat-count">206</span> following</li>
+                        <li><span class="profile-stat-count">164</span> publicaciones</li>
+                        <li><span class="profile-stat-count">188</span> seguidores</li>
+                        <li><span class="profile-stat-count">206</span> seguidos</li>
                     </ul>
                 </div>
+                <h4><?= Html::encode($model->nombre) ?></h4>
             </div>
         </div>
     </header>
@@ -44,8 +46,10 @@ $this->title = $model->username;
                     <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
                     <div class="gallery-item-info">
                         <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+                            <li><?=Icon::show('heart', ['framework' => Icon::BSG])?> Likes:</li>
+                            <li><?=Icon::show('comment', ['framework' => Icon::BSG])?> Likes:</li>
+                            <!-- <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
+                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li> -->
                         </ul>
                     </div>
                 </div>
