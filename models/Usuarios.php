@@ -65,6 +65,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'skipOnEmpty' => false,
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
+            // [['descripcion'] => 'string', 'max' => 255],
         ];
     }
 

@@ -54,7 +54,12 @@ header {
 .btn-outline-secondary {
     margin-left: 5%;
     margin-top: -2%;
-  }
+}
+
+.btn-outline-danger {
+    margin-left: 2%;
+    margin-top: -2%;
+}
 
 .profile-stats {
     margin-top: 2rem;

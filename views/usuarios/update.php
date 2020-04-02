@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = 'Modificar';
     ]); ?>
 
         <?= $form->field($model, 'nombre')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'descripcion')->textarea() ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $form->field($model, 'password_repeat')->passwordInput() ?>
 

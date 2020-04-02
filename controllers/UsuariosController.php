@@ -7,6 +7,7 @@ use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -15,6 +16,12 @@ class UsuariosController extends Controller
     public function behaviors()
     {
         return [
+            'verbs'  => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
             'access' => [
                 'class' => AccessControl::class,
                 'only' => ['registrar'],
@@ -68,32 +75,34 @@ class UsuariosController extends Controller
         ]);
     }
 
-    public function actionUpdate($id = null)
+    public function actionUpdate($id)
     {
-        if ($id === null) {
-            if (Yii::$app->user->isGuest) {
-                Yii::$app->session->setFlash('error', 'Debe estar logueado.');
-                return $this->goHome();
-            } else {
-                $model = Yii::$app->user->identity;
-            }
-        } else {
-            $model = Usuarios::findOne($id);
-        }
-
+        $model = $this->findModel($id);
+        
         $model->scenario = Usuarios::SCENARIO_UPDATE;
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
-            return $this->goHome();
+            return $this->redirect(['perfil', 'id' => $model->id]);
         }
-
+        
         $model->password = '';
         $model->password_repeat = '';
-
+        
         return $this->render('update', [
             'model' => $model,
-        ]);
+            ]);
+    }
+
+    public function actionDelete()
+    {
+        return $this->redirect(['site/index']);
+        $id = Yii::$app->request->post('id');
+        $model = $this->findModel($id);
+        var_dump($model); die();
+        $model->delete();
+        Yii::$app->session->setFlash('success', 'Se ha borrado correctamente.');
+        // return $this->redirect(['site/logout']);
     }
 
     protected function findModel($id)

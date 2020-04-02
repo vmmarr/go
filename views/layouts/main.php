@@ -49,8 +49,9 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav'],
             'items' => [
                 ['label' => Icon::show('home', ['framework' => Icon::BSG]), 'url' => ['/publicaciones/index']],
-                ['label' => 'usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
+                ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [
 
                     // va por aqui para poner imagen de perfil
