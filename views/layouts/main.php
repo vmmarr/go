@@ -20,6 +20,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php $this->registerCsrfMetaTags() ?>
     <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
     <title><?= Html::encode(Yii::$app->name) ?></title>
     <?php $this->head() ?>

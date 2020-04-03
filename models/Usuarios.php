@@ -65,7 +65,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'skipOnEmpty' => false,
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
-            // [['descripcion'] => 'string', 'max' => 255],
+            [['biografia'] => 'string', 'max' => 255],
         ];
     }
 
@@ -77,7 +77,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'username' => 'Username',
+            'username' => 'Nombre Usuario',
+            'biografia' => 'Biografia',
             'email' => 'Email',
             'password' => 'Contraseña',
             'password_repeat' => 'Repetir contraseña',

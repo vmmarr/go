@@ -94,14 +94,14 @@ class UsuariosController extends Controller
             ]);
     }
 
-    public function actionDelete()
+    public function actionDelete($id)
     {
-        return $this->redirect(['site/index']);
-        $id = Yii::$app->request->post('id');
+        // $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
-        var_dump($model); die();
+        // var_dump($model); die();
         $model->delete();
         Yii::$app->session->setFlash('success', 'Se ha borrado correctamente.');
+        return $this->redirect(['site/login']);
         // return $this->redirect(['site/logout']);
     }
 
