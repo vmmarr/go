@@ -20,6 +20,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php $this->registerCsrfMetaTags() ?>
     <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
     <title><?= Html::encode(Yii::$app->name) ?></title>
     <?php $this->head() ?>
@@ -49,8 +50,9 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav'],
             'items' => [
                 ['label' => Icon::show('home', ['framework' => Icon::BSG]), 'url' => ['/publicaciones/index']],
-                ['label' => 'usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
+                ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [
 
                     // va por aqui para poner imagen de perfil

@@ -23,8 +23,19 @@ $this->registerCssFile('@web/css/perfil.css');
 
                 <div class="profile-user-settings">
                     <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
-                    <?= Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary']) ?>
                     
+                    
+                    <!-- if (Yii::$app->user->id === $model->id) {?> -->
+                    <?=Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary']);?>
+                    
+                    <?=Html::a('Borrar usuario', ['delete', 'id' => $model->id], [
+                        'class' => 'btn btn-outline-danger',
+                        'data' => [
+                        'confirm' => '¿Seguro que quieres eliminar el usuario?',
+                        'method' => 'post',
+                        ],
+                    ])?>
+                                     
                 </div>
                 
                 <div class="profile-stats">
@@ -47,9 +58,7 @@ $this->registerCssFile('@web/css/perfil.css');
                     <div class="gallery-item-info">
                         <ul>
                             <li><?=Icon::show('heart', ['framework' => Icon::BSG])?> Likes:</li>
-                            <li><?=Icon::show('comment', ['framework' => Icon::BSG])?> Likes:</li>
-                            <!-- <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li> -->
+                            <li><?=Icon::show('comment', ['framework' => Icon::BSG])?> Comentarios:</li>
                         </ul>
                     </div>
                 </div>
