@@ -50,7 +50,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
             [['activate'], 'number'],
-            [['nombre', 'email', 'password', 'authkey'], 'string', 'max' => 255],
+            [['nombre', 'email', 'password', 'biografia', 'authkey'], 'string', 'max' => 255],
             [['username'], 'string', 'max' => 60],
             [['username'], 'unique'],
             [
@@ -65,7 +65,6 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'skipOnEmpty' => false,
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
-            [['biografia'] => 'string', 'max' => 255],
         ];
     }
 
@@ -115,6 +114,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne(['username' => $username]);
     }
+ 
 
     public function validatePassword($password)
     {

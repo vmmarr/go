@@ -66,6 +66,7 @@ class UsuariosController extends Controller
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->sendMail($model->email);
             Yii::$app->session->setFlash('success', 'Se ha creado el usuario correctamente.');
             return $this->redirect(['site/login']);
         }
@@ -73,6 +74,16 @@ class UsuariosController extends Controller
         return $this->render('registrar', [
             'model' => $model,
         ]);
+    }
+
+    protected function sendMail($correo)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom(Yii::$app->params['smtpUsername'])
+            ->setTo($correo)
+            ->setSubject('Registro Go!')
+            ->setTextBody('Este correo ha sido generado para pruebas.')
+            ->send();
     }
 
     public function actionUpdate($id)
@@ -96,15 +107,12 @@ class UsuariosController extends Controller
 
     public function actionDelete($id)
     {
-        // $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
-        // var_dump($model); die();
         $model->delete();
         Yii::$app->session->setFlash('success', 'Se ha borrado correctamente.');
         return $this->redirect(['site/login']);
-        // return $this->redirect(['site/logout']);
     }
-
+    
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {
