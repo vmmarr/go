@@ -32,6 +32,7 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['username', 'validarUsuario'],
         ];
     }
 
@@ -77,5 +78,15 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+
+    public function validarUsuario($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if ($user->token !== null) {
+                $this->addError($attribute, 'El usuario aún no está validado.');
+            }
+        }
     }
 }

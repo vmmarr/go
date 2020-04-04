@@ -49,7 +49,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'trim',
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
-            [['activate'], 'number'],
+            [['token'], 'string', 'max' => 32],
             [['nombre', 'email', 'password', 'biografia', 'authkey'], 'string', 'max' => 255],
             [['username'], 'string', 'max' => 60],
             [['username'], 'unique'],
@@ -82,7 +82,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             'password' => 'Contraseña',
             'password_repeat' => 'Repetir contraseña',
             'authkey' => 'Authkey',
-            'activate' => 'Activate',
+            'token' => 'Token',
         ];
     }
 
@@ -131,6 +131,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             if ($this->scenario === self::SCENARIO_CREAR) {
                 $security = Yii::$app->security;
                 $this->authkey = $security->generateRandomString();
+                $this->token = $security->generateRandomString(32);
                 $this->password = $security->generatePasswordHash($this->password);
             }
         } else {
