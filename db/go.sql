@@ -13,7 +13,7 @@ CREATE TABLE usuarios
   , email   varchar(255)  NOT NULL
   , password  varchar(255) NOT NULL
   , authKey varchar(255) NOT NULL
-  , activate numeric(1) NOT NULL DEFAULT '0'
+  , token varchar(255)
 
 );
 

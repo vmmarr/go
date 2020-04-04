@@ -8,6 +8,7 @@ use Yii;
 use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -66,6 +67,18 @@ class UsuariosController extends Controller
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $url = Url::to([
+                'usuarios/activar',
+                'id' => $model->id,
+                'token' => $model->token,
+            ], true);
+            
+            $body = <<<EOT
+                <p>Pulsa el siguiente enlace para confirmar la cuenta de correo.<p>
+                <a href="$url">Confirmar</a>
+            EOT;
+
+            $this->enviarEmail($body, $model->email);
             Yii::$app->session->setFlash('success', 'Se ha creado el usuario correctamente.');
             return $this->redirect(['site/login']);
         }
@@ -73,6 +86,16 @@ class UsuariosController extends Controller
         return $this->render('registrar', [
             'model' => $model,
         ]);
+    }
+
+    public function enviarEmail($body, $correo)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom(Yii::$app->params['smtpUsername'])
+            ->setTo($correo)
+            ->setSubject('Confirmar registro Go!')
+            ->setTextBody($body)
+            ->send();
     }
 
     public function actionUpdate($id)
@@ -96,15 +119,25 @@ class UsuariosController extends Controller
 
     public function actionDelete($id)
     {
-        // $id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
-        // var_dump($model); die();
         $model->delete();
         Yii::$app->session->setFlash('success', 'Se ha borrado correctamente.');
         return $this->redirect(['site/login']);
-        // return $this->redirect(['site/logout']);
     }
 
+    public function actionActivar($id, $token)
+    {
+        $usuario = $this->findModel($id);
+        if ($usuario->token === $token) {
+            $usuario->token = null;
+            $usuario->save();
+            Yii::$app->session->setFlash('success', 'Usuario validado. Inicie sesión.');
+            return $this->redirect(['site/login']);
+        }
+        Yii::$app->session->setFlash('error', 'La validación no es correcta.');
+        return $this->redirect(['site/login']);
+    }
+    
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {

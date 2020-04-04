@@ -20,7 +20,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php //$this->registerCsrfMetaTags() ?>
+    <?php $this->registerCsrfMetaTags() ?>
     <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
     <title><?= Html::encode(Yii::$app->name) ?></title>
     <?php $this->head() ?>
@@ -54,7 +54,6 @@ AppAsset::register($this);
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
                 ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [
-
                     // va por aqui para poner imagen de perfil
                     'label' => '<img src="' . Yii::$app->request->baseUrl . '/images/" class="image_inner_container"/> ' . $username,
                     'items' => [
