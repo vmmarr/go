@@ -18,7 +18,15 @@ $this->registerCssFile('@web/css/perfil.css');
         <div class="container">
             <div class="profile">
                 <div class="profile-image">
-                    <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
+                    <?php
+                    $archivo = '.' . $model->imagenUrl;
+                
+                    if (file_exists($archivo)) : ?>
+                        <?=Html::img($model->imagenUrl, ['width' => 200, 'height' => 200]);?>
+                    <?php  else : ?>
+                        <?=Html::img('/img/perfil.png', ['width' => 200, 'height' => 200]);?>
+
+                    <?php endif; ?>
                 </div>
 
                 <div class="profile-user-settings">
@@ -27,7 +35,7 @@ $this->registerCssFile('@web/css/perfil.css');
                     
                     <!-- if (Yii::$app->user->id === $model->id) {?> -->
                     <?=Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary']);?>
-                    
+                    <?=Html::a('Subir imagen perfil', ['subida', 'id' => $model->id], ['class' => 'btn btn-outline-secondary']);?>
                     <?=Html::a('Borrar usuario', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-outline-danger',
                         'data' => [

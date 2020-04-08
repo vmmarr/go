@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ImagenForm;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
@@ -11,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 class UsuariosController extends Controller
 {
@@ -136,6 +138,32 @@ class UsuariosController extends Controller
         }
         Yii::$app->session->setFlash('error', 'La validación no es correcta.');
         return $this->redirect(['site/login']);
+    }
+
+    public function actionSubida($id)
+    {
+        $model = new ImagenForm();
+
+        if (Yii::$app->request->isPost) {
+            
+            $model->imagen = UploadedFile::getInstance($model, 'imagen');
+            if ($model->subida($id)) {
+                Yii::$app->session->setFlash('success', 'Imagen subida con exito');
+                return $this->redirect('usuarios/view');
+            }
+        }
+
+        return $this->render('imagen', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionBorrarImagen()
+    {
+        $model = new Usuarios();
+
+        $image = $model->getImage();
+        $model->removeImage($image);
     }
     
     protected function findModel($id)

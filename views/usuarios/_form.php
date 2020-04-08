@@ -22,9 +22,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'authkey')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'accesstoken')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'activate')->textInput() ?>
+    <?= $form->field($model, 'token')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
