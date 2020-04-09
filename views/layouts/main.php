@@ -9,6 +9,8 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\ImagenForm;
+use app\models\Usuarios;
 use kartik\icons\Icon;
 
 AppAsset::register($this);
@@ -31,6 +33,20 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
         $username = '';
+        $imagen;
+        $archivoj = './img/' . Yii::$app->user->id . '.jpg';
+        $archivop = './img/' . Yii::$app->user->id . '.png';
+        var_dump($archivoj);
+    if (file_exists($archivoj)) :
+        //var_dump('este');
+        $imagen = $archivoj;
+    elseif (file_exists($archivop)) :
+        //var_dump('otro');
+        // echo $archivo;
+        $imagen = $archivop;
+    else :
+        $imagen = '/img/perfil.png';
+    endif;
 
     if (!Yii::$app->user->isGuest) {
         $username = Yii::$app->user->identity->username;
@@ -47,7 +63,7 @@ AppAsset::register($this);
         ],
         ]);
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav'],
+            'options' => ['class' => 'navbar-nav justify-content-end'],
             'items' => [
                 ['label' => Icon::show('home', ['framework' => Icon::BSG]), 'url' => ['/publicaciones/index']],
                 ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
@@ -55,7 +71,10 @@ AppAsset::register($this);
                 ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [
                     // va por aqui para poner imagen de perfil
-                    'label' => '<img src="' . Yii::$app->request->baseUrl . '/images/" class="image_inner_container"/> ' . $username,
+                    //  'label' => '<img src="' . $imagen . '"/> ' . $username,
+                    'options' => ['class' => 'foto'],
+                    // 'label' => 'p',
+                    'label' => Html::img($imagen) . $username,
                     'items' => [
                         ['label' => 'Mi perfil', 'url' => ['usuarios/perfil', 'id' => Yii::$app->user->id]],
                         Html::beginForm(['/site/logout'], 'post')
@@ -70,8 +89,7 @@ AppAsset::register($this);
                 ],
                 'encodeLabels' => false
         ]);
-    NavBar::end();
-    ?>
+    NavBar::end(); ?>
 
     <div class="container">
         <?= Breadcrumbs::widget([

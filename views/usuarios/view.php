@@ -22,10 +22,9 @@ $this->registerCssFile('@web/css/perfil.css');
                     $archivo = '.' . $model->imagenUrl;
                 
                     if (file_exists($archivo)) : ?>
-                        <?=Html::img($model->imagenUrl, ['width' => 200, 'height' => 200]);?>
+                        <?=Html::img($model->imagenUrl);?>
                     <?php  else : ?>
-                        <?=Html::img('/img/perfil.png', ['width' => 200, 'height' => 200]);?>
-
+                        <?=Html::img('/img/perfil.png');?>
                     <?php endif; ?>
                 </div>
 

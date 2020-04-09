@@ -27,10 +27,7 @@ class ImagenForm extends Model
             if (file_exists($destino)) :
                 unlink($destino);
             endif;
-            // Image::resize($origen, 50, 50, null)->save($destino);
-            // unlink($origen);
-            \yii\imagine\Image::resize($origen, 400, null)->save($destino);
-            unlink($origen);
+            rename($origen, $destino);
             return true;
         } else {
             return false;

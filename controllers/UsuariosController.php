@@ -145,7 +145,6 @@ class UsuariosController extends Controller
         $model = new ImagenForm();
 
         if (Yii::$app->request->isPost) {
-            
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
             if ($model->subida($id)) {
                 Yii::$app->session->setFlash('success', 'Imagen subida con exito');
