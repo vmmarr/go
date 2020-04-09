@@ -32,17 +32,21 @@ $this->registerCssFile('@web/css/perfil.css');
                     <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
                     
                     
-                    <!-- if (Yii::$app->user->id === $model->id) {?> -->
-                    <?=Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary']);?>
-                    <?=Html::a('Subir imagen perfil', ['subida', 'id' => $model->id], ['class' => 'btn btn-outline-secondary']);?>
-                    <?=Html::a('Borrar usuario', ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-outline-danger',
-                        'data' => [
-                        'confirm' => '¿Seguro que quieres eliminar el usuario?',
-                        'method' => 'post',
-                        ],
-                    ])?>
-                                     
+                    <!-- if (Yii::$app->user->id === $model->id) {?> -->                    
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?=Icon::show('cog', ['framework' => Icon::BSG])?>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?=Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
+                            <?=Html::a('Subir imagen perfil', ['subida', 'id' => $model->id], ['class' => 'dropdown-item']);?> 
+                            <?=Html::a('Borrar usuario', ['delete', 'id' => $model->id], [
+                                'class' => 'dropdown-item',
+                                'data' => [
+                                'confirm' => '¿Seguro que quieres eliminar el usuario?',
+                                'method' => 'post',
+                                ],
+                            ])?>
+                        </div>   
                 </div>
                 
                 <div class="profile-stats">
