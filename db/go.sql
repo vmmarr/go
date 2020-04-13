@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS publicaciones CASCADE;
 CREATE TABLE publicaciones
 (
     id         bigserial    PRIMARY KEY
-  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , usuario_id bigint        REFERENCES usuarios (id)
   , descripcion varchar(255)
   , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
   , update_at timestamp(0) NOT NULL DEFAULT current_timestamp

@@ -143,6 +143,7 @@ class UsuariosController extends Controller
     public function actionSubida($id)
     {
         $model = new ImagenForm();
+        var_dump('Estes en subir imagen perfil');
 
         if (Yii::$app->request->isPost) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');

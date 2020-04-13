@@ -36,13 +36,9 @@ AppAsset::register($this);
         $imagen;
         $archivoj = './img/' . Yii::$app->user->id . '.jpg';
         $archivop = './img/' . Yii::$app->user->id . '.png';
-        var_dump($archivoj);
     if (file_exists($archivoj)) :
-        //var_dump('este');
         $imagen = $archivoj;
     elseif (file_exists($archivop)) :
-        //var_dump('otro');
-        // echo $archivo;
         $imagen = $archivop;
     else :
         $imagen = '/img/perfil.png';
