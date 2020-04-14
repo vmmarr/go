@@ -93,8 +93,8 @@ class Publicaciones extends \yii\db\ActiveRecord
             return $this->_imagen;
         }
 
-        // $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
         $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
+        // $this->setImagen(ImagenPublicacion::class->$destino);
         return $this->_imagen;
     }
 

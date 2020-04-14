@@ -9,6 +9,7 @@ use yii\imagine\Image;
 class ImagenPublicacion extends Model
 {
     public $imagen;
+    public $destino;
 
     public function rules()
     {
