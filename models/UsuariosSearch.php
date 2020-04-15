@@ -18,8 +18,7 @@ class UsuariosSearch extends Usuarios
     {
         return [
             [['id'], 'integer'],
-            [['nombre', 'username', 'email', 'password', 'authkey'], 'safe'],
-            [['activate'], 'number'],
+            [['nombre', 'username', 'email', 'password', 'authkey', 'token'], 'safe'],
         ];
     }
 
@@ -60,7 +59,6 @@ class UsuariosSearch extends Usuarios
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'activate' => $this->activate,
         ]);
 
         $query->andFilterWhere(['ilike', 'nombre', $this->nombre])

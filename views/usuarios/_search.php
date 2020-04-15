@@ -19,7 +19,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'nombre') ?>
 
-    <?= $form->field($model, 'uesername') ?>
+    <?= $form->field($model, 'username') ?>
 
     <?= $form->field($model, 'email') ?>
 

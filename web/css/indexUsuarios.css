@@ -1,0 +1,29 @@
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.card {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    background-color: #fafafa !important;
+}
+
+.fotoNombre{
+    width: 300px;
+}
+
+a {
+    margin-left: 5%;
+}
+
+@media (max-width: 40rem) {
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+} 

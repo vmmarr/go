@@ -42,13 +42,21 @@ class UsuariosController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new UsuariosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $fila = Yii::$app->db
+            ->createCommand('SELECT *
+                               FROM usuarios')
+            ->queryAll();
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'fila' => $fila,
         ]);
+
+        // $searchModel = new UsuariosSearch();
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        // return $this->render('index', [
+        //     'searchModel' => $searchModel,
+        //     'dataProvider' => $dataProvider,
+        // ]);
     }
 
      /**
