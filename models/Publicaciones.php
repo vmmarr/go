@@ -21,6 +21,8 @@ class Publicaciones extends \yii\db\ActiveRecord
 {
     private $_imagen = null;
     private $_imagenUrl = null;
+    private $_semanas = null;
+    private $_username = null;
     /**
      * {@inheritdoc}
      */
@@ -40,6 +42,8 @@ class Publicaciones extends \yii\db\ActiveRecord
             [['created_at', 'update_at'], 'safe'],
             [['created_at', 'update_at'], 'required'],
             [['descripcion'], 'string', 'max' => 255],
+            [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
+
         ];
     }
 
@@ -75,6 +79,32 @@ class Publicaciones extends \yii\db\ActiveRecord
     public function getLikes()
     {
         return $this->hasMany(Likes::className(), ['publicacion_id' => 'id']);
+    }
+
+    public function setSemanas($semanas)
+    {
+        $this->_semanas = $semanas;
+    }
+
+    public function getSemanas()
+    {
+        if ($this->_semanas === null && !$this->isNewRecord) {
+            $this->setTotal($this->getLibros()->count());
+        }
+        return $this->_semanas;
+    }
+
+    public function setUsername($username)
+    {
+        $this->_username = $username;
+    }
+
+    public function getUsername()
+    {
+        if ($this->_username === null && !$this->isNewRecord) {
+            $this->setUsername($this->getUsuario()->username);
+        }
+        return $this->_username;
     }
 
     /**

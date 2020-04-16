@@ -189,4 +189,12 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Seguidores::className(), ['usuario_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPublicaciones()
+    {
+        return $this->hasMany(Publicaciones::className(), ['usuario_id' => 'id']);
+    }
 }

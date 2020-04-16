@@ -4,8 +4,8 @@ namespace app\controllers;
 
 use app\models\ImagenPublicacion;
 use app\models\Publicaciones;
-use app\models\PublicacionesSearch;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
@@ -13,11 +13,11 @@ class PublicacionesController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $searchModel = new PublicacionesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $query = Publicaciones::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -47,7 +47,6 @@ class PublicacionesController extends \yii\web\Controller
             'model' => $model,
         ]);
     }
-
     // public function actionSubida()
     // {
     //     $model = new ImagenPublicacion();
