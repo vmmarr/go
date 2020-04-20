@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 use yii\widgets\ListView;
@@ -9,7 +10,7 @@ use yii\widgets\ListView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 $this->registerCssFile('@web/css/indexPublicaciones.css');
 ?>
 <div class="publicaciones-index">
@@ -21,4 +22,6 @@ $this->registerCssFile('@web/css/indexPublicaciones.css');
         'dataProvider' => $dataProvider,
         'itemView' => 'vistaPublicaciones'
     ]) ?>
-</div>
+
+    <?=Html::a(Icon::show('arrow-up', ['framework' => Icon::BSG]), '#', ['class' => 'btn btn-primary'])?>
+</div

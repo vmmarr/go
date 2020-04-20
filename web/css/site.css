@@ -106,7 +106,8 @@ a.desc:after {
 }
 
 .navbar {
-    height: 15%;
+    /* height: 15%; */
+    padding-top: -5%;
 }
 .foto img {
     border-radius: 50%;

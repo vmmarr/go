@@ -23,7 +23,7 @@ CREATE TABLE publicaciones
     id         bigserial    PRIMARY KEY
   , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
   , descripcion varchar(255)
-  , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
+  , created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS comentarios CASCADE;

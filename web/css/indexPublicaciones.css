@@ -8,3 +8,19 @@
     width: 80%;
     height: 80%;
 }
+
+.btn-primary {
+    border-radius: 100% !important; 
+    position: fixed;
+    right: 10%;
+    bottom: 10%;
+}
+
+#dropdownMenuButton {
+    width: 10%;
+    margin-left: auto;
+}
+
+.dropdown-menu{
+    width: 5% !important;
+}
