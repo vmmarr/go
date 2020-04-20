@@ -21,6 +21,8 @@ class Publicaciones extends \yii\db\ActiveRecord
 {
     private $_imagen = null;
     private $_imagenUrl = null;
+    private $_semanas = null;
+    private $_username = null;
     /**
      * {@inheritdoc}
      */
@@ -37,9 +39,11 @@ class Publicaciones extends \yii\db\ActiveRecord
         return [
             [['usuario_id'], 'required'],
             [['usuario_id'], 'integer'],
-            [['created_at', 'update_at'], 'safe'],
-            [['created_at', 'update_at'], 'required'],
+            [['created_at'], 'safe'],
+            [['created_at'], 'required'],
             [['descripcion'], 'string', 'max' => 255],
+            [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
+
         ];
     }
 
@@ -53,7 +57,6 @@ class Publicaciones extends \yii\db\ActiveRecord
             'usuario_id' => 'Usuario ID',
             'descripcion' => 'Descripcion',
             'created_at' => 'Created At',
-            'update_at' => 'Update At',
         ];
     }
 
@@ -93,8 +96,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             return $this->_imagen;
         }
 
-        // $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
-        $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
+        $this->setImagen(Yii::getAlias('@img/' . $this->usuario_id . '/' . $this->id . '.png'));
         return $this->_imagen;
     }
 
@@ -110,7 +112,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             return $this->_imagenUrl;
         }
 
-        $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->id . '.png'));
+        $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->usuario_id . '/' . $this->id . '.png'));
         return $this->_imagenUrl;
     }
 

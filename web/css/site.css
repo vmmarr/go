@@ -105,13 +105,13 @@ a.desc:after {
     background-color: transparent;
 }
 
-.foto {
-    width: 15%;
+.navbar {
+    /* height: 15%; */
+    padding-top: -5%;
 }
-
 .foto img {
     border-radius: 50%;
-    /* margin-right: 5%; */
-    height: 30%;
-    width: 20%;
+    margin-right: 10%;
+    height: 30px;
+    width: 30px;
 }

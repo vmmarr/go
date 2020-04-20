@@ -14,7 +14,6 @@ CREATE TABLE usuarios
   , password  varchar(255) NOT NULL
   , authKey varchar(255) NOT NULL
   , token varchar(255)
-
 );
 
 DROP TABLE IF EXISTS publicaciones CASCADE;
@@ -22,10 +21,9 @@ DROP TABLE IF EXISTS publicaciones CASCADE;
 CREATE TABLE publicaciones
 (
     id         bigserial    PRIMARY KEY
-  , usuario_id bigint        REFERENCES usuarios (id)
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
   , descripcion varchar(255)
-  , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
-  , update_at timestamp(0) NOT NULL DEFAULT current_timestamp
+  , created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS comentarios CASCADE;
@@ -37,7 +35,6 @@ CREATE TABLE comentarios
   , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id)
   , comentario varchar(255)
   , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
-  , update_at timestamp(0) NOT NULL DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS likes CASCADE;
