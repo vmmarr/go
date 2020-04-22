@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\ImagenPublicacion;
 use app\models\Publicaciones;
+use SplObjectStorage;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -18,6 +19,7 @@ class PublicacionesController extends \yii\web\Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -38,14 +40,14 @@ class PublicacionesController extends \yii\web\Controller
 
     public function actionSubida($id)
     {
-
         $model = new ImagenPublicacion();
         var_dump('Estes en subir imagen publicacion');
-
+        
         if (Yii::$app->request->isPost) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->subida($id)) {
+            if ($model->subida($id) && $model->subidaAws($id)) {
                 Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+                $model->borradoLocal();
                 return $this->redirect(['index']);
             }
         }
@@ -53,6 +55,15 @@ class PublicacionesController extends \yii\web\Controller
         return $this->render('imagen', [
             'model' => $model,
         ]);
+    }
+
+    public function actionDownload($fichero)
+    {
+        $model = new ImagenPublicacion();
+        $f = $model->descarga($fichero);
+        //download the file
+        header('Content-Type: ' . $f['ContentType']);
+        echo $f['Body'];
     }
 
     public function actionDelete($id)
