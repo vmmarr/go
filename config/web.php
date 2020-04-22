@@ -27,7 +27,7 @@ $config = [
               'key' => getenv('AWSAccessKeyId'),
               'secret' => getenv('AWSSecretKey'),
             ],
-            'region' => 'us-east-1',
+            'region' => 'us-east-2',
             'version' => 'latest', //i.e.: 'latest'
           ],
         'request' => [

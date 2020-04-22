@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\ImagenPublicacion;
 use app\models\Publicaciones;
+use SplObjectStorage;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -41,10 +42,10 @@ class PublicacionesController extends \yii\web\Controller
 
         $model = new ImagenPublicacion();
         var_dump('Estes en subir imagen publicacion');
-
+        
         if (Yii::$app->request->isPost) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->subida($id)) {
+            if ($model->subida($id) && $model->subidaAws($id)) {
                 Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
                 return $this->redirect(['index']);
             }
