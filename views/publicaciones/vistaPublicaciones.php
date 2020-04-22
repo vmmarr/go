@@ -48,7 +48,7 @@ use yii\helpers\Html;
                 <?php
                     var_dump($model->imagenUrl);
                 ?>
-                <?= Html::img(['download', 'fichero' => $model->imagenUrl]); ?>
+                <?= Html::img($model->imagenUrl); ?>
                 </div>
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <!-- Aque va el numero de likes y el numero de comentarios -->

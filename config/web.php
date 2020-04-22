@@ -20,16 +20,6 @@ $config = [
     ],
     'language' => 'es-ES',
     'components' => [
-        'awssdk' => [
-            'class' => 'fedemotta\awssdk\AwsSdk',
-            'credentials' => [
-              //you can use a different method to grant access
-              'key' => getenv('AWSAccessKeyId'),
-              'secret' => getenv('AWSSecretKey'),
-            ],
-            'region' => 'us-east-2',
-            'version' => 'latest', //i.e.: 'latest'
-          ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_3mBaRDo7XZ3ZsH7fA8UEssRYj7mLfGz',
