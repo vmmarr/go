@@ -4,7 +4,6 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
-use yii\imagine\Image;
 
 class ImagenPublicacion extends Model
 {
@@ -77,5 +76,20 @@ class ImagenPublicacion extends Model
             endif;
         endforeach;
         rmdir($carpeta);
+    }
+
+    public function descarga($key)
+    {
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        //get the last object from s3
+        //$object = end($result['Contents']);1
+        // $key = $object['Key'];
+        $file = $s3->getObject([
+            'Bucket' => 'go00',
+            'Key' => $key,
+        ]);
+        return $file;
+        // save it to disk
     }
 }

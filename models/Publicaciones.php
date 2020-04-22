@@ -96,7 +96,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             return $this->_imagen;
         }
 
-        $this->setImagen(Yii::getAlias('@img/' . $this->usuario_id . '/' . $this->id . '.png'));
+        $this->setImagen(Yii::getAlias($this->usuario_id . '/' . $this->id . '.png'));
         return $this->_imagen;
     }
 
@@ -112,7 +112,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             return $this->_imagenUrl;
         }
 
-        $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->usuario_id . '/' . $this->id . '.png'));
+        $this->setImagenUrl(Yii::getAlias($this->usuario_id . '/' . $this->id . '.png'));
         return $this->_imagenUrl;
     }
 

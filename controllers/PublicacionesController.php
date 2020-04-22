@@ -19,6 +19,7 @@ class PublicacionesController extends \yii\web\Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -39,7 +40,6 @@ class PublicacionesController extends \yii\web\Controller
 
     public function actionSubida($id)
     {
-
         $model = new ImagenPublicacion();
         var_dump('Estes en subir imagen publicacion');
         
@@ -55,6 +55,15 @@ class PublicacionesController extends \yii\web\Controller
         return $this->render('imagen', [
             'model' => $model,
         ]);
+    }
+
+    public function actionDownload($fichero)
+    {
+        $model = new ImagenPublicacion();
+        $f = $model->descarga($fichero);
+        //download the file
+        header('Content-Type: ' . $f['ContentType']);
+        echo $f['Body'];
     }
 
     public function actionDelete($id)
