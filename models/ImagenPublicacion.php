@@ -21,7 +21,7 @@ class ImagenPublicacion extends Model
     public function subida($id)
     {
         $iduser = Yii::$app->user->id;
-        $carpeta = './img/' . $iduser;
+        $carpeta = Yii::getAlias('@img/' . $iduser);
         
         if (!file_exists($carpeta)) {
             mkdir($carpeta);
@@ -62,6 +62,20 @@ class ImagenPublicacion extends Model
                     'param2' => 'value 2'
                 ]
         ]);
+
         return true;
+    }
+
+    public function borradoLocal()
+    {
+        $carpeta = Yii::getAlias('@img/' . Yii::$app->user->id);
+        foreach (glob($carpeta . '/*') as $archivos_carpeta) :
+            if (is_dir($archivos_carpeta)) :
+                $this->borradoLocal($archivos_carpeta);
+            else :
+                unlink($archivos_carpeta);
+            endif;
+        endforeach;
+        rmdir($carpeta);
     }
 }

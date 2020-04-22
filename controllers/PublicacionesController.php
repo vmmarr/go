@@ -47,6 +47,7 @@ class PublicacionesController extends \yii\web\Controller
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
             if ($model->subida($id) && $model->subidaAws($id)) {
                 Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+                $model->borradoLocal();
                 return $this->redirect(['index']);
             }
         }
