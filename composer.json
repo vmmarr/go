@@ -30,7 +30,10 @@
         "yiisoft/yii2-imagine": "^2.2",
         "kartik-v/yii2-datecontrol": "dev-master",
         "kartik-v/yii2-widget-datetimepicker": "@dev",
-        "kartik-v/yii2-widget-timepicker": "@dev"
+        "kartik-v/yii2-widget-timepicker": "@dev",
+        "fedemotta/yii2-aws-sdk": "^2.0",
+        "aws/aws-php-sns-message-validator": "^1.6",
+        "cache/doctrine-adapter": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
