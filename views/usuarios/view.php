@@ -19,12 +19,12 @@ $this->registerCssFile('@web/css/perfil.css');
             <div class="profile">
                 <div class="profile-image">
                     <?php
-                    $archivo = '.' . $model->imagenUrl;
+                    $archivo = $model->comprobarImagen($model->imagenUrl);
                 
-                    if (file_exists($archivo)) : ?>
-                        <?=Html::img($model->imagenUrl);?>
+                    if ($archivo) : ?>
+                        <?=Html::img(['download', 'fichero' => $model->imagenUrl]);?>
                     <?php  else : ?>
-                        <?=Html::img('/img/perfil.png');?>
+                        <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
                     <?php endif; ?>
                 </div>
 

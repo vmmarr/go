@@ -108,12 +108,20 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             return $this->_imagen;
         }
         // Nube
-        $this->setImagen(Yii::getAlias($this->id . '.png'));
+        $this->setImagen($this->id . '.png');
         // Local
         // $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
         return $this->_imagen;
     }
 
+    public function comprobarImagen($imagen)
+    {
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $bukect = 'go00';
+        $f = $s3->doesObjectExist($bukect, $imagen);
+        return $f;
+    }
 
     public function setImagen($imagen)
     {
@@ -126,7 +134,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             return $this->_imagenUrl;
         }
         // Nube
-        $this->setImagenUrl(Yii::getAlias($this->id . '.png'));
+        $this->setImagenUrl($this->id . '.png');
         // Local
         // $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->id . '.png'));
         return $this->_imagenUrl;

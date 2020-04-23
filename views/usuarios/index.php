@@ -12,7 +12,7 @@ $this->registerCssFile('@web/css/indexUsuarios.css');
     $archivo;
 
 for ($i = 0; $i < $totalFilas; $i++) :
-    $archivo = './img/' . $fila[$i]['id'] . '.png';
+    $archivo = $model->comprobarImagen($fila[$i]['id'] . '.png');
     ?>
     <div class="row">
         <div class="col">
@@ -20,8 +20,8 @@ for ($i = 0; $i < $totalFilas; $i++) :
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div class="fotoNombre">
                         <?php
-                        if (file_exists($archivo)) : ?>
-                            <?=Html::img(['download', 'fichero' => $archivo]);?>
+                        if ($archivo) : ?>
+                            <?=Html::img(['download', 'fichero' => $fila[$i]['id'] . '.png']);?>
                         <?php  else : ?>
                             <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
                         <?php endif; ?>

@@ -10,6 +10,7 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\ImagenForm;
+use app\models\User;
 use app\models\Usuarios;
 use kartik\icons\Icon;
 
@@ -34,14 +35,16 @@ AppAsset::register($this);
     <?php
         $username = '';
         $imagen;
-        $archivoj = './img/' . Yii::$app->user->id . '.jpg';
-        $archivop = './img/' . Yii::$app->user->id . '.png';
-    if (file_exists($archivoj)) :
-        $imagen = $archivoj;
-    elseif (file_exists($archivop)) :
-        $imagen = $archivop;
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $bukect = 'go00';
+        $existe = $s3->doesObjectExist($bukect, Yii::$app->user->id . '.png');
+    
+        var_dump($existe);
+    if ($existe) :
+        $imagen = ['usuarios/download', 'fichero' => Yii::$app->user->id . '.png'];
     else :
-        $imagen = '/img/perfil.png';
+        $imagen = ['usuarios/download', 'fichero' => 'perfil.png'];
     endif;
 
     if (!Yii::$app->user->isGuest) {

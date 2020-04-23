@@ -42,12 +42,14 @@ class UsuariosController extends Controller
 
     public function actionIndex()
     {
+        $model = new Usuarios();
         $fila = Yii::$app->db
             ->createCommand('SELECT *
                                FROM usuarios')
             ->queryAll();
         return $this->render('index', [
             'fila' => $fila,
+            'model' => $model,
         ]);
 
         // $searchModel = new UsuariosSearch();
@@ -83,7 +85,7 @@ class UsuariosController extends Controller
                 'token' => $model->token,
             ], true);
             
-            $body = <<<EOT
+            $body = <<< EOT
                 <p>Pulsa el siguiente enlace para confirmar la cuenta de correo.<p>
                 <a href="$url">Confirmar</a>
             EOT;
@@ -167,13 +169,22 @@ class UsuariosController extends Controller
         ]);
     }
 
-    public function actionBorrarImagen()
+    public function actionDownload($fichero)
     {
-        $model = new Usuarios();
-
-        $image = $model->getImage();
-        $model->removeImage($image);
+        $model = new ImagenForm();
+        $f = $model->descarga($fichero);
+        //download the file
+        header('Content-Type: ' . $f['ContentType']);
+        echo $f['Body'];
     }
+
+    // public function actionBorrarImagen()
+    // {
+    //     $model = new Usuarios();
+
+    //     $image = $model->getImage();
+    //     $model->removeImage($image);
+    // }
     
     protected function findModel($id)
     {
