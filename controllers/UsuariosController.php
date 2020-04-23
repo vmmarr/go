@@ -155,8 +155,9 @@ class UsuariosController extends Controller
 
         if (Yii::$app->request->isPost) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->subida($id)) {
+            if ($model->subida($id) && $model->subidaAws($id)) {
                 Yii::$app->session->setFlash('success', 'Imagen subida con exito');
+                $model->borradoLocal($id);
                 return $this->redirect('usuarios/view');
             }
         }

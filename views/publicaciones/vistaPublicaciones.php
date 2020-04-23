@@ -31,7 +31,7 @@ use yii\helpers\Html;
                             if (file_exists($archivo)) : ?>
                                 <?=Html::img($archivo);?>
                             <?php  else : ?>
-                                <?=Html::img('/img/perfil.png');?>
+                                <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
                             <?php endif; ?>
                                 
                         <?=Html::a($model->usuario->nombre)?>

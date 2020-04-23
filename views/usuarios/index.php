@@ -21,9 +21,9 @@ for ($i = 0; $i < $totalFilas; $i++) :
                     <div class="fotoNombre">
                         <?php
                         if (file_exists($archivo)) : ?>
-                            <?=Html::img($archivo);?>
+                            <?=Html::img(['download', 'fichero' => $archivo]);?>
                         <?php  else : ?>
-                            <?=Html::img('/img/perfil.png');?>
+                            <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
                         <?php endif; ?>
 
                         <?=Html::a($fila[$i]['username'])?>

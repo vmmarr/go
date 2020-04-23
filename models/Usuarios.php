@@ -107,8 +107,10 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->_imagen !== null) {
             return $this->_imagen;
         }
-
-        $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
+        // Nube
+        $this->setImagen(Yii::getAlias($this->id . '.png'));
+        // Local
+        // $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
         return $this->_imagen;
     }
 
@@ -123,8 +125,10 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->_imagenUrl !== null) {
             return $this->_imagenUrl;
         }
-
-        $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->id . '.png'));
+        // Nube
+        $this->setImagenUrl(Yii::getAlias($this->id . '.png'));
+        // Local
+        // $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->id . '.png'));
         return $this->_imagenUrl;
     }
 
