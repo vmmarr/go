@@ -16,8 +16,6 @@ $this->title = $name;
     <div class="alert alert-danger">
         <?= nl2br(Html::encode($message)) ?>
     </div>
-
-    <p>
-        Ha ocurrido un error vuelve a intentarlo dentro de unos minutos. Si el error persiste ponte en contacto con nosotros. 
-    </p>
+    <?= Html::tag('p', 'Ha ocurrido un error vuelve a intentarlo dentro de unos minutos. Si el error persiste ponte en contacto con nosotros.') ?>
+    <?= Html::a('Contactar', ['site/contactar'])?>
 </div>
