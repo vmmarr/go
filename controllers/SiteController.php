@@ -2,13 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\ContactarForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -103,8 +103,16 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionContactar()
     {
-        return $this->render('about');
+        $model = new ContactarForm();
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('formulario de contacto enviado');
+
+            return $this->refresh();
+        }
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
     }
 }

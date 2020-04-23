@@ -4,7 +4,7 @@ use kartik\datecontrol\Module;
 
 return [
     'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
+    'senderEmail' => 'confirmvmmarr@gmail.com',
     'senderName' => 'Example.com mailer',
     'smtpUsername' => 'confirmvmmarr@gmail.com',
     'dateControlDisplay' => [
