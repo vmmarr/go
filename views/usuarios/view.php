@@ -20,7 +20,6 @@ $this->registerCssFile('@web/css/perfil.css');
                 <div class="profile-image">
                     <?php
                     $archivo = $model->comprobarImagen($model->imagenUrl);
-                
                     if ($archivo) : ?>
                         <?=Html::img(['download', 'fichero' => $model->imagenUrl]);?>
                     <?php  else : ?>

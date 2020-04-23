@@ -40,7 +40,6 @@ AppAsset::register($this);
         $bukect = 'go00';
         $existe = $s3->doesObjectExist($bukect, Yii::$app->user->id . '.png');
     
-        var_dump($existe);
     if ($existe) :
         $imagen = ['usuarios/download', 'fichero' => Yii::$app->user->id . '.png'];
     else :
@@ -50,7 +49,6 @@ AppAsset::register($this);
     if (!Yii::$app->user->isGuest) {
         $username = Yii::$app->user->identity->username;
     }
-    //$n = Yii::$app->user->identity->username;
     NavBar::begin([
         'brandLabel' => Html::img('@web/logo.ico') . Yii::$app->name,
         'brandUrl' => ['/publicaciones/index'],

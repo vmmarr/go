@@ -26,10 +26,9 @@ use yii\helpers\Html;
                         <div class="fotoNombre">
                             
                             <?php
-                            $archivo = '.' . $model->usuario->imagenUrl;
-
-                            if (file_exists($archivo)) : ?>
-                                <?=Html::img($archivo);?>
+                            $archivo = $model->usuario->comprobarImagen($model->usuario->imagenUrl);
+                            if ($archivo) : ?>
+                                <?=Html::img(['download', 'fichero' => $model->usuario->imagenUrl]);?>
                             <?php  else : ?>
                                 <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
                             <?php endif; ?>
