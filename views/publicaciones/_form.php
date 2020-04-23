@@ -15,7 +15,8 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'usuario_id')->textInput()->hiddenInput(['value' => Yii::$app->user->id])->label(false); ?>
 
-    <?= $form->field($model, 'created_at')->textInput()->hiddenInput(['value' => Yii::$app->formatter->asDatetime(time(), 'php:d-m-Y H:i:s')])->label(false) ?>
+    <?= $form->field($model, 'created_at')->textInput(['value' => Yii::$app->formatter->asDatetime(time(), 'php:d/m/Y H:i:s')]) ?>
+    <!-- <?= $form->field($model, 'created_at')->textInput()->hiddenInput(['value' => Yii::$app->formatter->asDatetime(time(), 'php:d-m-Y H:i:s')])->label(false) ?> -->
     <?= $form->field($model, 'descripcion')->textarea(['maxlength' => true]) ?>
     <div class="form-group">
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?> 
