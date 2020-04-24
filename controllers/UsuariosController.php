@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\FormRecoverPass;
+use app\models\FormResetPass;
 use app\models\ImagenForm;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
@@ -61,7 +63,7 @@ class UsuariosController extends Controller
         // ]);
     }
 
-     /**
+    /**
      * Displays a single Usuarios model.
      * @param int $id
      * @return mixed
@@ -84,7 +86,7 @@ class UsuariosController extends Controller
                 'id' => $model->id,
                 'token' => $model->token,
             ], true);
-            
+
             $body = <<< EOT
                 <p>Pulsa el siguiente enlace para confirmar la cuenta de correo.<p>
                 <a href="$url">Confirmar</a>
@@ -106,27 +108,27 @@ class UsuariosController extends Controller
             ->setFrom(Yii::$app->params['smtpUsername'])
             ->setTo($correo)
             ->setSubject('Confirmar registro Go!')
-            ->setTextBody($body)
+            ->setHtmlBody($body)
             ->send();
     }
 
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
+
         $model->scenario = Usuarios::SCENARIO_UPDATE;
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
             return $this->redirect(['perfil', 'id' => $model->id]);
         }
-        
+
         $model->password = '';
         $model->password_repeat = '';
-        
+
         return $this->render('update', [
             'model' => $model,
-            ]);
+        ]);
     }
 
     public function actionDelete($id)
@@ -173,7 +175,7 @@ class UsuariosController extends Controller
     {
         $model = new ImagenForm();
         $f = $model->descarga($fichero);
-        //download the file
+
         header('Content-Type: ' . $f['ContentType']);
         echo $f['Body'];
     }
@@ -185,7 +187,108 @@ class UsuariosController extends Controller
     //     $image = $model->getImage();
     //     $model->removeImage($image);
     // }
-    
+
+    public function actionRecoverpass()
+    {
+        $model = new FormRecoverPass();
+
+        if ($model->load(Yii::$app->request->post())) :
+            if ($model->validate()) :
+                $usuario = Usuarios::find()->where('email=:email', [':email' => $model->email]);
+
+                if ($usuario->count() == 1) :
+                    Yii::$app->session['recover'] = Yii::$app->security->generateRandomString(8);
+                    // $recover = Yii::$app->session['recover'];
+
+                    $usuario = Usuarios::findOne(['email' => $model->email]);
+                    Yii::$app->session['id_recover'] = $usuario->id;
+
+                    $verification_code = Yii::$app->security->generateRandomString(8);
+                    $usuario->verification_code = $verification_code;
+                    $usuario->save();
+                    $url = Url::to([
+                        'usuarios/resetpass',
+                    ], true);
+
+                    $body = <<< EOT
+                        <p>Copie el siguiente código de verificación para restablecer su password ...
+                        <strong>$verification_code</strong></p>
+                        <p><a href="$url">Recuperar password</a></p>
+                    EOT;
+
+                    Yii::$app->mailer->compose()
+                        ->setFrom(Yii::$app->params['smtpUsername'])
+                        ->setTo($model->email)
+                        ->setSubject('Restablecer contraseña Go!')
+                        ->setHtmlBody($body)
+                        ->send();
+
+                    $model->email = null;
+
+                    Yii::$app->session->setFlash('success', 'Le hemos enviado un mensaje a su cuenta de correo para que pueda resetear su contraseña');
+                    return $this->redirect('site/login');
+                else :
+                    Yii::$app->session->setFlash('danger', 'No hay ningun usuario con ese email');
+                    return $this->redirect('site/login');
+                endif;
+            endif;
+        endif;
+
+        return $this->render('recoverpass', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionResetpass()
+    {
+        $model = new FormResetPass();
+
+        //Si no existen las variables de sesión requeridas lo expulsamos a la página de inicio
+        if (empty(Yii::$app->session['recover']) || empty(Yii::$app->session['id_recover'])) :
+            return $this->redirect(['site/login']);
+        else :
+            $recover = Yii::$app->session['recover'];
+            $model->recover = $recover;
+
+            $id_recover = Yii::$app->session['id_recover'];
+        endif;
+
+        //Si el formulario es enviado para resetear el password
+        if ($model->load(Yii::$app->request->post())) :
+            if ($model->validate()) :
+                //Si el valor de la variable de sesión recover es correcta
+                if ($recover == $model->recover) :
+                    $usuario = Usuarios::findOne(['email' => $model->email]);
+                    // var_dump($usuario);
+                    $usuario->password = Yii::$app->security->generatePasswordHash($model->password);
+                    //Si la actualización se lleva a cabo correctamente
+                    if ($usuario->save()) :
+                        //Destruir las variables de sesión
+                        // $session->destroy();
+
+                        //Vaciar los campos del formulario
+                        $model->email = null;
+                        $model->password = null;
+                        $model->password_repeat = null;
+                        $model->recover = null;
+                        $model->verification_code = null;
+
+                        Yii::$app->session->setFlash('success', 'Enhorabuena, password reseteado correctamente, redireccionando a la página de login');
+                        return $this->redirect('site/login');
+                    else :
+                        Yii::$app->session->setFlash('danger', 'Ha ocurrido un error');
+                        return $this->redirect('site/login');
+                    endif;
+                endif;
+            endif;
+        endif;
+
+        return $this->render('resetpass', [
+            'model' => $model
+        ]);
+    }
+
+
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {

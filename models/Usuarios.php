@@ -28,6 +28,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public $password_repeat;
     private $_imagen = null;
     private $_imagenUrl = null;
+    public $verification_code;
 
     /**
      * {@inheritdoc}
@@ -54,12 +55,13 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             [['token'], 'string', 'max' => 32],
             [['nombre', 'email', 'password', 'biografia', 'authkey'], 'string', 'max' => 255],
             [['username'], 'string', 'max' => 60],
-            [['username'], 'unique'],
+            [['username', 'email'], 'unique'],
             [
                 ['password_repeat'],
                 'required',
                 'on' => self::SCENARIO_CREAR
             ],
+            [['nombre', 'email', 'biografia'], 'trim'],
             [
                 ['password_repeat'],
                 'compare',
@@ -164,6 +166,11 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    public function validateEmail($email)
+    {
+        return Yii::$app->security->validateEmail($email, $this->email);
     }
 
     public function beforeSave($insert)

@@ -10,9 +10,10 @@ CREATE TABLE usuarios
   , nombre       varchar(255)  NOT NULL
   , username     varchar(60) NOT NULL UNIQUE
   , biografia varchar(255)
-  , email   varchar(255)  NOT NULL
+  , email   varchar(255)  NOT NULL UNIQUE
   , password  varchar(255) NOT NULL
   , authKey varchar(255) NOT NULL
+  , verification_code varchar(255) NOT NULL DEFAULT ''
   , token varchar(255)
 );
 
