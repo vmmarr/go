@@ -38,6 +38,20 @@ class PublicacionesController extends \yii\web\Controller
         ]);
     }
 
+    public function actionUpdate($id)
+    {
+        $model = $this->findPublicacion($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionSubida($id)
     {
         $model = new ImagenPublicacion();
@@ -80,7 +94,7 @@ class PublicacionesController extends \yii\web\Controller
     protected function findPublicacion($id)
     {
         if (($publicacion = Publicaciones::findOne($id)) === null) {
-            throw new NotFoundHttpException('No se ha encontrado el género.');
+            throw new NotFoundHttpException('No se ha encontrado esa publicacion.');
         }
 
         return $publicacion;
