@@ -70,6 +70,9 @@ class PublicacionesController extends \yii\web\Controller
     {
         $model = $this->findPublicacion($id);
         $model->delete();
+        $image = new ImagenPublicacion();
+        $image->borradoAmazon($id);
+
         Yii::$app->session->setFlash('success', 'Publicacion borrada con éxito.');
         return $this->redirect(['index']);
     }

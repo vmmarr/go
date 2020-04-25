@@ -78,6 +78,17 @@ class ImagenPublicacion extends Model
         rmdir($carpeta);
     }
 
+    public function borradoAmazon($id)
+    {
+        $fichero = Yii::$app->user->id . '/' . $id . '.png';
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $s3->deleteObject([
+            'Bucket'       => 'go00',
+            'Key'          => $fichero,
+        ]);
+    }
+
     public function descarga($key)
     {
         $aws = Yii::$app->awssdk->getAwsSdk();
