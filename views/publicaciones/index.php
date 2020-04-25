@@ -12,6 +12,11 @@ use yii\widgets\ListView;
 $this->title = '';
 // $this->params['breadcrumbs'][] = $this->title;
 $this->registerCssFile('@web/css/indexPublicaciones.css');
+$this->registerJsFile('@web/js/indexPublicaciones.js', [
+    'depends' => [
+        \yii\web\JqueryAsset::className()
+    ]
+]);
 ?>
 <div class="publicaciones-index">
     <p>
