@@ -12,15 +12,13 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'usuario_id')->textInput() ?>
+    <?= $form->field($model, 'usuario_id')->textInput()->hiddenInput(['value' => Yii::$app->user->id])->label(false); ?>
 
-    <?= $form->field($model, 'publicacion_id')->textInput() ?>
+    <?= $form->field($model, 'publicacion_id')->textInput()->hiddenInput(['value' => $publi->id])->label(false)?>
 
     <?= $form->field($model, 'comentario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'update_at')->textInput() ?>
+    <?= $form->field($model, 'created_at')->textInput()->hiddenInput(['value' => Yii::$app->formatter->asDatetime(time(), 'php:d-m-Y H:i:s')])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use PhpParser\Node\Expr\New_;
 use Yii;
 
 /**
@@ -21,8 +22,7 @@ class Publicaciones extends \yii\db\ActiveRecord
 {
     private $_imagen = null;
     private $_imagenUrl = null;
-    private $_semanas = null;
-    private $_username = null;
+
     /**
      * {@inheritdoc}
      */
@@ -65,9 +65,16 @@ class Publicaciones extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+    public function getTotalComentarios()
+    {
+        $total = $this->hasMany(Comentarios::className(), ['publicacion_id' => 'id']);
+
+        return $total->count();
+    }
+
     public function getComentarios()
     {
-        return $this->hasMany(Comentarios::className(), ['publicacion_id' => 'id']);
+        return Comentarios::find()->where(['publicacion_id' => $this->id])->orderBy('created_at')->all();
     }
 
     /**
@@ -75,9 +82,11 @@ class Publicaciones extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLikes()
+    public function getTotalLikes()
     {
-        return $this->hasMany(Likes::className(), ['publicacion_id' => 'id']);
+        $total = $this->hasMany(Likes::className(), ['publicacion_id' => 'id']);
+
+        return $total->count();
     }
 
     /**
@@ -88,6 +97,11 @@ class Publicaciones extends \yii\db\ActiveRecord
     public function getUsuario()
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
+    }
+
+    public function getUsuarioComentario($id)
+    {
+        return Usuarios::find()->where(['id' => $id])->one();
     }
 
     public function getImagen()

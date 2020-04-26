@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Comentarios;
 use kartik\icons\Icon;
 use yii\helpers\Html;
 ?>
@@ -17,7 +18,7 @@ use yii\helpers\Html;
                                 <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
                             <?php endif; ?>
                                 
-                        <?=Html::a($model->usuario->nombre)?>
+                        <?=Html::a($model->usuario->username)?>
                     </div>
                     <div>
                         <?=Yii::$app->formatter->asRelativeTime($model->created_at)?>
@@ -36,22 +37,32 @@ use yii\helpers\Html;
                     </div> 
                     </div>
                 </div>
-                   
                 
                 <div class="contenido d-flex justify-content-center align-items-center">
                 <?= Html::img(['download', 'fichero' => $model->imagenUrl]); ?>
                 </div>
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <!-- Aque va el numero de likes y el numero de comentarios -->
+                <div>
+                    <?=Icon::show('comment', ['framework' => Icon::BSG])?>
+                    <?=Html::tag('span', $model->totalComentarios); ?>
+                    <?=Icon::show('heart', ['framework' => Icon::BSG])?>
+                    <?=Html::tag('span', $model->totalLikes); ?>
                 </div>
                 <div>
-                    <?=Html::tag('p', $model->descripcion)?>
+                    <?=Html::tag('p', Html::a($model->usuario->username, ['usuarios/perfil', 'id' => $model->usuario->id]) . ' ' . $model->descripcion)?>
                 </div>
                 <div>
-                    <!-- Muestra los 2 ulstimos comentarios -->
+                    <!-- Muestra los 2 ultimos comentarios -->
+                    <?php
+                    $filas = $model->comentarios;
+
+                    foreach ($filas as $comentario) :
+                        $usuario =  $model->getUsuarioComentario($comentario['usuario_id']);
+                    ?>
+                        <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $comentario['comentario'])?>
+                    <?php endforeach; ?>
                 </div>
                 <div class="d-flex justify-content-end align-items-center">
-                    <?=Html::a('Nuevo comentario', ['comentarios/create'], ['class' => 'btn btn-success']); ?>
+                    <?=Html::a('Nuevo comentario', ['comentarios/create', 'id' => $model->id], ['class' => 'btn btn-success']); ?>
                 </div>
             </div>
         </div>
