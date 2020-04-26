@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Comentarios;
 use app\models\ImagenPublicacion;
 use app\models\Publicaciones;
 use SplObjectStorage;
@@ -14,11 +15,15 @@ class PublicacionesController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $query = Publicaciones::find();
+        $query = Publicaciones::find()->orderBy(['created_at' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+
+        // var_dump($comentarios->comentario);
+        // return $comentarios['comentario'];
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -28,7 +33,7 @@ class PublicacionesController extends \yii\web\Controller
     public function actionCreate()
     {
         $model = new Publicaciones();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['subida', 'id' => $model->id]);
         }

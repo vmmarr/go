@@ -12,7 +12,6 @@ use Yii;
  * @property int $publicacion_id
  * @property string|null $comentario
  * @property string $created_at
- * @property string $update_at
  *
  * @property Publicaciones $publicacion
  * @property Usuarios $usuario
@@ -36,7 +35,7 @@ class Comentarios extends \yii\db\ActiveRecord
             [['usuario_id', 'publicacion_id'], 'required'],
             [['usuario_id', 'publicacion_id'], 'default', 'value' => null],
             [['usuario_id', 'publicacion_id'], 'integer'],
-            [['created_at', 'update_at'], 'safe'],
+            [['created_at'], 'safe'],
             [['comentario'], 'string', 'max' => 255],
             [['publicacion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Publicaciones::className(), 'targetAttribute' => ['publicacion_id' => 'id']],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
@@ -54,7 +53,6 @@ class Comentarios extends \yii\db\ActiveRecord
             'publicacion_id' => 'Publicacion ID',
             'comentario' => 'Comentario',
             'created_at' => 'Created At',
-            'update_at' => 'Update At',
         ];
     }
 
