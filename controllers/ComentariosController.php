@@ -59,6 +59,15 @@ class ComentariosController extends \yii\web\Controller
         ]);
     }
 
+    public function actionDelete($id)
+    {
+        $model = $this->findComentario($id);
+        $model->delete();
+
+        Yii::$app->session->setFlash('success', 'Comentario borrado con éxito.');
+        return $this->redirect(['publicaciones/index']);
+    }
+
     protected function findComentario($id)
     {
         if (($comentario = Comentarios::findOne($id)) === null) {
