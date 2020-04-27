@@ -45,6 +45,29 @@ class ComentariosController extends \yii\web\Controller
         ]);
     }
 
+    public function actionUpdate($id)
+    {
+        $model = $this->findComentario($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
+            return $this->redirect(['publicaciones/index']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    protected function findComentario($id)
+    {
+        if (($comentario = Comentarios::findOne($id)) === null) {
+            throw new NotFoundHttpException('No se ha encontrado es comentario.');
+        }
+
+        return $comentario;
+    }
+
     protected function findPublicacion($id)
     {
         if (($publicacion = Publicaciones::findOne($id)) === null) {
