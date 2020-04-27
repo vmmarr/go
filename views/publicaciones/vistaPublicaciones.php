@@ -65,10 +65,10 @@ use yii\helpers\Html;
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?=Html::a(Icon::show('pencil', ['framework' => Icon::BSG]), ['comentarios/update', 'id' =>  $comentario['id']], ['class' => 'dropdown-item']);?>
-                        <?=Html::a(Icon::show('trash', ['framework' => Icon::BSG]), ['delete', 'id' => $model->id], [
+                        <?=Html::a(Icon::show('trash', ['framework' => Icon::BSG]), ['comentarios/delete', 'id' => $comentario['id']], [
                             'class' => 'dropdown-item',
                             'data' => [
-                                'confirm' => '¿Eliminar publicacion?',
+                                'confirm' => '¿Eliminar Comentario?',
                                 'method' => 'post',
                             ],
                             ])?>
