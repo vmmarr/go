@@ -43,7 +43,24 @@ use yii\helpers\Html;
             <div>
                 <?=Icon::show('comment', ['framework' => Icon::BSG])?>
                 <?=Html::tag('span', $model->totalComentarios); ?>
-                <?=Icon::show('heart', ['framework' => Icon::BSG])?>
+                <!-- Si el usuario logueado es el mismo que el usuario id de un like y le a dado a like se pone heart si no heart-empty -->
+                <?php
+                $filas = $model->likes;
+                $r = false;
+                $id_like = 0;
+
+                foreach ($filas as $like) :
+                    if (Yii::$app->user->id === $like['usuario_id']) :
+                        $r = true;
+                        $id_like = $like['id'];
+                    endif;
+                endforeach;
+                    
+                if ($r) : ?>
+                    <?=Html::a(Icon::show('heart', ['framework' => Icon::BSG]), ['likes/delete', 'id' => $id_like]);?>
+                <?php else : ?>
+                    <?=Html::a(Icon::show('heart-empty', ['framework' => Icon::BSG]), ['likes/create', 'id' => $model->id]);?>
+                <?php endif; ?>
                 <?=Html::tag('span', $model->totalLikes); ?>
             </div>
             <div>
