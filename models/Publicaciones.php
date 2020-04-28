@@ -89,6 +89,11 @@ class Publicaciones extends \yii\db\ActiveRecord
         return $total->count();
     }
 
+    public function getLikes()
+    {
+        return Likes::find()->where(['publicacion_id' => $this->id])->all();
+    }
+
     /**
      * Gets query for [[Usuario]].
      *
@@ -100,6 +105,11 @@ class Publicaciones extends \yii\db\ActiveRecord
     }
 
     public function getUsuarioComentario($id)
+    {
+        return Usuarios::find()->where(['id' => $id])->one();
+    }
+
+    public function getUsuarioLike($id)
     {
         return Usuarios::find()->where(['id' => $id])->one();
     }
