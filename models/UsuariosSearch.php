@@ -17,8 +17,9 @@ class UsuariosSearch extends Usuarios
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['nombre', 'username', 'email', 'password', 'authkey', 'token'], 'safe'],
+            // [['id'], 'integer'],
+            [['nombre', 'username'], 'safe'],
+            // [['nombre', 'username', 'email', 'password', 'authkey', 'token'], 'safe'],
         ];
     }
 
@@ -57,15 +58,15 @@ class UsuariosSearch extends Usuarios
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
+        // $query->andFilterWhere([
+        //     'id' => $this->id,
+        // ]);
 
         $query->andFilterWhere(['ilike', 'nombre', $this->nombre])
-            ->andFilterWhere(['ilike', 'username', $this->username])
-            ->andFilterWhere(['ilike', 'email', $this->email])
-            ->andFilterWhere(['ilike', 'password', $this->password])
-            ->andFilterWhere(['ilike', 'authkey', $this->authkey]);
+            ->andFilterWhere(['ilike', 'username', $this->username]);
+            // ->andFilterWhere(['ilike', 'email', $this->email])
+            // ->andFilterWhere(['ilike', 'password', $this->password])
+            // ->andFilterWhere(['ilike', 'authkey', $this->authkey]);
 
         return $dataProvider;
     }

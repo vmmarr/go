@@ -112,6 +112,18 @@ class UsuariosController extends Controller
             ->send();
     }
 
+    public function actionBuscar()
+    {
+        $searchModel = new UsuariosSearch();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('busqueda', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

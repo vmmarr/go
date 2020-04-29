@@ -25,12 +25,6 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'password') ?>
 
-    <?php // echo $form->field($model, 'authkey') ?>
-
-    <?php // echo $form->field($model, 'accesstoken') ?>
-
-    <?php // echo $form->field($model, 'activate') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
