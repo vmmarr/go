@@ -1,7 +1,7 @@
-$('#dropdownMenuButton').hide();
+$('.prueba button').hide();
 $('.card').mouseover(function () { 
-    $('#dropdownMenuButton').show();
+    $('.prueba button').show();
 });
 $('.card').mouseout(function () { 
-    $('#dropdownMenuButton').hide();
+    $('.prueba button').hide();
 });

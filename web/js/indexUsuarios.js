@@ -1,0 +1,22 @@
+$('#busqueda').change(function (e) {
+    e.preventDefault();
+    var seleccion = $("#busqueda option:selected").val();
+    $.post('usuarios/index.php?seleccion='+seleccion, function( data ) {
+        $( ".result" ).html( data );
+    });
+}); 
+
+
+
+// $('#busqueda').change(function (e) { 
+//     e.preventDefault();
+//     var seleccion = $("#busqueda option:selected").text();
+//     // console.log($("#busqueda option:selected").text());
+//     // $.ajax(
+//     //     {
+//     //         url: 'usuarios%2Findex.php?seleccion=<?php echo $seleccion; ?>',
+//     //     }
+//     // )
+// }); 
+
+// console.log($('#busqueda').val());
