@@ -9,6 +9,7 @@ use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\Alert;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -49,10 +50,24 @@ class UsuariosController extends Controller
             ->createCommand('SELECT *
                                FROM usuarios')
             ->queryAll();
+        
+        $busqueda = new ActiveDataProvider([
+            'query' => Usuarios::find()->where('1=0'),
+        ]);
+
+        if (($cadena = Yii::$app->request->get('cadena', ''))) {
+            $busqueda->query->where(['ilike', 'nombre', $cadena])
+                            ->orFilterWhere(['ilike', 'username', $cadena]);
+        }
         return $this->render('index', [
+            'busqueda' => $busqueda,
+            'cadena' => $cadena,
             'fila' => $fila,
             'model' => $model,
         ]);
+
+        // return $this->render('index', [
+        // ]);
 
         // $searchModel = new UsuariosSearch();
         // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -114,14 +129,30 @@ class UsuariosController extends Controller
 
     public function actionBuscar()
     {
-        $searchModel = new UsuariosSearch();
-
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('busqueda', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        $nombre = new ActiveDataProvider([
+            'query' => Usuarios::find()->where('1=0'),
         ]);
+        $username = new ActiveDataProvider([
+            'query' => Usuarios::find()->where('1=0'),
+        ]);
+        if (($cadena = Yii::$app->request->get('cadena', ''))) {
+            $nombre->query->where(['ilike', 'nombre', $cadena]);
+            $username->query->where(['ilike', 'username', $cadena]);
+        }
+
+        return $this->render('index', [
+            'nombre' => $nombre,
+            'username' => $username,
+            'cadena' => $cadena,
+        ]);
+        // $searchModel = new UsuariosSearch();
+
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        // return $this->render('busqueda', [
+        //     'searchModel' => $searchModel,
+        //     'dataProvider' => $dataProvider,
+        // ]);
     }
 
     public function actionUpdate($id)

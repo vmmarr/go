@@ -2,8 +2,9 @@ $('#busqueda').change(function (e) {
     e.preventDefault();
     var seleccion = $("#busqueda option:selected").val();
     $.post('usuarios/index.php?seleccion='+seleccion, function( data ) {
-        $( ".result" ).html( data );
+        return data;
     });
+
 }); 
 
 
