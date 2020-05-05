@@ -20,7 +20,7 @@ use yii\helpers\Html;
                             
                     <?=Html::a($model->usuario->username)?>
                 </div>
-                <div>
+                <div class="prueba">
                     <?=Yii::$app->formatter->asRelativeTime($model->created_at)?>
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?=Icon::show('option-vertical', ['framework' => Icon::BSG])?>

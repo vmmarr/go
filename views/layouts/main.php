@@ -67,10 +67,7 @@ AppAsset::register($this);
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
                 ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [
-                    // va por aqui para poner imagen de perfil
-                    //  'label' => '<img src="' . $imagen . '"/> ' . $username,
                     'options' => ['class' => 'foto'],
-                    // 'label' => 'p',
                     'label' => Html::img($imagen) . $username,
                     'items' => [
                         ['label' => 'Mi perfil', 'url' => ['usuarios/perfil', 'id' => Yii::$app->user->id]],

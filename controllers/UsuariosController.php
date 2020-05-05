@@ -9,6 +9,8 @@ use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\Alert;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -16,12 +18,14 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
+use function GuzzleHttp\Promise\all;
+
 class UsuariosController extends Controller
 {
     public function behaviors()
     {
         return [
-            'verbs'  => [
+            'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
@@ -45,23 +49,24 @@ class UsuariosController extends Controller
     public function actionIndex()
     {
         $model = new Usuarios();
-        $fila = Yii::$app->db
-            ->createCommand('SELECT *
-                               FROM usuarios')
-            ->queryAll();
+
+        $fila = Usuarios::find()->all();
+            
+        $cadena = Yii::$app->request->get('cadena', '');
+
+        $query = Usuarios::find()
+            ->filterWhere(['ilike', 'nombre', $cadena])
+            ->orFilterWhere(['ilike', 'username', $cadena])
+            ->all();
+
         return $this->render('index', [
+            'cadena' => $cadena,
+            'query' => $query,
             'fila' => $fila,
             'model' => $model,
         ]);
-
-        // $searchModel = new UsuariosSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        // return $this->render('index', [
-        //     'searchModel' => $searchModel,
-        //     'dataProvider' => $dataProvider,
-        // ]);
     }
+    
 
     /**
      * Displays a single Usuarios model.

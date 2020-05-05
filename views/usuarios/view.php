@@ -73,6 +73,17 @@ $this->registerCssFile('@web/css/perfil.css');
                     </div>
                 </div>
             </div>
+            <div class="gallery">
+                <div class="gallery-item" tabindex="0">
+                    <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
+                    <div class="gallery-item-info">
+                        <ul>
+                            <li><?=Icon::show('heart', ['framework' => Icon::BSG])?> Likes:</li>
+                            <li><?=Icon::show('comment', ['framework' => Icon::BSG])?> Comentarios:</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </div>
