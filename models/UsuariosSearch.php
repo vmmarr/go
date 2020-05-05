@@ -18,7 +18,7 @@ class UsuariosSearch extends Usuarios
     {
         return [
             // [['id'], 'integer'],
-            [['nombre', 'username'], 'safe'],
+            [['nombre', 'username'], 'string'],
             // [['nombre', 'username', 'email', 'password', 'authkey', 'token'], 'safe'],
         ];
     }
@@ -43,8 +43,6 @@ class UsuariosSearch extends Usuarios
     {
         $query = Usuarios::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -52,22 +50,14 @@ class UsuariosSearch extends Usuarios
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
+        // var_dump($params);
 
-        // grid filtering conditions
-        // $query->andFilterWhere([
-        //     'id' => $this->id,
-        // ]);
+        $query->andFilterWhere(['like', 'username', $params]);
+        // $query->orFilterWhere(['like', 'nombre', $params]);
 
-        $query->andFilterWhere(['ilike', 'nombre', $this->nombre])
-            ->andFilterWhere(['ilike', 'username', $this->username]);
-            // ->andFilterWhere(['ilike', 'email', $this->email])
-            // ->andFilterWhere(['ilike', 'password', $this->password])
-            // ->andFilterWhere(['ilike', 'authkey', $this->authkey]);
-
+        // var_dump($dataProvider);
         return $dataProvider;
     }
 }

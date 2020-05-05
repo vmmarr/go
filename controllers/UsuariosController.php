@@ -10,6 +10,7 @@ use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\Alert;
 use yii\data\ActiveDataProvider;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -17,12 +18,14 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
+use function GuzzleHttp\Promise\all;
+
 class UsuariosController extends Controller
 {
     public function behaviors()
     {
         return [
-            'verbs'  => [
+            'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
@@ -46,37 +49,24 @@ class UsuariosController extends Controller
     public function actionIndex()
     {
         $model = new Usuarios();
-        $fila = Yii::$app->db
-            ->createCommand('SELECT *
-                               FROM usuarios')
-            ->queryAll();
-        
-        $busqueda = new ActiveDataProvider([
-            'query' => Usuarios::find()->where('1=0'),
-        ]);
 
-        if (($cadena = Yii::$app->request->get('cadena', ''))) {
-            $busqueda->query->where(['ilike', 'nombre', $cadena])
-                            ->orFilterWhere(['ilike', 'username', $cadena]);
-        }
+        $fila = Usuarios::find()->all();
+            
+        $cadena = Yii::$app->request->get('cadena', '');
+
+        $query = Usuarios::find()
+            ->filterWhere(['ilike', 'nombre', $cadena])
+            ->orFilterWhere(['ilike', 'username', $cadena])
+            ->all();
+
         return $this->render('index', [
-            'busqueda' => $busqueda,
             'cadena' => $cadena,
+            'query' => $query,
             'fila' => $fila,
             'model' => $model,
         ]);
-
-        // return $this->render('index', [
-        // ]);
-
-        // $searchModel = new UsuariosSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        // return $this->render('index', [
-        //     'searchModel' => $searchModel,
-        //     'dataProvider' => $dataProvider,
-        // ]);
     }
+    
 
     /**
      * Displays a single Usuarios model.
@@ -125,34 +115,6 @@ class UsuariosController extends Controller
             ->setSubject('Confirmar registro Go!')
             ->setHtmlBody($body)
             ->send();
-    }
-
-    public function actionBuscar()
-    {
-        $nombre = new ActiveDataProvider([
-            'query' => Usuarios::find()->where('1=0'),
-        ]);
-        $username = new ActiveDataProvider([
-            'query' => Usuarios::find()->where('1=0'),
-        ]);
-        if (($cadena = Yii::$app->request->get('cadena', ''))) {
-            $nombre->query->where(['ilike', 'nombre', $cadena]);
-            $username->query->where(['ilike', 'username', $cadena]);
-        }
-
-        return $this->render('index', [
-            'nombre' => $nombre,
-            'username' => $username,
-            'cadena' => $cadena,
-        ]);
-        // $searchModel = new UsuariosSearch();
-
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        // return $this->render('busqueda', [
-        //     'searchModel' => $searchModel,
-        //     'dataProvider' => $dataProvider,
-        // ]);
     }
 
     public function actionUpdate($id)
