@@ -25,9 +25,9 @@ use yii\helpers\Html;
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?=Icon::show('option-vertical', ['framework' => Icon::BSG])?>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?=Html::a(Icon::show('pencil', ['framework' => Icon::BSG]), ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
-                        <?=Html::a(Icon::show('trash', ['framework' => Icon::BSG]), ['delete', 'id' => $model->id], [
+                    <div class="dropdown-menu">
+                        <?=Html::a(Icon::show('pencil', ['framework' => Icon::BSG]) . 'Modificar', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
+                        <?=Html::a(Icon::show('trash', ['framework' => Icon::BSG]) . 'Borrar', ['delete', 'id' => $model->id], [
                             'class' => 'dropdown-item',
                             'data' => [
                                 'confirm' => '¿Eliminar publicacion?',
@@ -63,10 +63,13 @@ use yii\helpers\Html;
                 <?php endif; ?>
                 <?=Html::tag('span', $model->totalLikes); ?>
             </div>
-            <div>
-                <?=Html::tag('p', Html::a($model->usuario->username, ['usuarios/perfil', 'id' => $model->usuario->id]) . ' ' . $model->descripcion)?>
+            <div class="card-body d-flex justify-content-between align-items-center comentario">
+                <?php 
+                if ($model->descripcion != '') : ?>
+                    <?=Html::tag('p', Html::a($model->usuario->username, ['usuarios/perfil', 'id' => $model->usuario->id]) . ' ' . $model->descripcion)?>
+                <?php endif; ?>
             </div>
-            <div>
+            <div class="comentarios">
                 <!-- Muestra los 2 ultimos comentarios -->
                 <?php
                 $filas = $model->comentarios;
@@ -74,7 +77,7 @@ use yii\helpers\Html;
                 foreach ($filas as $comentario) :
                     $usuario =  $model->getUsuarioComentario($comentario['usuario_id']);
                 ?>
-                <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="card-body d-flex justify-content-between align-items-center comentario">
 
                     <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $comentario['comentario'])?>
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
