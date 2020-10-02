@@ -28,5 +28,5 @@ $this->registerJsFile('@web/js/indexPublicaciones.js', [
         'itemView' => 'vistaPublicaciones'
     ]) ?>
 
-    <?=Html::a(Icon::show('arrow-up', ['framework' => Icon::BSG]), '#', ['class' => 'btn btn-primary'])?>
+    <?=Html::a(Icon::show('arrow-up', ['framework' => Icon::FAS]), '#', ['class' => 'btn btn-primary'])?>
 </div

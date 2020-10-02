@@ -19,6 +19,13 @@ class ImagenPublicacion extends Model
     
     public function subida($id)
     {
+        if (!file_exists(Yii::getAlias('@img'))) {
+            mkdir(Yii::getAlias('@img'));
+        }
+
+        if (!file_exists(Yii::getAlias('@uploads'))) {
+            mkdir(Yii::getAlias('@uploads'));
+        }
         $iduser = Yii::$app->user->id;
         $carpeta = Yii::getAlias('@img/' . $iduser);
         

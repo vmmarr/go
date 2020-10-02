@@ -23,11 +23,11 @@ use yii\helpers\Html;
                 <div class="prueba">
                     <?=Yii::$app->formatter->asRelativeTime($model->created_at)?>
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?=Icon::show('option-vertical', ['framework' => Icon::BSG])?>
+                        <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
                     </button>
                     <div class="dropdown-menu">
-                        <?=Html::a(Icon::show('pencil', ['framework' => Icon::BSG]) . 'Modificar', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
-                        <?=Html::a(Icon::show('trash', ['framework' => Icon::BSG]) . 'Borrar', ['delete', 'id' => $model->id], [
+                        <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]) . 'Modificar', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
+                        <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]) . 'Borrar', ['delete', 'id' => $model->id], [
                             'class' => 'dropdown-item',
                             'data' => [
                                 'confirm' => '¿Eliminar publicacion?',
@@ -41,7 +41,7 @@ use yii\helpers\Html;
                 <?= Html::img(['download', 'fichero' => $model->imagenUrl]); ?>
             </div>
             <div>
-                <?=Icon::show('comment', ['framework' => Icon::BSG])?>
+                <?=Icon::show('comment', ['framework' => Icon::FAR])?>
                 <?=Html::tag('span', $model->totalComentarios); ?>
                 <!-- Si el usuario logueado es el mismo que el usuario id de un like y le a dado a like se pone heart si no heart-empty -->
                 <?php
@@ -57,9 +57,9 @@ use yii\helpers\Html;
                 endforeach;
                     
                 if ($r) : ?>
-                    <?=Html::a(Icon::show('heart', ['framework' => Icon::BSG]), ['likes/delete', 'id' => $id_like]);?>
+                    <?=Html::a(Icon::show('heart', ['framework' => Icon::FAS]), ['likes/delete', 'id' => $id_like]);?>
                 <?php else : ?>
-                    <?=Html::a(Icon::show('heart-empty', ['framework' => Icon::BSG]), ['likes/create', 'id' => $model->id]);?>
+                    <?=Html::a(Icon::show('heart', ['framework' => Icon::FAR]), ['likes/create', 'id' => $model->id]);?>
                 <?php endif; ?>
                 <?=Html::tag('span', $model->totalLikes); ?>
             </div>
@@ -81,11 +81,11 @@ use yii\helpers\Html;
 
                     <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $comentario['comentario'])?>
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?=Icon::show('option-vertical', ['framework' => Icon::BSG])?>
+                        <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?=Html::a(Icon::show('pencil', ['framework' => Icon::BSG]), ['comentarios/update', 'id' =>  $comentario['id']], ['class' => 'dropdown-item']);?>
-                        <?=Html::a(Icon::show('trash', ['framework' => Icon::BSG]), ['comentarios/delete', 'id' => $comentario['id']], [
+                        <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]), ['comentarios/update', 'id' =>  $comentario['id']], ['class' => 'dropdown-item']);?>
+                        <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]), ['comentarios/delete', 'id' => $comentario['id']], [
                             'class' => 'dropdown-item',
                             'data' => [
                                 'confirm' => '¿Eliminar Comentario?',

@@ -33,7 +33,7 @@ $this->registerCssFile('@web/css/perfil.css');
                     
                     <!-- if (Yii::$app->user->id === $model->id) {?> -->                    
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?=Icon::show('cog', ['framework' => Icon::BSG])?>
+                            <?=Icon::show('user-cog', ['framework' => Icon::FAS])?>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <?=Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
@@ -67,8 +67,8 @@ $this->registerCssFile('@web/css/perfil.css');
                     <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
                     <div class="gallery-item-info">
                         <ul>
-                            <li><?=Icon::show('heart', ['framework' => Icon::BSG])?> Likes:</li>
-                            <li><?=Icon::show('comment', ['framework' => Icon::BSG])?> Comentarios:</li>
+                            <li><?=Icon::show('heart', ['framework' => Icon::FAR])?> Likes:</li>
+                            <li><?=Icon::show('comment', ['framework' => Icon::FA])?> Comentarios:</li>
                         </ul>
                     </div>
                 </div>
@@ -78,8 +78,8 @@ $this->registerCssFile('@web/css/perfil.css');
                     <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
                     <div class="gallery-item-info">
                         <ul>
-                            <li><?=Icon::show('heart', ['framework' => Icon::BSG])?> Likes:</li>
-                            <li><?=Icon::show('comment', ['framework' => Icon::BSG])?> Comentarios:</li>
+                            <li><?=Icon::show('heart', ['framework' => Icon::FAR])?> Likes:</li>
+                            <li><?=Icon::show('comment', ['framework' => Icon::FA])?> Comentarios:</li>
                         </ul>
                     </div>
                 </div>

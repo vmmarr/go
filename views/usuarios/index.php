@@ -20,7 +20,7 @@ trim($cadena);
         </div>
         <div class="form-group">
             <!-- <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?> -->
-            <?= Html::submitButton(Icon::show('search', ['framework' => Icon::BSG]), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Icon::show('search', ['framework' => Icon::FAS]), ['class' => 'btn btn-primary']) ?>
         </div>
     <?= Html::endForm() ?>
 </p>
