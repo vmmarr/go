@@ -4,7 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
-use kartik\password\PasswordInput;
+// use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -27,9 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-        <?= $form->field($model, 'password')->widget(PasswordInput::class, [
-            'pluginOptions' => ['showMeter' => false]
-        ])?>
+        
 
         <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
