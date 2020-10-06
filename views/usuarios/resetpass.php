@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 <div>
     <?php $form = ActiveForm::begin([
         'method' => 'post',
+        'enableAjaxValidation' => true,
         'enableClientValidation' => true,
     ]);
     ?>

@@ -131,6 +131,11 @@ class UsuariosController extends Controller
 
         $model->scenario = Usuarios::SCENARIO_UPDATE;
 
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
             return $this->redirect(['perfil', 'id' => $model->id]);
@@ -205,6 +210,11 @@ class UsuariosController extends Controller
     {
         $model = new FormRecoverPass();
 
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
         if ($model->load(Yii::$app->request->post())) :
             if ($model->validate()) :
                 $usuario = Usuarios::find()->where('email=:email', [':email' => $model->email]);
@@ -255,6 +265,11 @@ class UsuariosController extends Controller
     public function actionResetpass()
     {
         $model = new FormResetPass();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
 
         //Si no existen las variables de sesión requeridas lo expulsamos a la página de inicio
         if (empty(Yii::$app->session['recover']) || empty(Yii::$app->session['id_recover'])) :
