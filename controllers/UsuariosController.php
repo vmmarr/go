@@ -8,6 +8,7 @@ use app\models\ImagenForm;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
+use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Alert;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
@@ -16,6 +17,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\UploadedFile;
 
 use function GuzzleHttp\Promise\all;
@@ -84,6 +86,12 @@ class UsuariosController extends Controller
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
+
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $url = Url::to([
