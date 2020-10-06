@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Modificar';
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
+        'enableAjaxValidation' => true,
         'layout' => 'horizontal',
         'fieldConfig' => [
             'horizontalCssClasses' => ['wrapper' => 'col-sm-5'],
