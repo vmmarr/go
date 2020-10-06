@@ -24,8 +24,8 @@ $config = [
             'class' => 'fedemotta\awssdk\AwsSdk',
             'credentials' => [
               //you can use a different method to grant access
-              'key' => getenv('AWS_ACCESS_KEY_ID'),
-              'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+              'access_key_id' => getenv('AWS_ACCESS_KEY_ID'),
+              'secret_access_key' => getenv('AWS_SECRET_ACCESS_KEY'),
             ],
             'region' => 'us-east-2',
             'version' => 'latest', //i.e.: 'latest'
