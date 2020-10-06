@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\RegistrarForm */
 
+use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -25,9 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'nombre')->textInput() ?>
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-        <?= $form->field($model, 'password')->passwordInput() ?>
-        <?= $form->field($model, 'password_repeat')->passwordInput() ?>
-        <?= $form->field($model, 'email')->textInput() ?>
+        <?= $form->field($model, 'password')->widget(PasswordInput::class, [
+            'pluginOptions' => ['showMeter' => false]
+        ])?> 
+        <?= $form->field($model, 'password_repeat')->widget(PasswordInput::class, [
+            'pluginOptions' => ['showMeter' => false]
+        ])?> 
+        <?= $form->field($model, 'email')->textInput([
+            'type' => 'email',
+        ]) ?>
         
 
 

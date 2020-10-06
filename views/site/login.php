@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
+use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -13,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p>Complete los siguientes campos para iniciar sesión:</p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -25,7 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password')->widget(PasswordInput::class, [
+            'pluginOptions' => ['showMeter' => false]
+        ])?>
 
         <?= $form->field($model, 'rememberMe')->checkbox() ?>
 

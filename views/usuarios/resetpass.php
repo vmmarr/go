@@ -1,4 +1,6 @@
 <?php
+
+use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
@@ -12,9 +14,13 @@ use yii\widgets\ActiveForm;
     ?>
         <?= $form->field($model, 'email')->textInput() ?>  
 
-        <?= $form->field($model, 'password')->passwordInput() ?>  
+        <?= $form->field($model, 'password')->widget(PasswordInput::class, [
+            'pluginOptions' => ['showMeter' => false]
+        ])?>
         
-        <?= $form->field($model, 'password_repeat')->passwordInput() ?>  
+        <?= $form->field($model, 'password_repeat')->widget(PasswordInput::class, [
+            'pluginOptions' => ['showMeter' => false]
+        ])?>
 
         <?= $form->field($model, 'verification_code')->textInput() ?>  
 
