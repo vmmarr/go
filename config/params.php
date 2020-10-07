@@ -7,6 +7,7 @@ return [
     'senderEmail' => 'confirmvmmarr@gmail.com',
     'senderName' => 'Example.com mailer',
     'smtpUsername' => 'confirmvmmarr@gmail.com',
+    'bsVersion' => '4.x',
     'dateControlDisplay' => [
         Module::FORMAT_DATE => 'php:d-m-Y',
         Module::FORMAT_TIME => 'php:H:i:s',
