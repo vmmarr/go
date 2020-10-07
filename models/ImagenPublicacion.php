@@ -13,7 +13,7 @@ class ImagenPublicacion extends Model
     public function rules()
     {
         return [
-            [['imagen'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['imagen'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg'],
         ];
     }
     
@@ -35,7 +35,6 @@ class ImagenPublicacion extends Model
         
         if ($this->validate()) {
             $filename = $id . '.' . $this->imagen->extension;
-            imagepng(imagecreatefromstring(file_get_contents($filename)));
             $origen = Yii::getAlias('@uploads/' . $filename);
             $destino = Yii::getAlias('@img/' . $iduser  . '/' . $filename);
             $this->imagen->saveAs($origen);
@@ -53,7 +52,7 @@ class ImagenPublicacion extends Model
     public function subidaAws($id)
     {
         $iduser = Yii::$app->user->id;
-        $filename = $id . '.png';
+        $filename = $id . '.' . $this->imagen->extension;
         $destino = Yii::getAlias('@img/' . $iduser  . '/' . $filename);
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
@@ -88,7 +87,7 @@ class ImagenPublicacion extends Model
 
     public function borradoAmazon($id)
     {
-        $fichero = Yii::$app->user->id . '/' . $id . '.png';
+        $fichero = Yii::$app->user->id . '/' . $id . '.jpg';
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
         $s3->deleteObject([
