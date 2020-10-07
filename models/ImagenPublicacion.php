@@ -35,6 +35,7 @@ class ImagenPublicacion extends Model
         
         if ($this->validate()) {
             $filename = $id . '.' . $this->imagen->extension;
+            imagepng(imagecreatefromstring(file_get_contents($filename)));
             $origen = Yii::getAlias('@uploads/' . $filename);
             $destino = Yii::getAlias('@img/' . $iduser  . '/' . $filename);
             $this->imagen->saveAs($origen);
@@ -52,7 +53,7 @@ class ImagenPublicacion extends Model
     public function subidaAws($id)
     {
         $iduser = Yii::$app->user->id;
-        $filename = $id . '.' . $this->imagen->extension;
+        $filename = $id . '.png';
         $destino = Yii::getAlias('@img/' . $iduser  . '/' . $filename);
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
