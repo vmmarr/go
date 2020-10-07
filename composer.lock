@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f13db7b4ff2bd4391b8a1e4b2e089c68",
+    "content-hash": "3c4395f214e6708df621bf09cb9ed063",
     "packages": [
         {
             "name": "aws/aws-php-sns-message-validator",
@@ -1167,6 +1167,46 @@
                 "image processing"
             ],
             "time": "2019-12-04T09:55:33+00:00"
+        },
+        {
+            "name": "joni-jones/yii2-heroku-logger",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joni-jones/yii2-heroku-logger.git",
+                "reference": "0a648cdd52941caae49c0e54ae65b8a7fc6b2db9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joni-jones/yii2-heroku-logger/zipball/0a648cdd52941caae49c0e54ae65b8a7fc6b2db9",
+                "reference": "0a648cdd52941caae49c0e54ae65b8a7fc6b2db9",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jones\\herokulogger\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Ievgen Sentiabov",
+                    "email": "ievgen.sentiabov@gmail.com"
+                }
+            ],
+            "description": "Simple logger implementation to works on heroku services",
+            "keywords": [
+                "extension",
+                "heroku",
+                "logger",
+                "logging",
+                "yii2"
+            ],
+            "time": "2015-12-03T20:26:45+00:00"
         },
         {
             "name": "kartik-v/php-date-formatter",
@@ -9026,6 +9066,7 @@
         "kartik-v/yii2-widget-datetimepicker": 20,
         "kartik-v/yii2-widget-timepicker": 20,
         "kartik-v/yii2-password": 20,
+        "joni-jones/yii2-heroku-logger": 20,
         "yiisoft/yii2-apidoc": 20,
         "codeception/verify": 20
     },
