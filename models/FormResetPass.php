@@ -25,5 +25,3 @@ class FormResetPass extends Model
         ];
     }
 }
-
-

@@ -11,6 +11,7 @@ header {
     padding-bottom: 10%;
 }
 
+
 /* Profile Section */
 
 .profile-image {
@@ -24,7 +25,7 @@ header {
 }
 
 .profile-image img {
-    display: block; 
+    display: block;
     border-radius: 50%;
     width: 200px;
     height: 200px;
@@ -47,9 +48,10 @@ header {
     font-weight: 300;
 }
 
- /* .btn-outline-secondary {  */
-    .dropdown-toggle {
-        
+
+/* .btn-outline-secondary {  */
+
+.dropdown-toggle {
     margin-left: 5%;
     margin-top: -2%;
 }
@@ -85,9 +87,12 @@ header {
 
 .profile-real-name,
 .profile-stat-count
-/* .profile-edit-btn */{
+/* .profile-edit-btn */
+
+{
     font-weight: 600;
 }
+
 
 /* Gallery Section */
 
@@ -151,7 +156,9 @@ header {
     object-fit: cover;
 }
 
+
 /* Loader */
+
 
 /* .loader {
     width: 5rem;
@@ -163,6 +170,7 @@ header {
     animation: loader 500ms linear infinite;
 } */
 
+
 /* Media Query */
 
 @media (max-width: 40rem) {
@@ -172,11 +180,9 @@ header {
         /* padding: 4rem 0; */
         /* margin-top: -20%; */
     }
-
     .profile::after {
         display: none;
     }
-
     .profile-image,
     .profile-user-settings,
     .profile-bio,
@@ -185,40 +191,33 @@ header {
         width: 100%;
         height: 100%;
     }
-
     .profile-image img {
         /* width: 7.7rem; */
         width: 50px;
         height: 50px;
     }
-
     .profile-user-settings {
         flex-basis: calc(100% - 10.7rem);
         display: flex;
         flex-wrap: wrap;
         margin-top: 1rem;
     }
-
     .profile-user-name {
         font-size: 2.2rem;
     }
-
     .profile-bio {
         font-size: 1.4rem;
         margin-top: 1.5rem;
     }
-
     .profile-edit-btn,
     .profile-bio,
     .profile-stats {
         flex-basis: 100%;
     }
-
     .profile-stats {
         order: 1;
         margin-top: 1.5rem;
     }
-
     .profile-stats ul {
         display: flex;
         text-align: center;
@@ -226,25 +225,26 @@ header {
         border-top: 0.1rem solid #dadada;
         border-bottom: 0.1rem solid #dadada;
     }
-
     .profile-stats li {
         font-size: 1rem;
         flex: 1;
         margin: 0;
     }
-
     .profile-stat-count {
         display: block;
     }
-} 
+}
+
 
 /* Spinner Animation */
+
 
 /* @keyframes loader {
     to {
         transform: rotate(360deg);
     }
 } */
+
 
 /*
 
@@ -254,7 +254,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 */
 
-@supports (display: grid) { 
+@supports (display: grid) {
     .profile {
         display: grid;
         grid-template-columns: 1fr 2fr;
@@ -262,18 +262,14 @@ Remove or comment-out the code block below to see how the browser will fall-back
         grid-column-gap: 3rem;
         align-items: center;
     }
-
     .profile-image {
         grid-row: 1 / -1;
     }
-
     .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
         grid-gap: 2rem;
     }
-
-
     .profile-image {
         width: 100%;
         height: 100%;
@@ -286,29 +282,24 @@ Remove or comment-out the code block below to see how the browser will fall-back
         width: auto;
         margin: 0;
     }
-
     @media (max-width: 40rem) {
         .profile {
             grid-template-columns: auto 1fr;
             grid-row-gap: 1.5rem;
         }
-
         .profile-image {
             grid-row: 1 / 2;
         }
-
         .profile-user-settings {
             display: grid;
             grid-template-columns: auto 1fr;
             grid-gap: 1rem;
         }
-
         .profile-edit-btn,
         .profile-stats,
         .profile-bio {
             grid-column: 1 / -1;
         }
-
         .profile-user-settings,
         .profile-edit-btn,
         .profile-bio,
@@ -316,4 +307,4 @@ Remove or comment-out the code block below to see how the browser will fall-back
             margin: 0;
         }
     }
-} 
+}
