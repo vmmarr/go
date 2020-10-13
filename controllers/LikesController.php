@@ -21,29 +21,59 @@ class LikesController extends \yii\web\Controller
         ]);
     }
 
-    public function actionCreate($id)
+    // public function actionCreate($id)
+    // {
+    //     $model = new Likes();
+    //     $publi = $this->findPublicacion($id);
+
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         Yii::$app->session->setFlash('success', 'Like añadido.');
+    //         return $this->redirect(['publicaciones/index']);
+    //     }
+
+    //     return $this->render('create', [
+    //         'model' => $model,
+    //         'publi' => $publi,
+    //     ]);
+    // }
+
+    public function actionLikes($usuario_id, $publicacion_id) 
     {
         $model = new Likes();
-        $publi = $this->findPublicacion($id);
+        $existe = $model->find()->where(['usuario_id' => $usuario_id, 'publicacion_id' => $publicacion_id])->exists();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Like añadido.');
-            return $this->redirect(['publicaciones/index']);
+        if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
+            if ($existe) {
+                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                return json_encode(['class' => 'fas', 'contador' => $j]);
+            } else {
+                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                return json_encode(['class' => 'far', 'contador' => $j]);
+            }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-            'publi' => $publi,
-        ]);
+        if ($existe && $model->find()->where(['usuario_id' => $usuario_id, 'publicacion_id' => $publicacion_id])->one()->delete()) {
+            if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                return json_encode(['class' => 'far', 'contador' => $j]);
+            }
+        } else {
+            $model->usuario_id = $usuario_id;
+            $model->publicacion_id = $publicacion_id;
+            if ($model->save()) {
+                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                return json_encode(['class' => 'fas', 'contador' => $j]);
+            }
+        }
     }
 
-    public function actionDelete($id)
-    {
-        $model = $this->findLike($id);
-        $model->delete();
+    // public function actionDelete($id)
+    // {
+    //     $model = $this->findLike($id);
+    //     $model->delete();
 
-        return $this->redirect(['publicaciones/index']);
-    }
+    //     return $this->redirect(['publicaciones/index']);
+    // }
 
     protected function findLike($id)
     {
