@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 $this->title = 'Usuarios';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCssFile('@web/css/indexUsuarios.css');
 $this->registerJsFile('@web/js/indexUsuarios.js', [
