@@ -14,12 +14,14 @@ class UsuariosSearch extends Usuarios
     /**
      * {@inheritdoc}
      */
+
+
+    public $buscar;
     public function rules()
     {
         return [
-            // [['id'], 'integer'],
-            [['nombre', 'username'], 'string'],
-            // [['nombre', 'username', 'email', 'password', 'authkey', 'token'], 'safe'],
+            [['id'], 'integer'],
+            [['nombre', 'username', 'buscar', 'email', 'password', 'authkey', 'token'], 'safe'],
         ];
     }
 
@@ -52,12 +54,10 @@ class UsuariosSearch extends Usuarios
         if (!$this->validate()) {
             return $dataProvider;
         }
-        // var_dump($params);
 
-        $query->andFilterWhere(['like', 'username', $params]);
-        // $query->orFilterWhere(['like', 'nombre', $params]);
-
-        // var_dump($dataProvider);
+        $query->orFilterWhere(['ilike', 'username', $this->buscar])
+            ->orFilterWhere(['ilike', 'nombre', $this->buscar]);
+            
         return $dataProvider;
     }
 }
