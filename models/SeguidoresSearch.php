@@ -18,7 +18,7 @@ class SeguidoresSearch extends Seguidores
     {
         return [
             [['id', 'usuario_id', 'seguidor_id'], 'integer'],
-            [['aceptacion'], 'boolean'],
+            // [['aceptacion'], 'boolean'],
         ];
     }
 
@@ -61,7 +61,7 @@ class SeguidoresSearch extends Seguidores
             'id' => $this->id,
             'usuario_id' => $this->usuario_id,
             'seguidor_id' => $this->seguidor_id,
-            'aceptacion' => $this->aceptacion,
+            // 'aceptacion' => $this->aceptacion,
         ]);
 
         return $dataProvider;
