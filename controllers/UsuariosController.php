@@ -50,22 +50,14 @@ class UsuariosController extends Controller
 
     public function actionIndex()
     {
-        $model = new Usuarios();
 
-        $fila = Usuarios::find()->all();
-            
-        $cadena = Yii::$app->request->get('cadena', '');
-
-        $query = Usuarios::find()
-            ->filterWhere(['ilike', 'nombre', $cadena])
-            ->orFilterWhere(['ilike', 'username', $cadena])
-            ->all();
-
+        // $model = new Usuarios();
+        $searchModel = new UsuariosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
         return $this->render('index', [
-            'cadena' => $cadena,
-            'query' => $query,
-            'fila' => $fila,
-            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
     
