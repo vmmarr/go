@@ -64,6 +64,7 @@ AppAsset::register($this);
             'items' => [
                 ['label' => Icon::show('home', ['framework' => Icon::FAS]), 'url' => ['/publicaciones/index']],
                 ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Seguidores', 'url' => ['/seguidores/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
                 ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [

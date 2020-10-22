@@ -17,7 +17,9 @@ $this->registerJsFile('@web/js/indexUsuarios.js', [
 ]);
 ?>
 <div class="usuarios-index">
-<?php Pjax::begin(); ?>
+<?php Pjax::begin([
+    'timeout' => 500000,
+]); ?>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= ListView::widget([
         'dataProvider' => $dataProvider,        

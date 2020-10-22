@@ -34,7 +34,7 @@ class Seguidores extends \yii\db\ActiveRecord
             [['usuario_id', 'seguidor_id'], 'required'],
             [['usuario_id', 'seguidor_id'], 'default', 'value' => null],
             [['usuario_id', 'seguidor_id'], 'integer'],
-            [['aceptacion'], 'boolean'],
+            // [['aceptacion'], 'boolean'],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
             [['seguidor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['seguidor_id' => 'id']],
         ];
@@ -49,7 +49,7 @@ class Seguidores extends \yii\db\ActiveRecord
             'id' => 'ID',
             'usuario_id' => 'Usuario ID',
             'seguidor_id' => 'Seguidor ID',
-            'aceptacion' => 'Aceptacion',
+            // 'aceptacion' => 'Aceptacion',
         ];
     }
 

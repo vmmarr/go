@@ -5,36 +5,38 @@ use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-// $url = Url::to(['likes/likes', 'usuario_id' => Yii::$app->user->identity->id, 'publicacion_id' => $model->id]);
-// $js = <<<EOT
-//     $(document).ready(function () {
-//         $.ajax({
-//             type: 'GET',
-//             url: '$url',
-//             success: function (data) {
-//                 data = JSON.parse(data);
-//                 $('#like' + '$model->id').removeClass('far');
-//                 $('#like' + '$model->id').addClass(data.class);
-//                 $('#numLikes' + '$model->id').text(data.contador);
-//             }
-//         });
-//         $('#like' + '$model->id').click(function (e) {
-//             e.preventDefault();
-//             $.ajax({
-//                 type: 'POST',
-//                 url: '$url',
-//                 success: function (data) {
-//                     data = JSON.parse(data);
-//                     $('#like' + '$model->id').removeClass('fas');
-//                     $('#like' + '$model->id').addClass(data.class);
-//                     $('#numLikes' + '$model->id').text(data.contador);
-//                 }
-//             })
-//         });
-//     });
-// EOT;
+$url = Url::to(['seguidores/seguir', 'usuario_id' => Yii::$app->user->identity->id, 'seguidor_id' => $model->id]);
+$js = <<<EOT
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '$url',
+            success: function (data) {
+                data = JSON.parse(data);
+                $('#btnSeguir' + '$model->id').removeClass('btn-primary');
+                $('#btnSeguir' + '$model->id').removeClass('btn-outline-dark');
+                $('#btnSeguir' + '$model->id').addClass(data.class);
+                $('#btnSeguir' + '$model->id').text(data.text);
+            }
+        });
+        $('#btnSeguir' + '$model->id').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '$url',
+                success: function (data) {
+                    data = JSON.parse(data);
+                    $('#btnSeguir' + '$model->id').removeClass('btn-outline-dark');
+                    $('#btnSeguir' + '$model->id').removeClass('btn-primary');
+                    $('#btnSeguir' + '$model->id').addClass(data.class);
+                    $('#btnSeguir' + '$model->id').text(data.text);
+                }
+            })
+        });
+    });
+EOT;
 
-// $this->registerJs($js);
+$this->registerJs($js);
 $archivo = $model->comprobarImagen($model->id . '.png');
 ?>
 <div class="row">
@@ -51,7 +53,11 @@ $archivo = $model->comprobarImagen($model->id . '.png');
 
                     <?=Html::a($model->username)?>
                 </div>
-                <a href="#" class="btn btn-primary btn-sm">Seguir</a>
+                <?=Html::a('Seguir', null, [
+                    'id' => 'btnSeguir' . $model->id,
+                    'class' => 'btn btn-primary btn-sm',
+                    'data-pjax' => 0
+                ])?>
             </div>
         </div>
     </div>

@@ -54,5 +54,5 @@ CREATE TABLE seguidores
     id         bigserial    PRIMARY KEY
   , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
   , seguidor_id bigint       NOT NULL REFERENCES usuarios (id)
-  , aceptacion boolean
+  -- , aceptacion boolean
 );

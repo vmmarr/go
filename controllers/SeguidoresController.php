@@ -19,16 +19,30 @@ class SeguidoresController extends \yii\web\Controller
         ]);
     }
 
-    public function actionCreate()
+    public function actionSeguir($usuario_id, $seguidor_id) 
     {
         $model = new Seguidores();
+        $existe = $model->find()->where(['usuario_id' => $usuario_id, 'seguidor_id' => $seguidor_id])->exists();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
+            if ($existe) {
+               return json_encode(['class' => 'btn-outline-dark', 'text' => 'Siguendo']);
+            } else {
+               return json_encode(['class' => 'btn-primary', 'text' => 'Seguir']);
+            }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        if ($existe && $model->find()->where(['usuario_id' => $usuario_id, 'seguidor_id' => $seguidor_id])->one()->delete()) {
+            if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+                return json_encode(['class' => 'btn-primary', 'text' => 'Seguir']);
+            }
+        } else {
+            $model->usuario_id = $usuario_id;
+            $model->seguidor_id = $seguidor_id;
+            if ($model->save()) {
+                return json_encode(['class' => 'btn-outline-dark', 'text' => 'Siguendo']);
+            }
+        }
     }
+
 }
