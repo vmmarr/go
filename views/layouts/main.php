@@ -62,7 +62,7 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav justify-content-end'],
             'items' => [
-                ['label' => Icon::show('home', ['framework' => Icon::FAS]), 'url' => ['/publicaciones/index']],
+                ['label' => Icon::show('home', ['framework' => Icon::FAS]), 'url' => ['/publicaciones/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Seguidores', 'url' => ['/seguidores/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
