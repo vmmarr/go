@@ -14,7 +14,6 @@ use yii\helpers\Url;
         
         <?= $form->field($model, 'imagen')->fileInput() ?>
         <?= $form->field($model, 'usuario_id')->textInput()->hiddenInput(['value' => Yii::$app->user->id])->label(false); ?>
-        <?= $form->field($model, 'created_at')->textInput()->hiddenInput(['value' => Yii::$app->formatter->asDatetime(time(), 'php:d-m-Y H:i:s')])->label(false) ?>
         <?= $form->field($model, 'descripcion')->textarea(['maxlength' => true]) ?>
         <div class="form-group">
             <?= Html::submitButton('Publicar', ['class' => 'btn btn-success']) ?> 

@@ -39,8 +39,6 @@ class Publicaciones extends \yii\db\ActiveRecord
         return [
             [['usuario_id'], 'required'],
             [['usuario_id'], 'integer'],
-            [['created_at'], 'safe'],
-            [['created_at'], 'required'],
             [['descripcion'], 'string', 'max' => 255],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
 
@@ -56,7 +54,6 @@ class Publicaciones extends \yii\db\ActiveRecord
             'id' => 'ID',
             'usuario_id' => 'Usuario ID',
             'descripcion' => 'Descripcion',
-            'created_at' => 'Created At',
         ];
     }
 
