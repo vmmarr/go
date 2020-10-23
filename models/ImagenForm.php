@@ -13,7 +13,7 @@ class ImagenForm extends Model
     public function rules()
     {
         return [
-            [['imagen'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['imagen'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg'],
         ];
     }
     
@@ -76,7 +76,7 @@ class ImagenForm extends Model
 
     public function borradoLocal($id)
     {
-        unlink(Yii::getAlias('@img/' . $id . '.png'));
+        unlink(Yii::getAlias('@img/' . $id . '.' . $this->imagen->extension));
     }
 
     public function descarga($key)

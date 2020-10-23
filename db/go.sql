@@ -33,7 +33,7 @@ CREATE TABLE comentarios
 (
     id         bigserial    PRIMARY KEY
   , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
-  , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id)
+  , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id) on update CASCADE on delete CASCADE
   , comentario varchar(255)
   , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
 );
@@ -44,7 +44,7 @@ CREATE TABLE likes
 (
     id         bigserial    PRIMARY KEY
   , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
-  , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id)
+  , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id) on update CASCADE on delete CASCADE
 );
 
 DROP TABLE IF EXISTS seguidores CASCADE;

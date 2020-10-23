@@ -111,7 +111,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             return $this->_imagen;
         }
         // Nube
-        $this->setImagen($this->id . '.png');
+        $this->setImagen($this->id . '.jpg');
         // Local
         // $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
         return $this->_imagen;
@@ -137,7 +137,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
             return $this->_imagenUrl;
         }
         // Nube
-        $this->setImagenUrl($this->id . '.png');
+        $this->setImagenUrl($this->id . '.jpg');
         // Local
         // $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->id . '.png'));
         return $this->_imagenUrl;
