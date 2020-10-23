@@ -21,13 +21,16 @@ class PublicacionesController extends \yii\web\Controller
             'query' => $query,
         ]);
 
-
-        // var_dump($comentarios->comentario);
-        // return $comentarios['comentario'];
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        if (!Yii::$app->user->isGuest) : 
+            // var_dump($comentarios->comentario);
+            // return $comentarios['comentario'];
+            
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                ]);
+        else : 
+            return $this->redirect(['/site/login']);
+        endif;
     }
 
     public function actionCreate()
