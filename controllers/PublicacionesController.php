@@ -33,9 +33,15 @@ class PublicacionesController extends \yii\web\Controller
     public function actionCreate()
     {
         $model = new Publicaciones();
+        $model2 = new ImagenPublicacion();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['subida', 'id' => $model->id]);
+            $model2->imagen = UploadedFile::getInstance($model, 'imagen');
+            if ($model2->subida($model->id) && $model2->subidaAws($model->id)) {
+                Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+                $model2->borradoLocal();
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
@@ -57,24 +63,24 @@ class PublicacionesController extends \yii\web\Controller
         ]);
     }
 
-    public function actionSubida($id)
-    {
-        $model = new ImagenPublicacion();
-        var_dump('Estes en subir imagen publicacion');
+    // public function actionSubida($id)
+    // {
+    //     $model = new ImagenPublicacion();
+    //     // var_dump('Estes en subir imagen publicacion');
         
-        if (Yii::$app->request->isPost) {
-            $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->subida($id) && $model->subidaAws($id)) {
-                Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
-                $model->borradoLocal();
-                return $this->redirect(['index']);
-            }
-        }
+    //     if (Yii::$app->request->isPost) {
+    //         $model->imagen = UploadedFile::getInstance($model, 'imagen');
+    //         if ($model->subida($id) && $model->subidaAws($id)) {
+    //             Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+    //             $model->borradoLocal();
+    //             return $this->redirect(['index']);
+    //         }
+    //     }
 
-        return $this->render('imagen', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('_form', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     public function actionDownload($fichero)
     {
