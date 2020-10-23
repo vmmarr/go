@@ -35,8 +35,7 @@
         "cache/doctrine-adapter": "^1.0",
         "rmrevin/yii2-fontawesome": "^3.6",
         "kartik-v/yii2-password": "dev-master",
-        "joni-jones/yii2-heroku-logger": "dev-master",
-        "kartik-v/bootstrap-fileinput": "dev-master"
+        "joni-jones/yii2-heroku-logger": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
