@@ -19,6 +19,9 @@ class PublicacionesController extends \yii\web\Controller
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         if (!Yii::$app->user->isGuest) : 
