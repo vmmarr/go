@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Publicaciones;
+use app\models\Bloqueados;
 
 /**
- * PublicacionesSearch represents the model behind the search form of `app\models\Publicaciones`.
+ * BloqueadosSearch represents the model behind the search form of `app\models\Bloqueados`.
  */
-class PublicacionesSearch extends Publicaciones
+class BloqueadosSearch extends Bloqueados
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class PublicacionesSearch extends Publicaciones
     public function rules()
     {
         return [
-            [['id', 'usuario_id'], 'integer'],
-            [['descripcion', 'created_at', 'update_at'], 'safe'],
+            [['id', 'usuario_id', 'bloqueado_id'], 'integer'],
         ];
     }
 
@@ -40,15 +39,12 @@ class PublicacionesSearch extends Publicaciones
      */
     public function search($params)
     {
-        $query = Publicaciones::find();
+        $query = Bloqueados::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
         ]);
 
         $this->load($params);
@@ -63,11 +59,8 @@ class PublicacionesSearch extends Publicaciones
         $query->andFilterWhere([
             'id' => $this->id,
             'usuario_id' => $this->usuario_id,
-            'created_at' => $this->created_at,
-            'update_at' => $this->update_at,
+            'bloqueado_id' => $this->bloqueado_id,
         ]);
-
-        $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion]);
 
         return $dataProvider;
     }

@@ -4,20 +4,16 @@ img {
     border-radius: 50%;
 }
 
-.card {
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-radius: 0 !important;
-    background-color: #fafafa !important;
-}
-
 .fotoNombre {
     width: 300px;
 }
 
 a {
     margin-left: 5%;
+}
+
+.horizontal {
+    border-bottom: 0.5px solid #C0C0C0;
 }
 
 @media (max-width: 40rem) {
