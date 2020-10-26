@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS publicaciones CASCADE;
 CREATE TABLE publicaciones
 (
     id         bigserial    PRIMARY KEY
-  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
   , descripcion varchar(255)
   , created_at timestamp NOT NULL DEFAULT current_timestamp
 );
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS comentarios CASCADE;
 CREATE TABLE comentarios
 (
     id         bigserial    PRIMARY KEY
-  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
   , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id) on update CASCADE on delete CASCADE
   , comentario varchar(255)
   , created_at timestamp(0) NOT NULL DEFAULT current_timestamp
@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS likes CASCADE;
 CREATE TABLE likes
 (
     id         bigserial    PRIMARY KEY
-  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
   , publicacion_id bigint   NOT NULL REFERENCES publicaciones (id) on update CASCADE on delete CASCADE
 );
 
@@ -52,7 +52,15 @@ DROP TABLE IF EXISTS seguidores CASCADE;
 CREATE TABLE seguidores
 (
     id         bigserial    PRIMARY KEY
-  , usuario_id bigint       NOT NULL REFERENCES usuarios (id)
-  , seguidor_id bigint       NOT NULL REFERENCES usuarios (id)
-  -- , aceptacion boolean
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
+  , seguidor_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
+);
+
+DROP TABLE IF EXISTS bloqueados CASCADE;
+
+CREATE TABLE bloqueados
+(
+    id         bigserial    PRIMARY KEY
+  , usuario_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
+  , bloqueado_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
 );
