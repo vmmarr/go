@@ -17,6 +17,13 @@ $this->registerJsFile('@web/js/indexPublicaciones.js', [
         \yii\web\JqueryAsset::className()
     ]
 ]);
+
+$this->registerCssFile('@web/css/magnific-popup.css');
+$this->registerJsFile('@web/js/jquery.magnific-popup.js', [
+    'depends' => [
+        \yii\web\JqueryAsset::className()
+    ]
+]);
 ?>
 <div class="publicaciones-index">
     <p>

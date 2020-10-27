@@ -36,6 +36,16 @@ EOT;
 
 $this->registerJs($js);
 
+$js = <<<EOT
+$(document).ready(function() {
+    $('.image').magnificPopup({
+        type:'image'
+    });
+  });
+EOT;
+
+$this->registerJs($js);
+
 ?>
 
 <div class="row d-flex justify-content-center align-items-center">
@@ -71,7 +81,7 @@ $this->registerJs($js);
                 </div>
             </div>
             <div class="contenido d-flex justify-content-center align-items-center">
-                <?= Html::img(['download', 'fichero' => $model->imagenUrl]); ?>
+                <?=Html::a(Html::img(['download', 'fichero' => $model->imagenUrl]),['download', 'fichero' => $model->imagenUrl], ['class' => 'image'])?>
             </div>
             <div>
                 <?=Icon::show('comment', ['framework' => Icon::FAR])?>
