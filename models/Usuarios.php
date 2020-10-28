@@ -217,4 +217,11 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Publicaciones::className(), ['usuario_id' => 'id']);
     }
+
+    public static function estaBloqueado($id) {
+        return Bloqueados::find()
+        ->andwhere(['usuario_id' => $id])
+        ->andWhere(['bloqueado_id' => Yii::$app->user->identity->id])
+        ->exists();
+    }
 }

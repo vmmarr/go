@@ -9,9 +9,6 @@ use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
 use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Alert;
-use yii\data\ActiveDataProvider;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
@@ -50,8 +47,6 @@ class UsuariosController extends Controller
 
     public function actionIndex()
     {
-
-        // $model = new Usuarios();
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
@@ -70,6 +65,10 @@ class UsuariosController extends Controller
      */
     public function actionPerfil($id)
     {
+        if (Usuarios::estaBloqueado($id))  {
+            Yii::$app->session->setFlash('danger', 'El usuario le tiene bloqueado y no deja ver su perfil.');
+            return $this->goHome();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

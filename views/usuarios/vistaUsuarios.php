@@ -82,7 +82,7 @@ $archivo = $model->comprobarImagen($model->id . '.png');
         <?php endif; ?>
     </div>
     <div class="col-md-6 mt-5">
-        <?=Html::a(Html::encode($model->username))?>
+        <?=Html::a(Html::encode($model->username), ['usuarios/perfil', 'id' => $model->id])?>
     </div>
     <div class="col-md-4 mt-5 mb-3">
         <?=Html::a('Bloquear', null, [
