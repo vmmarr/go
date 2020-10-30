@@ -1,12 +1,12 @@
 <?php
 
-use app\models\Comentarios;
-use kartik\icons\Icon;
+
+use app\models\Usuarios;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 $url = Url::to(['seguidores/seguir', 'usuario_id' => Yii::$app->user->identity->id, 'seguidor_id' => $model->id]);
-$js = <<<EOT
+$jsSeguir = <<<EOT
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
@@ -36,40 +36,59 @@ $js = <<<EOT
     });
 EOT;
 
-$this->registerJs($js);
 
 $url = Url::to(['bloqueados/bloquear', 'usuario_id' => Yii::$app->user->identity->id, 'bloqueado_id' => $model->id]);
-$js = <<<EOT
-    $(document).ready(function () {
+$jsBloquear = <<<EOT
+$(document).ready(function () {
+    $.ajax({
+        type: 'GET',
+        url: '$url',
+        success: function (data) {
+            data = JSON.parse(data);
+            $('#btnBloquear' + '$model->id').removeClass('btn-danger');
+            $('#btnBloquear' + '$model->id').removeClass('btn-outline-danger');
+            $('#btnBloquear' + '$model->id').addClass(data.class);
+            $('#btnBloquear' + '$model->id').text(data.text);
+            var boton = $('#btnBloquear' + '$model->id').text();
+            if (boton == 'Bloqueado') {
+                $('#btnSeguir' + '$model->id').hide();
+            } else {
+                $('#btnSeguir' + '$model->id').removeClass('btn-outline-dark');
+                $('#btnSeguir' + '$model->id').addClass(data.cs);
+                $('#btnSeguir' + '$model->id').text(data.ts);
+                $('#btnSeguir' + '$model->id').show();
+            }
+            
+        }
+    });
+    $('#btnBloquear' + '$model->id').click(function (e) {
+        e.preventDefault();
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '$url',
             success: function (data) {
                 data = JSON.parse(data);
-                $('#btnBloquear' + '$model->id').removeClass('btn-danger');
                 $('#btnBloquear' + '$model->id').removeClass('btn-outline-danger');
+                $('#btnBloquear' + '$model->id').removeClass('btn-danger');
                 $('#btnBloquear' + '$model->id').addClass(data.class);
                 $('#btnBloquear' + '$model->id').text(data.text);
-            }
-        });
-        $('#btnBloquear' + '$model->id').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '$url',
-                success: function (data) {
-                    data = JSON.parse(data);
-                    $('#btnBloquear' + '$model->id').removeClass('btn-outline-danger');
-                    $('#btnBloquear' + '$model->id').removeClass('btn-danger');
-                    $('#btnBloquear' + '$model->id').addClass(data.class);
-                    $('#btnBloquear' + '$model->id').text(data.text);
+                var boton = $('#btnBloquear' + '$model->id').text();
+                if (boton == 'Bloqueado') {
+                    $('#btnSeguir' + '$model->id').hide();
+                } else {
+                    $('#btnSeguir' + '$model->id').removeClass('btn-outline-dark');
+                    $('#btnSeguir' + '$model->id').addClass(data.cs);
+                    $('#btnSeguir' + '$model->id').text(data.ts);
+                    $('#btnSeguir' + '$model->id').show();
                 }
-            })
-        });
+            }
+        })
     });
+});
 EOT;
 
-$this->registerJs($js);
+$this->registerJs($jsSeguir);
+$this->registerJs($jsBloquear);
 $archivo = $model->comprobarImagen($model->id . '.png');
 ?>
 
@@ -90,10 +109,12 @@ $archivo = $model->comprobarImagen($model->id . '.png');
             'class' => 'btn btn-danger',
             'data-pjax' => 0
         ])?>
-        <?=Html::a('Seguir', null, [
-            'id' => 'btnSeguir' . $model->id,
-            'class' => 'btn btn-primary',
-            'data-pjax' => 0
-        ])?>
+        <?php if (!Usuarios::estaBloqueado($model->id)) : ?>
+            <?=Html::a('Seguir', null, [
+                'id' => 'btnSeguir' . $model->id,
+                'class' => 'btn btn-primary',
+                'data-pjax' => 0
+            ])?>      
+        <?php endif ?>
     </div>
 </div>

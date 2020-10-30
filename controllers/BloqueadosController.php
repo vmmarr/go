@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Bloqueados;
 use app\models\BloqueadosSearch;
+use app\models\Seguidores;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -129,25 +130,34 @@ class BloqueadosController extends Controller
     {
         $model = new Bloqueados();
         $existe = $model->find()->where(['usuario_id' => $usuario_id, 'bloqueado_id' => $bloqueado_id])->exists();
-
-        if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
-            if ($existe) {
-               return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado']);
+        $existeSeguidor = Seguidores::find()
+        ->andwhere(['usuario_id' => $usuario_id])
+        ->andWhere(['seguidor_id' => $bloqueado_id])
+        ->exists();
+            if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
+                if ($existe) {
+                    return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
+                } else {
+                    return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
+                }
+            }
+            
+            if ($existe && $model->find()->where(['usuario_id' => $usuario_id, 'bloqueado_id' => $bloqueado_id])->one()->delete()) {
+                if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+                    return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
+                }
             } else {
-               return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear']);
+                $model->usuario_id = $usuario_id;
+                $model->bloqueado_id = $bloqueado_id;
+                if ($model->save()) {
+                    if ($existeSeguidor) :
+                        Seguidores::find()
+                        ->andwhere(['usuario_id' => $usuario_id])
+                        ->andWhere(['seguidor_id' => $bloqueado_id])
+                        ->one()->delete();
+                    endif;
+                    return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
+                }
             }
-        }
-
-        if ($existe && $model->find()->where(['usuario_id' => $usuario_id, 'bloqueado_id' => $bloqueado_id])->one()->delete()) {
-            if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
-                return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear']);
-            }
-        } else {
-            $model->usuario_id = $usuario_id;
-            $model->bloqueado_id = $bloqueado_id;
-            if ($model->save()) {
-                return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado']);
-            }
-        }
     }
 }
