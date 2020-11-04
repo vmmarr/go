@@ -1,11 +1,12 @@
 <?php
 
-use app\models\Comentarios;
+use app\models\Likes;
+use app\models\Usuarios;
 use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$url = Url::to(['likes/likes', 'usuario_id' => Yii::$app->user->identity->id, 'publicacion_id' => $model->id]);
+$url = Url::to(['likes/likes', 'usuario_id' => $model->usuario_id, 'publicacion_id' => $model->id]);
 $js = <<<EOT
     $(document).ready(function () {
         $.ajax({
@@ -45,7 +46,6 @@ $(document).ready(function() {
 EOT;
 
 $this->registerJs($js);
-
 ?>
 
 <div class="row d-flex justify-content-center align-items-center">
@@ -86,14 +86,11 @@ $this->registerJs($js);
             <div>
                 <?=Icon::show('comment', ['framework' => Icon::FAR])?>
                 <?=Html::tag('span', $model->totalComentarios); ?>
-                <!-- Si el usuario logueado es el mismo que el usuario id de un like y le a dado a like se pone heart si no heart-empty -->
                 <?=Html::a(null, null, [
                     'id' => 'like' . $model->id,
                     'class' => 'text-danger fa-heart',
                     'data-pjax' => 0
                 ])?>
-
-                
                 <?=Html::tag('span', '', ['id' => 'numLikes' . $model->id]); ?>
             </div>
             <div class="card-body d-flex justify-content-between align-items-center comentario">

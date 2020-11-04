@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Likes;
 use app\models\LikesSearch;
 use app\models\Publicaciones;
+use app\models\Usuarios;
 use Yii;
 use yii\web\NotFoundHttpException;
 
@@ -39,41 +40,55 @@ class LikesController extends \yii\web\Controller
 
     public function actionLikes($usuario_id, $publicacion_id) 
     {
+        
         $model = new Likes();
-        $existe = $model->find()->where(['usuario_id' => $usuario_id, 'publicacion_id' => $publicacion_id])->exists();
+        $existe = $model->find()->where(['usuario_id' => Yii::$app->user->identity->id, 'publicacion_id' => $publicacion_id])->exists();
+        // if (Usuarios::Bloqueado($model->usuario_id)) {
+            // $existeLike = Likes::find()
+            // ->andwhere(['usuario_id' => Yii::$app->user->identity->id])
+            // ->andWhere(['publicacion_id' => $publicacion_id])
+            // ->exists();
+        // }
+// if (!Usuarios::estaBloqueado($usuario_id)) :
+    // if ($existeLike) :
+    //     Likes::find()
+    //     ->andwhere(['usuario_id' => Yii::$app->user->identity->id])
+    //     ->andWhere(['publicacion_id' => $publicacion_id])
+    //     ->one()->delete();
+    // endif;
+    if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
+        if ($existe) {
+                    $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                    return json_encode(['class' => 'fas', 'contador' => $j]);
+                } else {
+                    $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                    return json_encode(['class' => 'far', 'contador' => $j]);
+                }
+            }
 
-        if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
-            if ($existe) {
-                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
-                return json_encode(['class' => 'fas', 'contador' => $j]);
+            if ($existe && $model->find()->where(['usuario_id' => Yii::$app->user->identity->id, 'publicacion_id' => $publicacion_id])->one()->delete()) {
+                if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+                    $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                    return json_encode(['class' => 'far', 'contador' => $j]);
+                }
             } else {
-                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
-                return json_encode(['class' => 'far', 'contador' => $j]);
+                $model->usuario_id = Yii::$app->user->identity->id;
+                $model->publicacion_id = $publicacion_id;
+                if ($model->save()) {
+                    $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
+                    return json_encode(['class' => 'fas', 'contador' => $j]);
+                }
             }
-        }
-
-        if ($existe && $model->find()->where(['usuario_id' => $usuario_id, 'publicacion_id' => $publicacion_id])->one()->delete()) {
-            if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
-                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
-                return json_encode(['class' => 'far', 'contador' => $j]);
-            }
-        } else {
-            $model->usuario_id = $usuario_id;
-            $model->publicacion_id = $publicacion_id;
-            if ($model->save()) {
-                $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
-                return json_encode(['class' => 'fas', 'contador' => $j]);
-            }
-        }
+        // endif;
     }
 
-    // public function actionDelete($id)
-    // {
-    //     $model = $this->findLike($id);
-    //     $model->delete();
+    public function actionDelete($id)
+    {
+        $model = $this->findLike($id);
+        $model->delete();
 
-    //     return $this->redirect(['publicaciones/index']);
-    // }
+        return $this->redirect(['publicaciones/index']);
+    }
 
     protected function findLike($id)
     {
