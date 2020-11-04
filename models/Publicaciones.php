@@ -111,6 +111,10 @@ class Publicaciones extends \yii\db\ActiveRecord
         return Usuarios::find()->where(['id' => $id])->one();
     }
 
+    public static function publicacionLike($id) {
+        return Publicaciones::find()->where(['usuario_id' => $id])->all(); 
+    }
+
     public function getImagen()
     {
         if ($this->_imagen !== null) {

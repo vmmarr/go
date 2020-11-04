@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Bloqueados;
 use app\models\BloqueadosSearch;
+use app\models\Likes;
+use app\models\Publicaciones;
 use app\models\Seguidores;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -134,30 +136,37 @@ class BloqueadosController extends Controller
         ->andwhere(['usuario_id' => $usuario_id])
         ->andWhere(['seguidor_id' => $bloqueado_id])
         ->exists();
-            if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
-                if ($existe) {
-                    return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
-                } else {
-                    return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
-                }
-            }
-            
-            if ($existe && $model->find()->where(['usuario_id' => $usuario_id, 'bloqueado_id' => $bloqueado_id])->one()->delete()) {
-                if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
-                    return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
-                }
+        $publicacionesBlo = Publicaciones::publicacionLike($bloqueado_id);
+        if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
+            if ($existe) {
+                return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
             } else {
-                $model->usuario_id = $usuario_id;
-                $model->bloqueado_id = $bloqueado_id;
-                if ($model->save()) {
-                    if ($existeSeguidor) :
-                        Seguidores::find()
-                        ->andwhere(['usuario_id' => $usuario_id])
-                        ->andWhere(['seguidor_id' => $bloqueado_id])
-                        ->one()->delete();
-                    endif;
-                    return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
-                }
+                return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
             }
+        }
+        
+        if ($existe && $model->find()->where(['usuario_id' => $usuario_id, 'bloqueado_id' => $bloqueado_id])->one()->delete()) {
+            if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+                return json_encode(['class' => 'btn-danger', 'text' => 'Bloquear', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
+            }
+        } else {
+            $model->usuario_id = $usuario_id;
+            $model->bloqueado_id = $bloqueado_id;
+            if ($model->save()) {
+                foreach ($publicacionesBlo as $fila) {
+                    Likes::find()
+                    ->andwhere(['usuario_id' => $usuario_id])
+                    ->andWhere(['publicacion_id' => $fila['id']])
+                    ->one()->delete();
+                }
+                if ($existeSeguidor) :
+                    Seguidores::find()
+                    ->andwhere(['usuario_id' => $usuario_id])
+                    ->andWhere(['seguidor_id' => $bloqueado_id])
+                    ->one()->delete();
+                endif;
+                return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
+            }
+        }
     }
 }
