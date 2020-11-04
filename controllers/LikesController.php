@@ -43,21 +43,9 @@ class LikesController extends \yii\web\Controller
         
         $model = new Likes();
         $existe = $model->find()->where(['usuario_id' => Yii::$app->user->identity->id, 'publicacion_id' => $publicacion_id])->exists();
-        // if (Usuarios::Bloqueado($model->usuario_id)) {
-            // $existeLike = Likes::find()
-            // ->andwhere(['usuario_id' => Yii::$app->user->identity->id])
-            // ->andWhere(['publicacion_id' => $publicacion_id])
-            // ->exists();
-        // }
-// if (!Usuarios::estaBloqueado($usuario_id)) :
-    // if ($existeLike) :
-    //     Likes::find()
-    //     ->andwhere(['usuario_id' => Yii::$app->user->identity->id])
-    //     ->andWhere(['publicacion_id' => $publicacion_id])
-    //     ->one()->delete();
-    // endif;
-    if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
-        if ($existe) {
+        if (!Usuarios::estaBloqueado($usuario_id)) :
+            if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
+                if ($existe) {
                     $j = $model->find()->where(['publicacion_id' => $publicacion_id])->count();
                     return json_encode(['class' => 'fas', 'contador' => $j]);
                 } else {
@@ -79,7 +67,7 @@ class LikesController extends \yii\web\Controller
                     return json_encode(['class' => 'fas', 'contador' => $j]);
                 }
             }
-        // endif;
+        endif;
     }
 
     public function actionDelete($id)

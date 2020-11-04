@@ -136,7 +136,8 @@ class BloqueadosController extends Controller
         ->andwhere(['usuario_id' => $usuario_id])
         ->andWhere(['seguidor_id' => $bloqueado_id])
         ->exists();
-        $publicacionesBlo = Publicaciones::publicacionLike($bloqueado_id);
+        $publicacionesBlo = Publicaciones::publicacionLike($usuario_id);
+        // Yii::debug($publicacionesBlo);
         if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
             if ($existe) {
                 return json_encode(['class' => 'btn-outline-danger', 'text' => 'Bloqueado', 'cs' => 'btn-primary', 'ts' => 'Seguir']);
@@ -154,10 +155,19 @@ class BloqueadosController extends Controller
             $model->bloqueado_id = $bloqueado_id;
             if ($model->save()) {
                 foreach ($publicacionesBlo as $fila) {
-                    Likes::find()
-                    ->andwhere(['usuario_id' => $usuario_id])
+                    Yii::debug('usuario bloqueado ' . $bloqueado_id);
+                    Yii::debug('fila ' . $fila['id']);
+                    $existeLike = Likes::find()
+                    ->andwhere(['usuario_id' => $bloqueado_id])
                     ->andWhere(['publicacion_id' => $fila['id']])
-                    ->one()->delete();
+                    ->exists();
+                    if ($existeLike) {
+                        Yii::debug($fila);
+                        Likes::find()
+                        ->andwhere(['usuario_id' => $bloqueado_id])
+                        ->andWhere(['publicacion_id' => $fila['id']])
+                        ->one()->delete();
+                    }
                 }
                 if ($existeSeguidor) :
                     Seguidores::find()

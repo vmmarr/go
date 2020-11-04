@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'id',
             'usuario_id',
-            'publicaciones_id',
+            'publicacion_id',
         ],
     ]); ?>
 <?php Pjax::end(); ?>
