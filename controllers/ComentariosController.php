@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Comentarios;
 use app\models\ComentariosSearch;
 use app\models\Publicaciones;
+use app\models\Usuarios;
 use Yii;
 use yii\web\NotFoundHttpException;
 
@@ -33,9 +34,13 @@ class ComentariosController extends \yii\web\Controller
     {
         $model = new Comentarios();
         $publi = $this->findPublicacion($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Comentario añadido.');
+        if (!Usuarios::estaBloqueado($publi->usuario_id)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', 'Comentario añadido.');
+                return $this->redirect(['publicaciones/index']);
+            }
+        } else {
+            Yii::$app->session->setFlash('danger', 'No puedes comentar, te tiene bloqueado.');
             return $this->redirect(['publicaciones/index']);
         }
 

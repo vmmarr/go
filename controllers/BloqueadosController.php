@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Bloqueados;
 use app\models\BloqueadosSearch;
+use app\models\Comentarios;
 use app\models\Likes;
 use app\models\Publicaciones;
 use app\models\Seguidores;
@@ -157,6 +158,10 @@ class BloqueadosController extends Controller
                 foreach ($publicacionesBlo as $fila) {
                     Yii::debug('usuario bloqueado ' . $bloqueado_id);
                     Yii::debug('fila ' . $fila['id']);
+                    $existeComentario = Comentarios::find()
+                    ->andwhere(['usuario_id' => $bloqueado_id])
+                    ->andWhere(['publicacion_id' => $fila['id']])
+                    ->exists();
                     $existeLike = Likes::find()
                     ->andwhere(['usuario_id' => $bloqueado_id])
                     ->andWhere(['publicacion_id' => $fila['id']])
@@ -167,6 +172,16 @@ class BloqueadosController extends Controller
                         ->andwhere(['usuario_id' => $bloqueado_id])
                         ->andWhere(['publicacion_id' => $fila['id']])
                         ->one()->delete();
+                    }
+
+                    if ($existeComentario) {
+                        $comentarios = Comentarios::find()
+                        ->andwhere(['usuario_id' => $bloqueado_id])
+                        ->andWhere(['publicacion_id' => $fila['id']])
+                        ->all();
+                        foreach ($comentarios as $comentario) {
+                            $comentario->delete();
+                        }
                     }
                 }
                 if ($existeSeguidor) :
