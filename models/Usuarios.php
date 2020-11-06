@@ -231,11 +231,4 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         ->andWhere(['bloqueado_id' => $id])
         ->exists();
     }
-
-    public static function estaSeguido($id) {
-        return Seguidores::find()
-        ->andwhere(['usuario_id' => $id])
-        ->andWhere(['seguidor_id' => Yii::$app->user->identity->id])
-        ->exists();
-    }
 }
