@@ -2,20 +2,20 @@
 -- Archivo de base de datos --
 ------------------------------
 
-DROP TABLE IF EXISTS usuarios CASCADE;
+-- DROP TABLE IF EXISTS usuarios CASCADE;
 
-CREATE TABLE usuarios
-(
-    id         bigserial    PRIMARY KEY
-  , nombre       varchar(255)  NOT NULL
-  , username     varchar(60) NOT NULL UNIQUE
-  , biografia varchar(255)
-  , email   varchar(255)  NOT NULL UNIQUE
-  , password  varchar(255) NOT NULL
-  , authKey varchar(255) NOT NULL
-  , verification_code varchar(255) NOT NULL DEFAULT ''
-  , token varchar(255)
-);
+-- CREATE TABLE usuarios
+-- (
+--     id         bigserial    PRIMARY KEY
+--   , nombre       varchar(255)  NOT NULL
+--   , username     varchar(60) NOT NULL UNIQUE
+--   , biografia varchar(255)
+--   , email   varchar(255)  NOT NULL UNIQUE
+--   , password  varchar(255) NOT NULL
+--   , authKey varchar(255) NOT NULL
+--   , verification_code varchar(255) NOT NULL DEFAULT ''
+--   , token varchar(255)
+-- );
 
 DROP TABLE IF EXISTS publicaciones CASCADE;
 
@@ -25,6 +25,7 @@ CREATE TABLE publicaciones
   , usuario_id bigint       NOT NULL REFERENCES usuarios (id) on update CASCADE on delete CASCADE
   , descripcion varchar(255)
   , created_at timestamp NOT NULL DEFAULT current_timestamp
+  , extension varchar(255)
 );
 
 DROP TABLE IF EXISTS comentarios CASCADE;
