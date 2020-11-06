@@ -123,7 +123,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             return $this->_imagen;
         }
 
-        $this->setImagen($this->usuario_id . '/' . $this->id . $this->extension);
+        $this->setImagen($this->usuario_id . '/' . $this->id . '.' . $this->extension);
         return $this->_imagen;
     }
 
@@ -138,8 +138,8 @@ class Publicaciones extends \yii\db\ActiveRecord
         if ($this->_imagenUrl !== null) {
             return $this->_imagenUrl;
         }
-        
-        $this->setImagenUrl($this->usuario_id . '/' . $this->id . $this->extension);
+
+        $this->setImagenUrl($this->usuario_id . '/' . $this->id . '.' . $this->extension);
         return $this->_imagenUrl;
     }
 

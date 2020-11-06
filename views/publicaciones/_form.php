@@ -25,13 +25,15 @@ $this->registerJs($js);
     $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'imagen')->widget(FileInput::class, [
             'pluginOptions' => [
+                'showPreview' => false,
                 'showUpload' => false,
                 'allowedFileExtensions' => ["jpg", "png", "mp4"],
                 'required' => true,
                 'dropZoneEnabled' => false,
-                'resizeImage' => true,
-                'maxImageWidth' => 500,
-                'maxImageHeight' => 500,
+                // 'resizeImage' => true,
+                'maxFileSize' => 100000,
+                // 'maxImageWidth' => 500,
+                // 'maxImageHeight' => 500,
             ]
         ]) ?>
         <?= $form->field($model, 'extension')->textInput()->hiddenInput(['id' => 'ruta'])->label(false) ?>

@@ -13,7 +13,11 @@ class ImagenPublicacion extends Model
     public function rules()
     {
         return [
-            [['imagen'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg'],
+            [['imagen'], 
+            'file', 
+            // 'skipOnEmpty' => false, 
+            'extensions' => 'jpg, png, mp4',
+            ]
         ];
     }
     
@@ -41,7 +45,7 @@ class ImagenPublicacion extends Model
             // if (file_exists($destino)) :
             //     unlink($destino);
             // endif;
-                
+            
             rename($origen, $destino);
             return true;
         } else {
@@ -87,7 +91,7 @@ class ImagenPublicacion extends Model
 
     public function borradoAmazon($id)
     {
-        $fichero = Yii::$app->user->id . '/' . $id . '.jpg';
+        $fichero = Yii::$app->user->id . '/' . $id;
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
         $s3->deleteObject([

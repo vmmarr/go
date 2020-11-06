@@ -81,7 +81,12 @@ $this->registerJs($js);
                 </div>
             </div>
             <div class="contenido d-flex justify-content-center align-items-center">
-                <?=Html::a(Html::img(['download', 'fichero' => $model->imagenUrl]),['download', 'fichero' => $model->imagenUrl], ['class' => 'image'])?>
+                <?php 
+                if ($model->extension !== 'mp4') { ?>
+                    <?=Html::a(Html::img(['download', 'fichero' => $model->imagenUrl]),['download', 'fichero' => $model->imagenUrl], ['class' => 'image'])?>
+                <?php } else { ?>
+                    <?=Html::a(Html::tag('video', ['download', 'fichero' => $model->imagenUrl]),['download', 'fichero' => $model->imagenUrl], ['class' => 'image'])?>
+                <?php } ?>
             </div>
             <div>
                 <?=Icon::show('comment', ['framework' => Icon::FAR])?>
