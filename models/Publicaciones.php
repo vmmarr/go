@@ -40,6 +40,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             [['usuario_id'], 'required'],
             [['usuario_id'], 'integer'],
             [['descripcion'], 'string', 'max' => 255],
+            [['extension'], 'string', 'max' => 255],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
 
         ];
@@ -54,6 +55,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             'id' => 'ID',
             'usuario_id' => 'Usuario ID',
             'descripcion' => 'Descripcion',
+            'extension' => 'Extension',
         ];
     }
 
@@ -121,7 +123,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             return $this->_imagen;
         }
 
-        $this->setImagen(Yii::getAlias($this->usuario_id . '/' . $this->id . '.jpg'));
+        $this->setImagen($this->usuario_id . '/' . $this->id . $this->extension);
         return $this->_imagen;
     }
 
@@ -136,8 +138,8 @@ class Publicaciones extends \yii\db\ActiveRecord
         if ($this->_imagenUrl !== null) {
             return $this->_imagenUrl;
         }
-
-        $this->setImagenUrl(Yii::getAlias($this->usuario_id . '/' . $this->id . '.jpg'));
+        
+        $this->setImagenUrl($this->usuario_id . '/' . $this->id . $this->extension);
         return $this->_imagenUrl;
     }
 
