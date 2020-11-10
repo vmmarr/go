@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\imagine\Image;
 
 class ImagenPublicacion extends Model
 {
@@ -43,21 +44,25 @@ class ImagenPublicacion extends Model
             $destino = Yii::getAlias('@img/' . $iduser  . '/' . $filename);
             $this->imagen->saveAs($origen);
             // if (file_exists($destino)) :
-            //     unlink($destino);
-            // endif;
-            
-            rename($origen, $destino);
-            return true;
+                //     unlink($destino);
+                // endif;
+                
+                rename($origen, $destino);
+                return true;
         } else {
             return false;
         }
     }
-
+        
     public function subidaAws($id)
     {
         $iduser = Yii::$app->user->id;
         $filename = $id . '.' . $this->imagen->extension;
         $destino = Yii::getAlias('@img/' . $iduser  . '/' . $filename);
+        if($this->imagen->extension !== 'mp4') {
+            Image::resize($destino, 500, 500, false, true)
+            ->save($destino);
+        }
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
         $amazon = $iduser . '/' . $filename;
