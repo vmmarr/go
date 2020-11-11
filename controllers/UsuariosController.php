@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
 use app\models\ImagenForm;
+use app\models\Publicaciones;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
@@ -65,19 +66,22 @@ class UsuariosController extends Controller
      */
     public function actionPerfil($id)
     {
+        // $model = new Usuarios();
+        $publicaciones = new Publicaciones();
         if (Usuarios::estaBloqueado($id))  {
             Yii::$app->session->setFlash('danger', 'El usuario le tiene bloqueado y no deja ver su perfil.');
             return $this->goHome();
         }
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'publicaciones' => $publicaciones,
         ]);
     }
+
 
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
-
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;

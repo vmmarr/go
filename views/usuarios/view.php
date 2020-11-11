@@ -11,79 +11,89 @@ use yii\bootstrap4\Html;
 $this->title = $model->username;
 $this->registerCssFile('@web/css/perfil.css');
 // $this->registerCssFile('@web/css/perfil.css', ['depends' => [yii\bootstrap\BootstrapAsset::className()]]);
-\yii\web\YiiAsset::register($this);
+// \yii\web\YiiAsset::register($this);
 ?>
 <div class="usuarios-view">
     <header>
-        <div class="container">
-            <div class="profile">
-                <div class="profile-image">
+        <div class="row">
+            <div class="col-lg-12 col-md-6">
+                <div class="profile">
+                    <div class="profile-image">
                     <?php
                     $archivo = $model->comprobarImagen($model->imagenUrl);
                     if ($archivo) : ?>
                         <?=Html::img(['download', 'fichero' => $model->imagenUrl]);?>
-                    <?php  else : ?>
-                        <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
-                    <?php endif; ?>
-                </div>
-
-                <div class="profile-user-settings">
-                    <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
-                    
-                    
-                    <!-- if (Yii::$app->user->id === $model->id) {?> -->                    
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?=Icon::show('user-cog', ['framework' => Icon::FAS])?>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <?=Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
-                            <?=Html::a('Subir imagen perfil', ['subida', 'id' => $model->id], ['class' => 'dropdown-item']);?> 
-                            <?=Html::a('Borrar usuario', ['delete', 'id' => $model->id], [
-                                'class' => 'dropdown-item',
-                                'data' => [
-                                'confirm' => '¿Seguro que quieres eliminar el usuario?',
-                                'method' => 'post',
-                                ],
-                            ])?>
+                        <?php  else : ?>
+                            <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <div class="profile-user-settings">
+                            <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
+                            
+                            
+                            <!-- if (Yii::$app->user->id === $model->id) {?> -->                    
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <?=Icon::show('user-cog', ['framework' => Icon::FAS])?>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <?=Html::a('Editar perfil', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
+                                    <?=Html::a('Subir imagen perfil', ['subida', 'id' => $model->id], ['class' => 'dropdown-item']);?> 
+                                    <?=Html::a('Borrar usuario', ['delete', 'id' => $model->id], [
+                                        'class' => 'dropdown-item',
+                                        'data' => [
+                                            'confirm' => '¿Seguro que quieres eliminar el usuario?',
+                                            'method' => 'post',
+                                        ],
+                                        ])?>
                         </div>   
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <ul>
+                            <li><span class="profile-stat-count">164</span> publicaciones</li>
+                            <li><span class="profile-stat-count">188</span> seguidores</li>
+                            <li><span class="profile-stat-count">206</span> seguidos</li>
+                        </ul>
+                    </div>
+                    <div class="profile-bio">
+
+                        <h4><?= Html::encode($model->nombre) ?></h4>
+                        <br>
+                        <?= Html::tag('p', Html::encode($model->biografia)) ?>
+                    </div>
                 </div>
-                
-                <div class="profile-stats">
-                    <ul>
-                        <li><span class="profile-stat-count">164</span> publicaciones</li>
-                        <li><span class="profile-stat-count">188</span> seguidores</li>
-                        <li><span class="profile-stat-count">206</span> seguidos</li>
-                    </ul>
-                </div>
-                <h4><?= Html::encode($model->nombre) ?></h4>
             </div>
         </div>
     </header>
 
     <main>
-        <div class="container">
-            <div class="gallery">
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li><?=Icon::show('heart', ['framework' => Icon::FAR])?> Likes:</li>
-                            <li><?=Icon::show('comment', ['framework' => Icon::FA])?> Comentarios:</li>
-                        </ul>
+        <?php 
+        $p = $publicaciones->find()->where(['usuario_id' => $model->id])->orderBy(['created_at' => SORT_DESC])->all();
+        $total = count($p);
+        if ($total !== 0) : ?>
+            <div class="row justify-content-center justify-content-sm-start">
+                <?php foreach ($p as $fila) : ?>       
+                    <div class="col-4 col-md-6 col-lg-10 mb-2">
+                        <div class="gallery-item" tabindex="0">
+                            <?= Html::img(['download', 'fichero' => $fila->imagenUrl], ['class' => 'gallery-image']) ?>
+                            <div class="gallery-item-info">
+                                <ul>
+                                    <?= Html::tag('li', Icon::show('heart', ['framework' => Icon::FAR]), ['class' => 'd-inline-block']) ?>
+                                 <?= Html::tag('li', Icon::show('comment', ['framework' => Icon::FA]), ['class' => 'd-inline-block']) ?>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+            <?php 
+                endforeach;
+            else : ?>
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <?= Html::img('@web/sinPublicaciones.png') ?>
                 </div>
             </div>
-            <div class="gallery">
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li><?=Icon::show('heart', ['framework' => Icon::FAR])?> Likes:</li>
-                            <li><?=Icon::show('comment', ['framework' => Icon::FA])?> Comentarios:</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <?php endif ?>
         </div>
     </main>
 </div>
