@@ -39,13 +39,13 @@ class PublicacionesController extends \yii\web\Controller
     public function actionCreate()
     {
         $model = new Publicaciones();
-        $model2 = new ImagenPublicacion();
-
+        //$model2 = new ImagenPublicacion();
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model2->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model2->subida($model->id) && $model2->subidaAws($model->id)) {
+            $model->imagen = UploadedFile::getInstance($model, 'imagen');
+            if ($model->subida($model->id) && $model->subidaAws($model->id)) {
                 Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
-                $model2->borradoLocal();
+                $model->borradoLocal();
                 return $this->redirect(['index']);
             }
         }
@@ -90,7 +90,7 @@ class PublicacionesController extends \yii\web\Controller
 
     public function actionDownload($fichero)
     {
-        $model = new ImagenPublicacion();
+        $model = new Publicaciones();
         $f = $model->descarga($fichero);
         //download the file
         header('Content-Type: ' . $f['ContentType']);
@@ -101,7 +101,7 @@ class PublicacionesController extends \yii\web\Controller
     {
         $model = $this->findPublicacion($id);
         $model->delete();
-        $image = new ImagenPublicacion();
+        $image = new Publicaciones();
         $image->borradoAmazon($id);
 
         Yii::$app->session->setFlash('success', 'Publicacion borrada con éxito.');
