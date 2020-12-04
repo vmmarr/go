@@ -31,7 +31,6 @@ $this->registerCssFile('@web/css/perfil.css');
                         <div class="profile-user-settings">
                             <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
                             
-                            
                             <!-- if (Yii::$app->user->id === $model->id) {?> -->                    
                                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?=Icon::show('user-cog', ['framework' => Icon::FAS])?>
@@ -72,7 +71,7 @@ $this->registerCssFile('@web/css/perfil.css');
         $p = $publicaciones->find()->where(['usuario_id' => $model->id])->orderBy(['created_at' => SORT_DESC])->all();
         $total = count($p);
         if ($total !== 0) : ?>
-            <div class="row justify-content-center justify-content-sm-start">
+            <div class="row d-flex justify-content-center">
                 <?php foreach ($p as $fila) : ?>       
                     <div class="col-4 col-md-6 col-lg-10 mb-2">
                         <div class="gallery-item" tabindex="0">
