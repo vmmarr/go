@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Likes;
+use app\models\Publicaciones;
 use app\models\Usuarios;
 use kartik\icons\Icon;
 use yii\helpers\Html;
@@ -56,9 +57,9 @@ $this->registerJs($js);
                     <?php
                     $archivo = $model->usuario->comprobarImagen($model->usuario->imagenUrl);
                     if ($archivo) : ?>
-                        <?=Html::img(['download', 'fichero' => $model->usuario->imagenUrl]);?>
+                        <?=Html::img(Publicaciones::enlace($model->usuario->imagenUrl))?>
                     <?php  else : ?>
-                        <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
+                        <?=Html::img(Publicaciones::enlace('perfil.png'))?>
                     <?php endif; ?>
                             
                     <?=Html::a($model->usuario->username)?>
@@ -80,12 +81,14 @@ $this->registerJs($js);
                     </div> 
                 </div>
             </div>
-            <div class="col-md-12 d-flex justify-content-center align-items-center">
+            <div class="col-12 d-flex justify-content-center align-items-center">
                 <?php 
                 if ($model->extension !== 'mp4') { ?>
-                    <?=Html::a(Html::img(['download', 'fichero' => $model->imagenUrl], ['class' => 'tamano']),['download', 'fichero' => $model->imagenUrl], ['class' => 'image col-md-12'])?>
+                    <?=Html::a(Html::img(Publicaciones::enlace($model->imagenUrl), ['class' => 'tamano']), Publicaciones::enlace($model->imagenUrl), ['class' => 'image col-md-12'])?>
                 <?php } else { ?>
-                    <?=Html::a(Html::tag('video', ['download', 'fichero' => $model->imagenUrl]),['download', 'fichero' => $model->imagenUrl], ['class' => 'image'])?>
+                    <video class="tamano" controls>
+                        <source src="<?=Publicaciones::enlace($model->imagenUrl)?>" type="video/mp4">
+                    </video> 
                 <?php } ?>
             </div>
             <div class="ml-4 mt-1">
@@ -98,40 +101,18 @@ $this->registerJs($js);
                 ])?>
                 <?=Html::tag('span', '', ['id' => 'numLikes' . $model->id]); ?>
             </div>
-            <div class="card-body d-flex justify-content-between align-items-center comentario">
-                <?php 
-                if ($model->descripcion != '') : ?>
+            <?php 
+            if ($model->descripcion != '') : ?>
+                <div class="card-body d-flex justify-content-between align-items-center comentario">
                     <?=Html::tag('p', Html::a($model->usuario->username, ['usuarios/perfil', 'id' => $model->usuario->id]) . ' ' . $model->descripcion)?>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
             <div class="comentarios">
                 <!-- Muestra los 2 ultimos comentarios -->
                 <?php
-                $filas = $model->comentarios;
-
-                foreach ($filas as $comentario) :
-                    $usuario =  $model->getUsuarioComentario($comentario['usuario_id']);
-                ?>
-                <div class="card-body d-flex justify-content-between align-items-center comentario">
-
-                    <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $comentario['comentario'])?>
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]), ['comentarios/update', 'id' =>  $comentario['id']], ['class' => 'dropdown-item']);?>
-                        <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]), ['comentarios/delete', 'id' => $comentario['id']], [
-                            'class' => 'dropdown-item',
-                            'data' => [
-                                'confirm' => '¿Eliminar Comentario?',
-                                'method' => 'post',
-                            ],
-                            ])?>
-                    </div>
-                </div>
-                <?php endforeach; ?>
+                $filas = $model->comentarios;?>
             </div>
-            <div class="d-flex justify-content-end align-items-center">
+            <div class="d-flex justify-content-end align-items-center mb-4 mr-5">
                 <?=Html::a('Nuevo comentario', ['comentarios/create', 'id' => $model->id], ['class' => 'btn btn-success']); ?>
             </div>
         </div>
