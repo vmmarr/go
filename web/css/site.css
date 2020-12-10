@@ -131,3 +131,8 @@ a.desc:after {
     content: "\f2ed";
     color: var(--danger);
 }
+
+.invalid-feedback {
+    color: #e74a3b;
+    display: block;
+}

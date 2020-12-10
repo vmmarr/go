@@ -7,6 +7,7 @@ use app\models\ImagenPublicacion;
 use app\models\Publicaciones;
 use SplObjectStorage;
 use Yii;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
@@ -41,12 +42,16 @@ class PublicacionesController extends \yii\web\Controller
         $model = new Publicaciones();
         //$model2 = new ImagenPublicacion();
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->subida($model->id) && $model->subidaAws($model->id)) {
-                Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
-                $model->borradoLocal();
-                return $this->redirect(['index']);
+            if ($model->save()) {
+                if ($model->subida($model->id) && $model->subidaAws($model->id)) {
+                    Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+                    $model->borradoLocal();
+                    return $this->redirect(['index']);
+                }
+            } else {
+                Yii::info($model->errors);
             }
         }
 

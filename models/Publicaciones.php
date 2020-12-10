@@ -45,12 +45,10 @@ class Publicaciones extends \yii\db\ActiveRecord
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
             [['imagen'],
             'file', 
-            'extensions' => 'jpg, png, mp4',
-            'maxSize' => 7000000,
-            'tooBig' => 'El tamaño maximo permitido es 7 MB',
-            ],
-            [['imagen'], 'required']
-
+            //'extensions' => 'jpg, png, mp4',
+            'maxSize' => 8000000,
+            'skipOnEmpty' => false,
+            ]
         ];
     }
 
@@ -262,8 +260,7 @@ class Publicaciones extends \yii\db\ActiveRecord
     public static function enlace($fichero) {
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
-        $file = $s3->getObjectUrl('go00', $fichero,
-        );
+        $file = $s3->getObjectUrl('go00', $fichero);
         return $file;
     }
 }
