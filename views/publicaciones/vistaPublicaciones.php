@@ -82,6 +82,7 @@ $this->registerJs($js);
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-center align-items-center">
+                <div>
                 <?php 
                 if ($model->extension !== 'mp4') { ?>
                     <?=Html::a(Html::img(Publicaciones::enlace($model->imagenUrl), ['class' => 'tamano']), Publicaciones::enlace($model->imagenUrl), ['class' => 'image col-md-12'])?>
@@ -90,6 +91,7 @@ $this->registerJs($js);
                         <source src="<?=Publicaciones::enlace($model->imagenUrl)?>" type="video/mp4">
                     </video> 
                 <?php } ?>
+                </div>
             </div>
             <div class="ml-4 mt-1">
                 <?=Icon::show('comment', ['framework' => Icon::FAR])?>
