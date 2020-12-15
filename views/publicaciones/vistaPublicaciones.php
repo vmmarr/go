@@ -4,6 +4,7 @@ use app\models\Likes;
 use app\models\Publicaciones;
 use app\models\Usuarios;
 use kartik\icons\Icon;
+use yii\bootstrap4\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -43,6 +44,16 @@ $(document).ready(function() {
     $('.image').magnificPopup({
         type:'image'
     });
+
+    $('.btn-ajax-modal').click(function (){
+        var elm = $(this),
+            target = elm.attr('data-target'),
+            ajax_body = elm.attr('value');
+ 
+        $(target).modal('show')
+            .find('.modal-content')
+            .load(ajax_body);
+ });
   });
 EOT;
 
@@ -85,7 +96,7 @@ $this->registerJs($js);
                 <div>
                 <?php 
                 if ($model->extension !== 'mp4') { ?>
-                    <?=Html::a(Html::img(Publicaciones::enlace($model->imagenUrl), ['class' => 'tamano']), Publicaciones::enlace($model->imagenUrl), ['class' => 'image col-md-12'])?>
+                    <?=Html::a(Html::img(Publicaciones::enlace($model->imagenUrl), ['class' => 'tamano']), Publicaciones::enlace($model->imagenUrl), ['class' => 'image'])?>
                 <?php } else { ?>
                     <video class="tamano" controls>
                         <source src="<?=Publicaciones::enlace($model->imagenUrl)?>" type="video/mp4">
@@ -94,6 +105,18 @@ $this->registerJs($js);
                 </div>
             </div>
             <div class="ml-4 mt-1">
+                <?= Html::button('Comentarios', [
+                    'class' => 'btn btn-success btn-ajax-modal',
+                    'value' => Url::to(['comentarios/index']),
+                    'data-target' => '#modal_comentarios',
+                ]);
+
+                Modal::begin([
+                    'id' => 'modal_comentarios',
+                ]);
+                echo '<div class="modal-content"></div>';
+                Modal::end();
+                ?>
                 <?=Icon::show('comment', ['framework' => Icon::FAR])?>
                 <?=Html::tag('span', $model->totalComentarios); ?>
                 <?=Html::a(null, null, [

@@ -5,8 +5,10 @@
 }
 
 .tamano {
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
 }
 
 .btn-primary {
