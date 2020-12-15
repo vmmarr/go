@@ -110,9 +110,52 @@ $this->registerJs($js);
                 </div>
             <?php endif; ?>
             <div class="comentarios">
-                <!-- Muestra los 2 ultimos comentarios -->
                 <?php
-                $filas = $model->comentarios;?>
+                $filas = $model->getComentarios()->all();
+                if (count($filas) == 1) :
+                    $fila = $model->getComentarios()->one();
+                    $usuario =  $model->getUsuarioComentario($fila['usuario_id']);
+                    ?>
+                    <div class="card-body d-flex justify-content-between align-items-center comentario">
+    
+                        <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $fila['comentario'])?>
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]), ['comentarios/update', 'id' =>  $fila['id']], ['class' => 'dropdown-item']);?>
+                            <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]), ['comentarios/delete', 'id' => $fila['id']], [
+                                'class' => 'dropdown-item',
+                                'data' => [
+                                    'confirm' => '¿Eliminar Comentario?',
+                                    'method' => 'post',
+                                ],
+                                ])?>
+                        </div>
+                    </div>
+                <?php elseif ($filas >= 2) : 
+                    $ultimos = $model->getUltimosComentarios()->all();
+                    foreach ($ultimos as $comentario) :
+                        $usuario = $model->getUsuarioComentario($comentario['usuario_id']);
+                    ?>
+                    <div class="card-body d-flex pt-0 pb-0 justify-content-between align-items-center comentario">
+                        <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $comentario['comentario'])?>
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]), ['comentarios/update', 'id' =>  $comentario['id']], ['class' => 'dropdown-item']);?>
+                            <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]), ['comentarios/delete', 'id' => $comentario['id']], [
+                                'class' => 'dropdown-item',
+                                'data' => [
+                                    'confirm' => '¿Eliminar Comentario?',
+                                    'method' => 'post',
+                                ],
+                            ])?>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php endif ?>
             </div>
             <div class="d-flex justify-content-end align-items-center mb-4 mr-5">
                 <?=Html::a('Nuevo comentario', ['comentarios/create', 'id' => $model->id], ['class' => 'btn btn-success']); ?>
