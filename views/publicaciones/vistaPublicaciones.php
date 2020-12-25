@@ -72,8 +72,13 @@ $this->registerJs($js);
                     <?php  else : ?>
                         <?=Html::img(Publicaciones::enlace('perfil.png'))?>
                     <?php endif; ?>
-                            
+                    
                     <?=Html::a($model->usuario->username)?>
+                        
+                        <div class="ml-5 mt-0">
+                            <?=Html::a($model->direccion->nombre, ['direcciones/view', 'id' => $model->direccion_id])?>
+                        </div>
+    
                 </div>
                 <div class="prueba">
                     <?=Yii::$app->formatter->asRelativeTime($model->created_at)?>
