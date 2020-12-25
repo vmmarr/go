@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Publicaciones;
+use app\models\Direcciones;
 
 /**
- * PublicacionesSearch represents the model behind the search form of `app\models\Publicaciones`.
+ * DireccionesSearch represents the model behind the search form of `app\models\Direcciones`.
  */
-class PublicacionesSearch extends Publicaciones
+class DireccionesSearch extends Direcciones
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class PublicacionesSearch extends Publicaciones
     public function rules()
     {
         return [
-            [['id', 'usuario_id'], 'integer'],
-            [['descripcion', 'created_at', 'update_at'], 'safe'],
+            [['id', 'latitud', 'longitud'], 'integer'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -40,15 +40,12 @@ class PublicacionesSearch extends Publicaciones
      */
     public function search($params)
     {
-        $query = Publicaciones::find();
+        $query = Direcciones::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
         ]);
 
         $this->load($params);
@@ -62,13 +59,11 @@ class PublicacionesSearch extends Publicaciones
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'usuario_id' => $this->usuario_id,
-            'direccion_id' => $this->direccion_id,
-            'created_at' => $this->created_at,
-            'update_at' => $this->update_at,
+            'latitud' => $this->latitud,
+            'longitud' => $this->longitud,
         ]);
 
-        $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion]);
+        $query->andFilterWhere(['ilike', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

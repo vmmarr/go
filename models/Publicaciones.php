@@ -11,12 +11,14 @@ use yii\imagine\Image;
  *
  * @property int $id
  * @property int $usuario_id
+ * @property int|null $direccion_id
  * @property string|null $descripcion
  * @property string $created_at
- * @property string $update_at
+ * @property string|null $extension
  *
  * @property Comentarios[] $comentarios
  * @property Likes[] $likes
+ * @property Direcciones $direccion
  * @property Usuarios $usuario
  */
 class Publicaciones extends \yii\db\ActiveRecord
@@ -39,13 +41,12 @@ class Publicaciones extends \yii\db\ActiveRecord
     {
         return [
             [['usuario_id'], 'required'],
-            [['usuario_id'], 'integer'],
-            [['descripcion'], 'string', 'max' => 255],
-            [['extension'], 'string', 'max' => 255],
-            [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
+            [['usuario_id', 'direccion_id'], 'integer'],
+            [['descripcion', 'extension'], 'string', 'max' => 255],
+            [['direccion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Direcciones::class, 'targetAttribute' => ['direccion_id' => 'id']],
+            [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::class, 'targetAttribute' => ['usuario_id' => 'id']],
             [['imagen'],
             'file', 
-            //'extensions' => 'jpg, png, mp4',
             'maxSize' => 8000000,
             'skipOnEmpty' => false,
             ]
@@ -60,6 +61,7 @@ class Publicaciones extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'usuario_id' => 'Usuario ID',
+            'direccion_id' => 'Direccion ID',
             'descripcion' => 'Descripcion',
             'extension' => 'Extension',
         ];
@@ -112,6 +114,16 @@ class Publicaciones extends \yii\db\ActiveRecord
     public function getUsuario()
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
+    }
+
+    /**
+     * Gets query for [[Direccion]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDireccion()
+    {
+        return $this->hasOne(Direcciones::className(), ['id' => 'direccion_id']);
     }
 
     public function getUsuarioComentario($id)
