@@ -110,8 +110,13 @@ $this->registerJs($js);
                 </div>
             </div>
             <div class="ml-4 mt-1">
-                <?= Html::button('Comentarios', [
-                    'class' => 'btn btn-success btn-ajax-modal',
+                <?php
+                if (count($model->getComentarios()->all()) == 0) : ?> 
+                    <?=Icon::show('comment', ['framework' => Icon::FAR])?>
+                <?php else : ?>
+                    <?= Html::button(Icon::show('comment', ['framework' => Icon::FAR]), [
+                    //'id' => 'modal_comentarios',
+                    'class' => 'btn-ajax-modal enlace',
                     'value' => Url::to(['comentarios/index']),
                     'data-target' => '#modal_comentarios',
                 ]);
@@ -122,7 +127,8 @@ $this->registerJs($js);
                 echo '<div class="modal-content"></div>';
                 Modal::end();
                 ?>
-                <?=Icon::show('comment', ['framework' => Icon::FAR])?>
+                <?php endif; ?>
+
                 <?=Html::tag('span', $model->totalComentarios); ?>
                 <?=Html::a(null, null, [
                     'id' => 'like' . $model->id,
@@ -145,7 +151,6 @@ $this->registerJs($js);
                     $usuario =  $model->getUsuarioComentario($fila['usuario_id']);
                     ?>
                     <div class="card-body d-flex justify-content-between align-items-center comentario">
-    
                         <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $fila['comentario'])?>
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>

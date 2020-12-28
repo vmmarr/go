@@ -2,7 +2,6 @@
 
 use kartik\icons\Icon;
 use yii\bootstrap4\Html;
-use yii\grid\GridView;
 use yii\widgets\ListView;
 
 /* @var $this yii\web\View */

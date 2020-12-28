@@ -40,7 +40,7 @@ class ComentariosSearch extends Comentarios
      */
     public function search($params)
     {
-        $query = Comentarios::find();
+        $query = Comentarios::find()->orderBy(['created_at' => SORT_DESC]);
 
         // add conditions that should always apply here
 

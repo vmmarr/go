@@ -1,7 +1,7 @@
 <?php
 
 use yii\bootstrap4\Html;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\LibrosSearch */
@@ -11,25 +11,11 @@ $this->title = '';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="publicaciones-index">
-
-    <p>
-        <?= Html::a('Publicar', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            'usuario_id',
-            'publicacion_id',
-            'comentario',
-            'created_at:datetime',
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete} {portada}',
-            ],
-        ],
-    ]); ?>
+        'itemView' => 'vistaComentarios'
+    ]) ?>
+    
 </div>
