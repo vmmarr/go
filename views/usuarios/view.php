@@ -50,9 +50,9 @@ $this->registerCssFile('@web/css/perfil.css');
                     
                     <div class="profile-stats">
                         <ul>
-                            <li><span class="profile-stat-count">164</span> publicaciones</li>
-                            <li><span class="profile-stat-count">188</span> seguidores</li>
-                            <li><span class="profile-stat-count">206</span> seguidos</li>
+                            <li><span class="profile-stat-count"><?=count($model->publicaciones)?></span> publicaciones</li>
+                            <li><span class="profile-stat-count"><?=count($model->seguidos)?></span> seguidores</li>
+                            <li><span class="profile-stat-count"><?=count($model->seguidores)?></span> seguidos</li>
                         </ul>
                     </div>
                     <div class="profile-bio">
