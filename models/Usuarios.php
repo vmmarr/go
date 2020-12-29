@@ -70,6 +70,11 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'skipOnEmpty' => false,
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
+            [['imagen'],
+            'file', 
+            'maxSize' => 8000000,
+            'skipOnEmpty' => false,
+            ]
         ];
     }
 
@@ -240,5 +245,85 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         ->andwhere(['usuario_id' => Yii::$app->user->identity->id])
         ->andWhere(['bloqueado_id' => $id])
         ->exists();
+    }
+
+    public function subida($id)
+    {
+        if ($this->validate()) {
+            $filename = $id . '.' . $this->imagen->extension;
+            $origen = Yii::getAlias('@uploads/' . $filename);
+            $destino = Yii::getAlias('@img/' . $filename);
+            $this->imagen->saveAs($origen);
+            
+            rename($origen, $destino);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function subidaAws($id)
+    {
+        $filename = $id . '.' . $this->imagen->extension;
+        $destino = Yii::getAlias('@img/' . $filename);
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $amazon = $filename;
+        $bucket = 'go00';
+        $existe = $s3->doesObjectExist('go00', $amazon);
+        if ($existe) :
+            $s3->deleteObject([
+                'Bucket'       => $bucket,
+                'Key'          => $amazon,
+            ]);
+            $s3->putObject([
+                'Bucket'       => $bucket,
+                'Key'          => $amazon,
+                'SourceFile'   => $destino,
+                'ACL'          => 'public-read',
+                'StorageClass' => 'REDUCED_REDUNDANCY',
+                'Metadata'     => [
+                    'param1' => 'value 1',
+                    'param2' => 'value 2'
+                ]
+            ]);
+        else :
+            $s3->putObject([
+                    'Bucket'       => $bucket,
+                    'Key'          => $amazon,
+                    'SourceFile'   => $destino,
+                    'ACL'          => 'public-read',
+                    'StorageClass' => 'REDUCED_REDUNDANCY',
+                    'Metadata'     => [
+                        'param1' => 'value 1',
+                        'param2' => 'value 2'
+                    ]
+            ]);
+        endif;
+
+        return true;
+    }
+
+    public function borradoLocal()
+    {
+        unlink(Yii::getAlias('@img/' . Yii::$app->user->id . '.' . $this->imagen->extension));
+    }
+
+    public function descarga($key)
+    {
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $file = $s3->getObject([
+            'Bucket' => 'go00',
+            'Key' => $key,
+        ]);
+        return $file;
+    }
+
+    public static function enlace($fichero) {
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $file = $s3->getObjectUrl('go00', $fichero);
+        return $file;
     }
 }

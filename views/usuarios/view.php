@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Usuarios;
 use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 
@@ -22,9 +23,9 @@ $this->registerCssFile('@web/css/perfil.css');
                     <?php
                     $archivo = $model->comprobarImagen($model->imagenUrl);
                     if ($archivo) : ?>
-                        <?=Html::img(['download', 'fichero' => $model->imagenUrl]);?>
+                        <?=Html::img(Usuarios::enlace($model->imagenUrl))?>
                         <?php  else : ?>
-                            <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
+                            <?=Html::img(Usuarios::enlace('perfil.png'))?>
                             <?php endif; ?>
                         </div>
                         
@@ -75,7 +76,7 @@ $this->registerCssFile('@web/css/perfil.css');
                 <?php foreach ($p as $fila) : ?>       
                     <div class="col-4 col-md-6 col-lg-10 mb-2">
                         <div class="gallery-item" tabindex="0">
-                            <?= Html::img(['download', 'fichero' => $fila->imagenUrl], ['class' => 'gallery-image']) ?>
+                            <?= Html::img(Usuarios::enlace($fila->imagenUrl), ['class' => 'gallery-image']) ?>
                             <div class="gallery-item-info">
                                 <ul>
                                     <?= Html::tag('li', Icon::show('heart', ['framework' => Icon::FAR]), ['class' => 'd-inline-block']) ?>

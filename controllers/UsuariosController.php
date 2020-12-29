@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
-use app\models\ImagenForm;
 use app\models\Publicaciones;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
@@ -17,8 +16,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
-
-use function GuzzleHttp\Promise\all;
 
 class UsuariosController extends Controller
 {
@@ -57,7 +54,6 @@ class UsuariosController extends Controller
         ]);
     }
     
-
     /**
      * Displays a single Usuarios model.
      * @param int $id
@@ -167,15 +163,16 @@ class UsuariosController extends Controller
 
     public function actionSubida($id)
     {
-        $model = new ImagenForm();
-        var_dump('Estes en subir imagen perfil');
+        $model = new Usuarios();
 
-        if (Yii::$app->request->isPost) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->subida($id) && $model->subidaAws($id)) {
-                Yii::$app->session->setFlash('success', 'Imagen subida con exito');
-                $model->borradoLocal($id);
-                return $this->redirect('usuarios/view');
+            if ($model->save()) {
+                if ($model->subida($id) && $model->subidaAws($id)) {
+                    Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+                    $model->borradoLocal();
+                    return $this->redirect(['usuarios/perfil']);
+                }
             }
         }
 
@@ -184,21 +181,13 @@ class UsuariosController extends Controller
         ]);
     }
 
-    public function actionDownload($fichero)
-    {
-        $model = new ImagenForm();
-        $f = $model->descarga($fichero);
-
-        header('Content-Type: ' . $f['ContentType']);
-        echo $f['Body'];
-    }
-
-    // public function actionBorrarImagen()
+    // public function actionDownload($fichero)
     // {
     //     $model = new Usuarios();
+    //     $f = $model->descarga($fichero);
 
-    //     $image = $model->getImage();
-    //     $model->removeImage($image);
+    //     header('Content-Type: ' . $f['ContentType']);
+    //     echo $f['Body'];
     // }
 
     public function actionRecoverpass()
