@@ -8,6 +8,7 @@ use app\models\Publicaciones;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
+use yii\base\Model;
 use yii\bootstrap4\ActiveForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -45,13 +46,17 @@ class UsuariosController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new UsuariosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
+            $searchModel = new UsuariosSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            return $this->redirect(['site/login']);
+        }
         
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
     
     /**
@@ -129,7 +134,11 @@ class UsuariosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
-            return $this->redirect(['perfil', 'id' => $model->id]);
+            if (Usuarios::isAdmin()) {
+                return $this->redirect(['usuarios/allusuarios']);
+            } else {
+                return $this->redirect(['perfil', 'id' => $model->id]);
+            }
         }
 
         $model->password = '';
@@ -145,7 +154,11 @@ class UsuariosController extends Controller
         $model = $this->findModel($id);
         $model->delete();
         Yii::$app->session->setFlash('success', 'Se ha borrado correctamente.');
-        return $this->redirect(['site/login']);
+        if (Usuarios::isAdmin()) {
+            return $this->redirect(['usuarios/allusuarios']);
+        } else {
+            return $this->redirect(['site/login']);
+        }
     }
 
     public function actionActivar($id, $token)
@@ -163,16 +176,20 @@ class UsuariosController extends Controller
 
     public function actionSubida($id)
     {
-        $model = new Usuarios();
+        $model = $this->findModel($id);
+        $model->scenario = Usuarios::SCENARIO_IMAGEN;
 
         if ($model->load(Yii::$app->request->post())) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
             if ($model->save()) {
+
                 if ($model->subida($id) && $model->subidaAws($id)) {
                     Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
                     $model->borradoLocal();
-                    return $this->redirect(['usuarios/perfil']);
+                    return $this->redirect(['usuarios/perfil' , 'id' => $id]);
                 }
+            } else {
+                Yii::debug($model->errors);
             }
         }
 
@@ -246,6 +263,27 @@ class UsuariosController extends Controller
         ]);
     }
 
+    public function actionAllusuarios() 
+    {
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->identity->username === 'admin') {
+                $searchModel = new UsuariosSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                
+                return $this->render('/usuarios/allUsuarios', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+
+                ]);
+            } else {   
+                Yii::$app->session->setFlash('danger', 'Usted no tienes permisos para administrar usuarios');
+                return $this->redirect(['publicaciones/index']);
+            }
+        } else {
+            return $this->redirect(['/site/login']);
+        }
+    }
+            
     public function actionResetpass()
     {
         $model = new FormResetPass();

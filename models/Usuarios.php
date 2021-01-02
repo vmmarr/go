@@ -25,6 +25,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const SCENARIO_CREAR = 'crear';
     const SCENARIO_UPDATE = 'update';
+    const SCENARIO_IMAGEN = 'subida';
     public $password_repeat;
     private $_imagen = null;
     private $_imagenUrl = null;
@@ -70,11 +71,16 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'skipOnEmpty' => false,
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
-            [['imagen'],
-            'file', 
-            'maxSize' => 8000000,
-            'skipOnEmpty' => false,
-            ]
+            [
+                ['imagen'],
+                'file', 
+                'maxSize' => 8000000,
+                'skipOnEmpty' => false,
+                'on' => [self::SCENARIO_IMAGEN],
+            ],
+            [
+                ['extension'], 'string', 'max' => 255, 'on' => [self::SCENARIO_IMAGEN],
+            ],
         ];
     }
 
@@ -115,10 +121,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->_imagen !== null) {
             return $this->_imagen;
         }
-        // Nube
-        $this->setImagen($this->id . '.jpg');
-        // Local
-        // $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
+
+        $this->setImagen($this->id . '.' . $this->extension);
         return $this->_imagen;
     }
 
@@ -141,10 +145,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->_imagenUrl !== null) {
             return $this->_imagenUrl;
         }
-        // Nube
-        $this->setImagenUrl($this->id . '.jpg');
-        // Local
-        // $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->id . '.png'));
+
+        $this->setImagenUrl($this->id . '.' . $this->extension);
         return $this->_imagenUrl;
     }
 
@@ -325,5 +327,15 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         $s3 = $aws->createS3();
         $file = $s3->getObjectUrl('go00', $fichero);
         return $file;
+    }
+
+    /**
+     * Comprueba si el usuario es administrador.
+     *
+     * @return boolean  verdadero si el usuario es administrador.
+     */
+    public static function isAdmin()
+    {
+        return !Yii::$app->user->isGuest ? Yii::$app->user->identity->username === 'admin' : false;
     }
 }
