@@ -3,6 +3,17 @@
 use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+$js = <<<EOT
+    $(document).ready(function() {
+        $('.file-caption-main').change(function() {
+            var value = $('.file-caption-name').attr('title');
+            var posicion = value.lastIndexOf('.');
+            $('#ruta').val(value.substr(posicion+1,value.length));
+        });
+    });
+EOT;
+
+$this->registerJs($js);
 ?>
 
 <?php $form = ActiveForm::begin() ?>
@@ -19,9 +30,10 @@ use yii\widgets\ActiveForm;
             'maxImageHeight' => 500,
         ]
     ]) ?>
+    <?= $form->field($model, 'extension')->textInput()->hiddenInput(['id' => 'ruta'])->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
 <?php ActiveForm::end() ?>
