@@ -74,11 +74,12 @@ $this->registerJs($js);
                     <?php endif; ?>
                     
                     <?=Html::a($model->usuario->username)?>
-                        
-                        <div class="ml-5 mt-0">
-                            <?=Html::a($model->direccion->nombre, ['direcciones/view', 'id' => $model->direccion_id])?>
-                        </div>
-    
+                    <?php 
+                        if ($model->direccion !== null) : ?>
+                            <div class="ml-5 mt-0">
+                                <?=Html::a($model->direccion->nombre, ['direcciones/view', 'id' => $model->direccion_id])?>
+                            </div>
+                    <?php endif ?>
                 </div>
                 <div class="prueba">
                     <?=Yii::$app->formatter->asRelativeTime($model->created_at)?>

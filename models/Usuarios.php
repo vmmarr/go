@@ -25,6 +25,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const SCENARIO_CREAR = 'crear';
     const SCENARIO_UPDATE = 'update';
+    const SCENARIO_IMAGEN = 'subida';
     public $password_repeat;
     private $_imagen = null;
     private $_imagenUrl = null;
@@ -70,6 +71,16 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
                 'skipOnEmpty' => false,
                 'on' => [self::SCENARIO_CREAR, self::SCENARIO_UPDATE],
             ],
+            [
+                ['imagen'],
+                'file', 
+                'maxSize' => 8000000,
+                'skipOnEmpty' => false,
+                'on' => [self::SCENARIO_IMAGEN],
+            ],
+            [
+                ['extension'], 'string', 'max' => 255, 'on' => [self::SCENARIO_IMAGEN],
+            ],
         ];
     }
 
@@ -110,10 +121,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->_imagen !== null) {
             return $this->_imagen;
         }
-        // Nube
-        $this->setImagen($this->id . '.jpg');
-        // Local
-        // $this->setImagen(Yii::getAlias('@img/' . $this->id . '.png'));
+
+        $this->setImagen($this->id . '.' . $this->extension);
         return $this->_imagen;
     }
 
@@ -136,10 +145,8 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->_imagenUrl !== null) {
             return $this->_imagenUrl;
         }
-        // Nube
-        $this->setImagenUrl($this->id . '.jpg');
-        // Local
-        // $this->setImagenUrl(Yii::getAlias('@imgUrl/' . $this->id . '.png'));
+
+        $this->setImagenUrl($this->id . '.' . $this->extension);
         return $this->_imagenUrl;
     }
 
@@ -240,5 +247,95 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         ->andwhere(['usuario_id' => Yii::$app->user->identity->id])
         ->andWhere(['bloqueado_id' => $id])
         ->exists();
+    }
+
+    public function subida($id)
+    {
+        if ($this->validate()) {
+            $filename = $id . '.' . $this->imagen->extension;
+            $origen = Yii::getAlias('@uploads/' . $filename);
+            $destino = Yii::getAlias('@img/' . $filename);
+            $this->imagen->saveAs($origen);
+            
+            rename($origen, $destino);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function subidaAws($id)
+    {
+        $filename = $id . '.' . $this->imagen->extension;
+        $destino = Yii::getAlias('@img/' . $filename);
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $amazon = $filename;
+        $bucket = 'go00';
+        $existe = $s3->doesObjectExist('go00', $amazon);
+        if ($existe) :
+            $s3->deleteObject([
+                'Bucket'       => $bucket,
+                'Key'          => $amazon,
+            ]);
+            $s3->putObject([
+                'Bucket'       => $bucket,
+                'Key'          => $amazon,
+                'SourceFile'   => $destino,
+                'ACL'          => 'public-read',
+                'StorageClass' => 'REDUCED_REDUNDANCY',
+                'Metadata'     => [
+                    'param1' => 'value 1',
+                    'param2' => 'value 2'
+                ]
+            ]);
+        else :
+            $s3->putObject([
+                    'Bucket'       => $bucket,
+                    'Key'          => $amazon,
+                    'SourceFile'   => $destino,
+                    'ACL'          => 'public-read',
+                    'StorageClass' => 'REDUCED_REDUNDANCY',
+                    'Metadata'     => [
+                        'param1' => 'value 1',
+                        'param2' => 'value 2'
+                    ]
+            ]);
+        endif;
+
+        return true;
+    }
+
+    public function borradoLocal()
+    {
+        unlink(Yii::getAlias('@img/' . Yii::$app->user->id . '.' . $this->imagen->extension));
+    }
+
+    public function descarga($key)
+    {
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $file = $s3->getObject([
+            'Bucket' => 'go00',
+            'Key' => $key,
+        ]);
+        return $file;
+    }
+
+    public static function enlace($fichero) {
+        $aws = Yii::$app->awssdk->getAwsSdk();
+        $s3 = $aws->createS3();
+        $file = $s3->getObjectUrl('go00', $fichero);
+        return $file;
+    }
+
+    /**
+     * Comprueba si el usuario es administrador.
+     *
+     * @return boolean  verdadero si el usuario es administrador.
+     */
+    public static function isAdmin()
+    {
+        return !Yii::$app->user->isGuest ? Yii::$app->user->identity->username === 'admin' : false;
     }
 }

@@ -38,12 +38,13 @@ AppAsset::register($this);
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
         $bukect = 'go00';
-        $existe = $s3->doesObjectExist($bukect, Yii::$app->user->id . '.jpg');
+        $existe = $s3->doesObjectExist($bukect, Yii::$app->user->id . '.*');
     
     if ($existe) :
-        $imagen = ['usuarios/download', 'fichero' => Yii::$app->user->id . '.jpg'];
+        $imagen = Usuarios::enlace(Yii::$app->user->id . '.*');
+        //$imagen = ['usuarios/download', 'fichero' => Yii::$app->user->id . '.jpg'];
     else :
-        $imagen = ['usuarios/download', 'fichero' => 'perfil.png'];
+        $imagen = Usuarios::enlace('perfil.png');
     endif;
 
     if (!Yii::$app->user->isGuest) {

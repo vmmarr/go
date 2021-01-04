@@ -2,12 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Comentarios;
-use app\models\ImagenPublicacion;
 use app\models\Publicaciones;
-use SplObjectStorage;
 use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
@@ -40,7 +36,6 @@ class PublicacionesController extends \yii\web\Controller
     public function actionCreate()
     {
         $model = new Publicaciones();
-        //$model2 = new ImagenPublicacion();
         
         if ($model->load(Yii::$app->request->post())) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
@@ -50,9 +45,9 @@ class PublicacionesController extends \yii\web\Controller
                     $model->borradoLocal();
                     return $this->redirect(['index']);
                 }
-            } else {
-                Yii::info($model->errors);
-            }
+            } //else {
+               // Yii::info($model->errors);
+            //}
         }
 
         return $this->render('create', [
@@ -93,14 +88,14 @@ class PublicacionesController extends \yii\web\Controller
     //     ]);
     // }
 
-    public function actionDownload($fichero)
-    {
-        $model = new Publicaciones();
-        $f = $model->descarga($fichero);
-        //download the file
-        header('Content-Type: ' . $f['ContentType']);
-        echo $f['Body'];
-    }
+    // public function actionDownload($fichero)
+    // {
+    //     $model = new Publicaciones();
+    //     $f = $model->descarga($fichero);
+    //     //download the file
+    //     header('Content-Type: ' . $f['ContentType']);
+    //     echo $f['Body'];
+    // }
 
     public function actionDelete($id)
     {

@@ -4,11 +4,11 @@ namespace app\controllers;
 
 use app\models\FormRecoverPass;
 use app\models\FormResetPass;
-use app\models\ImagenForm;
 use app\models\Publicaciones;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
+use yii\base\Model;
 use yii\bootstrap4\ActiveForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -17,8 +17,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
-
-use function GuzzleHttp\Promise\all;
 
 class UsuariosController extends Controller
 {
@@ -48,16 +46,19 @@ class UsuariosController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new UsuariosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
+            $searchModel = new UsuariosSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            return $this->redirect(['site/login']);
+        }
         
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
     
-
     /**
      * Displays a single Usuarios model.
      * @param int $id
@@ -133,7 +134,11 @@ class UsuariosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Se ha modificado correctamente.');
-            return $this->redirect(['perfil', 'id' => $model->id]);
+            if (Usuarios::isAdmin()) {
+                return $this->redirect(['usuarios/allusuarios']);
+            } else {
+                return $this->redirect(['perfil', 'id' => $model->id]);
+            }
         }
 
         $model->password = '';
@@ -149,7 +154,11 @@ class UsuariosController extends Controller
         $model = $this->findModel($id);
         $model->delete();
         Yii::$app->session->setFlash('success', 'Se ha borrado correctamente.');
-        return $this->redirect(['site/login']);
+        if (Usuarios::isAdmin()) {
+            return $this->redirect(['usuarios/allusuarios']);
+        } else {
+            return $this->redirect(['site/login']);
+        }
     }
 
     public function actionActivar($id, $token)
@@ -167,15 +176,20 @@ class UsuariosController extends Controller
 
     public function actionSubida($id)
     {
-        $model = new ImagenForm();
-        var_dump('Estes en subir imagen perfil');
+        $model = $this->findModel($id);
+        $model->scenario = Usuarios::SCENARIO_IMAGEN;
 
-        if (Yii::$app->request->isPost) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->imagen = UploadedFile::getInstance($model, 'imagen');
-            if ($model->subida($id) && $model->subidaAws($id)) {
-                Yii::$app->session->setFlash('success', 'Imagen subida con exito');
-                $model->borradoLocal($id);
-                return $this->redirect('usuarios/view');
+            if ($model->save()) {
+
+                if ($model->subida($id) && $model->subidaAws($id)) {
+                    Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+                    $model->borradoLocal();
+                    return $this->redirect(['usuarios/perfil' , 'id' => $id]);
+                }
+            } else {
+                Yii::debug($model->errors);
             }
         }
 
@@ -184,21 +198,13 @@ class UsuariosController extends Controller
         ]);
     }
 
-    public function actionDownload($fichero)
-    {
-        $model = new ImagenForm();
-        $f = $model->descarga($fichero);
-
-        header('Content-Type: ' . $f['ContentType']);
-        echo $f['Body'];
-    }
-
-    // public function actionBorrarImagen()
+    // public function actionDownload($fichero)
     // {
     //     $model = new Usuarios();
+    //     $f = $model->descarga($fichero);
 
-    //     $image = $model->getImage();
-    //     $model->removeImage($image);
+    //     header('Content-Type: ' . $f['ContentType']);
+    //     echo $f['Body'];
     // }
 
     public function actionRecoverpass()
@@ -257,6 +263,27 @@ class UsuariosController extends Controller
         ]);
     }
 
+    public function actionAllusuarios() 
+    {
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->identity->username === 'admin') {
+                $searchModel = new UsuariosSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                
+                return $this->render('/usuarios/allUsuarios', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+
+                ]);
+            } else {   
+                Yii::$app->session->setFlash('danger', 'Usted no tienes permisos para administrar usuarios');
+                return $this->redirect(['publicaciones/index']);
+            }
+        } else {
+            return $this->redirect(['/site/login']);
+        }
+    }
+            
     public function actionResetpass()
     {
         $model = new FormResetPass();

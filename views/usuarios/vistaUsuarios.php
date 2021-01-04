@@ -95,9 +95,9 @@ $archivo = $model->comprobarImagen($model->id . '.png');
 <div class="row d-flex justify-content-between horizontal">
     <div class="col-md-2 justify-content-center mt-3">
         <?php if ($archivo) : ?>
-                <?=Html::img(['download', 'fichero' => $model->id . '.png']);?>
+                <?=Html::img(Usuarios::enlace($model->id . '.png'))?>
             <?php  else : ?>
-                <?=Html::img(['download', 'fichero' => 'perfil.png']);?>
+                <?=Html::img(Usuarios::enlace('perfil.png'))?>
         <?php endif; ?>
     </div>
     <div class="col-md-6 mt-5">
