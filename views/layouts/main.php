@@ -64,10 +64,8 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav justify-content-end'],
             'items' => [
                 ['label' => Icon::show('home', ['framework' => Icon::FAS]), 'url' => ['/publicaciones/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Seguidores', 'url' => ['/seguidores/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Bloqueados', 'url' => ['/bloqueados/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Likes', 'url' => ['/likes/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest && !Usuarios::isAdmin()],
+                ['label' => 'Usuarios', 'url' => ['/usuarios/allusuarios'], 'visible' => Usuarios::isAdmin()],
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
                 ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [
