@@ -9,12 +9,12 @@ use Yii;
 
 class SeguidoresController extends \yii\web\Controller
 {
-    public function actionIndex()
+    public function actionIndex($opcion)
     {
         $searchModel = new SeguidoresSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $opcion);
 
-        return $this->render('index', [
+        return $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

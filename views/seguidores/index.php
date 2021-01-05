@@ -1,25 +1,27 @@
 <?php
-
-use yii\bootstrap4\Html;
-use yii\grid\GridView;
-
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\LibrosSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+
+use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $this->title = '';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile('@web/css/indexUsuarios.css');
+$this->registerJsFile('@web/js/indexUsuarios.js', [
+    'depends' => [
+        \yii\web\JqueryAsset::className()
+    ]
+]);
 ?>
 <div class="seguidores-index">
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            'usuario_id',
-            'seguidor_id',
-            'aceptacion',
-        ],
-    ]); ?>
-</div>
+<?php Pjax::begin([
+    'timeout' => 500000,
+]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?= ListView::widget([
+        'dataProvider' => $dataProvider,        
+        'itemView' => 'vistaUsuarios',
+    ]) ?>
+<?php Pjax::end(); ?>
+    </div>
