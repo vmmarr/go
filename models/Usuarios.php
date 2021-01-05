@@ -126,7 +126,7 @@ class Usuarios extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->_imagen;
     }
 
-    public function comprobarImagen($imagen)
+    public static function comprobarImagen($imagen)
     {
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();

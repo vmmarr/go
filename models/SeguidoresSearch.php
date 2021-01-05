@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Seguidores;
+use Yii;
 
 /**
  * SeguidoresSearch represents the model behind the search form of `app\models\Seguidores`.
@@ -18,7 +19,6 @@ class SeguidoresSearch extends Seguidores
     {
         return [
             [['id', 'usuario_id', 'seguidor_id'], 'integer'],
-            // [['aceptacion'], 'boolean'],
         ];
     }
 
@@ -38,7 +38,7 @@ class SeguidoresSearch extends Seguidores
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $opcion)
     {
         $query = Seguidores::find();
 
@@ -59,10 +59,16 @@ class SeguidoresSearch extends Seguidores
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'usuario_id' => $this->usuario_id,
-            'seguidor_id' => $this->seguidor_id,
-            // 'aceptacion' => $this->aceptacion,
         ]);
+        if ($opcion === 'seguidos') {
+            $query->andFilterWhere([
+                'usuario_id' => Yii::$app->user->id,
+            ]);
+        } else {
+            $query->andFilterWhere([
+                'seguidor_id' => Yii::$app->user->id,
+            ]);
+        }
 
         return $dataProvider;
     }

@@ -26,4 +26,4 @@ $this->registerJsFile('@web/js/indexUsuarios.js', [
         'itemView' => 'vistaUsuarios',
     ]) ?>
 <?php Pjax::end(); ?>
-</div
+    </div>

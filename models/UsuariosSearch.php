@@ -15,8 +15,6 @@ class UsuariosSearch extends Usuarios
     /**
      * {@inheritdoc}
      */
-
-
     public $buscar;
     public function rules()
     {

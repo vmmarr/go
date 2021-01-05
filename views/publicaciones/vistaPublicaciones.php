@@ -118,7 +118,7 @@ $this->registerJs($js);
                     <?= Html::button(Icon::show('comment', ['framework' => Icon::FAR]), [
                     //'id' => 'modal_comentarios',
                     'class' => 'btn-ajax-modal enlace',
-                    'value' => Url::to(['comentarios/index']),
+                    'value' => Url::to(['comentarios/index', 'id' => $model->id]),
                     'data-target' => '#modal_comentarios',
                 ]);
 
