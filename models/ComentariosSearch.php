@@ -38,7 +38,7 @@ class ComentariosSearch extends Comentarios
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $id)
     {
         $query = Comentarios::find()->orderBy(['created_at' => SORT_DESC]);
 
@@ -60,7 +60,7 @@ class ComentariosSearch extends Comentarios
         $query->andFilterWhere([
             'id' => $this->id,
             'usuario_id' => $this->usuario_id,
-            'publicacion_id' => $this->publicacion_id,
+            'publicacion_id' => $id,
             'created_at' => $this->created_at,
         ]);
 

@@ -15,10 +15,10 @@ class ComentariosController extends \yii\web\Controller
      *
      * @return void
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new ComentariosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
 
         return $this->renderAjax('index', [
             'searchModel' => $searchModel,
