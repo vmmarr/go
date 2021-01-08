@@ -25,8 +25,6 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'created_at') ?>
 
-    <?php // echo $form->field($model, 'update_at') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

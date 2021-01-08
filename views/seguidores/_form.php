@@ -16,8 +16,6 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'seguidor_id')->textInput() ?>
 
-    <?= $form->field($model, 'aceptacion')->checkbox() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

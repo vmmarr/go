@@ -32,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'usuario_id',
             'seguidor_id',
-            'aceptacion:boolean',
         ],
     ]) ?>
 
