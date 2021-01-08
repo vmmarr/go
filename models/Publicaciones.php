@@ -45,6 +45,7 @@ class Publicaciones extends \yii\db\ActiveRecord
             [['descripcion', 'extension'], 'string', 'max' => 255],
             [['direccion_id'], 'exist', 'skipOnError' => true, 'targetClass' => Direcciones::class, 'targetAttribute' => ['direccion_id' => 'id']],
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::class, 'targetAttribute' => ['usuario_id' => 'id']],
+            // [['fecha'], 'validarFecha'],
             [['imagen'],
             'file', 
             'maxSize' => 8000000,

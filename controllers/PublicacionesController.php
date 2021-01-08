@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Publicaciones;
+use app\models\PublicacionesSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
@@ -12,25 +13,17 @@ class PublicacionesController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $query = Publicaciones::find()->orderBy(['created_at' => SORT_DESC]);
+        if (!Yii::$app->user->isGuest) {
+            $searchModel = new PublicacionesSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
-
-        if (!Yii::$app->user->isGuest) : 
-            // var_dump($comentarios->comentario);
-            // return $comentarios['comentario'];
-            
             return $this->render('index', [
+                'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
-                ]);
-        else : 
+            ]);
+        } else {
             return $this->redirect(['/site/login']);
-        endif;
+        }
     }
 
     public function actionCreate()
@@ -45,9 +38,7 @@ class PublicacionesController extends \yii\web\Controller
                     $model->borradoLocal();
                     return $this->redirect(['index']);
                 }
-            } //else {
-               // Yii::info($model->errors);
-            //}
+            }
         }
 
         return $this->render('create', [
@@ -106,6 +97,14 @@ class PublicacionesController extends \yii\web\Controller
 
         Yii::$app->session->setFlash('success', 'Publicacion borrada con éxito.');
         return $this->redirect(['index']);
+    }
+
+    public function actionDescargar($id){
+        $model = $this->findPublicacion($id);
+        $url = Publicaciones::enlace($model->imagenUrl);
+        $file = file_get_contents($url);
+        
+        return Yii::$app->response->sendFile($url);
     }
 
     protected function findPublicacion($id)

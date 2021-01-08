@@ -23,8 +23,10 @@ $this->registerJsFile('@web/js/jquery.magnific-popup.js', [
         \yii\web\JqueryAsset::className()
     ]
 ]);
+\yii\web\YiiAsset::register($this);
 ?>
 <div class="publicaciones-index">
+<?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>
         <?= Html::a('Publicar', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -34,5 +36,5 @@ $this->registerJsFile('@web/js/jquery.magnific-popup.js', [
         'itemView' => 'vistaPublicaciones'
     ]) ?>
 
-    <?=Html::a(Icon::show('arrow-up', ['framework' => Icon::FAS]), '#', ['class' => 'btn btn-primary'])?>
+    <?=Html::a(Icon::show('arrow-up', ['framework' => Icon::FAS]), '#', ['class' => 'btn btn-primary up'])?>
 </div

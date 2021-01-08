@@ -36,7 +36,8 @@
         "rmrevin/yii2-fontawesome": "^3.6",
         "kartik-v/yii2-password": "dev-master",
         "joni-jones/yii2-heroku-logger": "dev-master",
-        "kartik-v/yii2-widget-fileinput": "dev-master"
+        "kartik-v/yii2-widget-fileinput": "dev-master",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
