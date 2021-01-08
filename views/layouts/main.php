@@ -66,6 +66,7 @@ AppAsset::register($this);
                 ['label' => Icon::show('home', ['framework' => Icon::FAS]), 'url' => ['/publicaciones/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Usuarios', 'url' => ['/usuarios/index'], 'visible' => !Yii::$app->user->isGuest && !Usuarios::isAdmin()],
                 ['label' => 'Usuarios', 'url' => ['/usuarios/allusuarios'], 'visible' => Usuarios::isAdmin()],
+                ['label' => 'Guardadas', 'url' => ['/guardadas/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Login', 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
                 ['label' => 'Registrarse', 'url' => ['/usuarios/registrar'], 'visible' => Yii::$app->user->isGuest],
                 [
