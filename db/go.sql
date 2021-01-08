@@ -43,6 +43,7 @@ CREATE TABLE publicaciones
   , direccion_id  bigint       REFERENCES direcciones (id) on update CASCADE on delete CASCADE
   , descripcion   varchar(255)
   , created_at    timestamp    NOT NULL DEFAULT current_timestamp
+  , fecha         date NOT NULL DEFAULT current_date
   , extension     varchar(255)
 );
 
