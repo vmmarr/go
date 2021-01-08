@@ -8,7 +8,7 @@ use yii\bootstrap4\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$url = Url::to(['likes/likes', 'usuario_id' => $model->usuario_id, 'publicacion_id' => $model->id]);
+$url = Url::to(['likes/likes', 'usuario_id' => $model->usuario_id, 'publicacion_id' => $model->publicacion_id]);
 $js = <<<EOT
     $(document).ready(function () {
         $.ajax({
@@ -16,21 +16,21 @@ $js = <<<EOT
             url: '$url',
             success: function (data) {
                 data = JSON.parse(data);
-                $('#like' + '$model->id').removeClass('far');
-                $('#like' + '$model->id').addClass(data.class);
-                $('#numLikes' + '$model->id').text(data.contador);
+                $('#like' + '$model->publicacion_id').removeClass('far');
+                $('#like' + '$model->publicacion_id').addClass(data.class);
+                $('#numLikes' + '$model->publicacion_id').text(data.contador);
             }
         });
-        $('#like' + '$model->id').click(function (e) {
+        $('#like' + '$model->publicacion_id').click(function (e) {
             e.preventDefault();
             $.ajax({
                 type: 'POST',
                 url: '$url',
                 success: function (data) {
                     data = JSON.parse(data);
-                    $('#like' + '$model->id').removeClass('fas');
-                    $('#like' + '$model->id').addClass(data.class);
-                    $('#numLikes' + '$model->id').text(data.contador);
+                    $('#like' + '$model->publicacion_id').removeClass('fas');
+                    $('#like' + '$model->publicacion_id').addClass(data.class);
+                    $('#numLikes' + '$model->publicacion_id').text(data.contador);
                 }
             })
         });
@@ -39,7 +39,7 @@ EOT;
 
 $this->registerJs($js);
 
-$urlG = Url::to(['guardadas/create', 'publicacion_id' => $model->id]);
+$urlG = Url::to(['guardadas/create', 'publicacion_id' => $model->publicacion_id]);
 $js = <<<EOT
     $(document).ready(function () {
         $.ajax({
@@ -47,19 +47,19 @@ $js = <<<EOT
             url: '$urlG',
             success: function (data) {
                 data = JSON.parse(data);
-                $('#guardado' + '$model->id').removeClass('far');
-                $('#guardado' + '$model->id').addClass(data.class);
+                $('#guardado' + '$model->publicacion_id').removeClass('far');
+                $('#guardado' + '$model->publicacion_id').addClass(data.class);
             }
         });
-        $('#guardado' + '$model->id').click(function (e) {
+        $('#guardado' + '$model->publicacion_id').click(function (e) {
             e.preventDefault();
             $.ajax({
                 type: 'POST',
                 url: '$urlG',
                 success: function (data) {
                     data = JSON.parse(data);
-                    $('#guardado' + '$model->id').removeClass('fas');
-                    $('#guardado' + '$model->id').addClass(data.class);
+                    $('#guardado' + '$model->publicacion_id').removeClass('fas');
+                    $('#guardado' + '$model->publicacion_id').addClass(data.class);
                 }
             })
         });
@@ -95,59 +95,61 @@ $this->registerJs($js);
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div class="fotoNombre">
                     <?php
-                    $archivo = $model->usuario->comprobarImagen($model->usuario->imagenUrl);
+                    $archivo = $model->publicacion->usuario->comprobarImagen($model->publicacion->usuario->imagenUrl);
                     if ($archivo) : ?>
-                        <?=Html::img(Publicaciones::enlace($model->usuario->imagenUrl))?>
+                        <?=Html::img(Publicaciones::enlace($model->publicacion->usuario->imagenUrl))?>
                     <?php  else : ?>
                         <?=Html::img(Publicaciones::enlace('perfil.png'))?>
                     <?php endif; ?>
                     
-                    <?=Html::a($model->usuario->username)?>
+                    <?=Html::a($model->publicacion->usuario->username)?>
                     <?php 
-                        if ($model->direccion !== null) : ?>
+                        if ($model->publicacion->direccion !== null) : ?>
                             <div class="ml-5 mt-0">
-                                <?=Html::a($model->direccion->nombre, ['direcciones/view', 'id' => $model->direccion_id])?>
+                                <?=Html::a($model->publicacion->direccion->nombre, ['direcciones/view', 'id' => $model->publicacion->direccion_id])?>
                             </div>
                     <?php endif ?>
                 </div>
                 <div class="prueba">
-                    <?=Yii::$app->formatter->asRelativeTime($model->created_at)?>
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
-                    </button>
-                    <div class="dropdown-menu">
-                        <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]) . 'Modificar', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
-                        <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]) . 'Borrar', ['delete', 'id' => $model->id], [
-                            'class' => 'dropdown-item',
-                            'data' => [
-                                'confirm' => '¿Eliminar publicacion?',
-                                'method' => 'post',
-                            ],
-                        ])?>
-                    </div> 
+                    <?=Yii::$app->formatter->asRelativeTime($model->publicacion->created_at)?>
+                    <?php if (Yii::$app->user->identity->username === $model->publicacion->usuario->username) : ?>
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
+                        </button>
+                        <div class="dropdown-menu">
+                            <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]) . 'Modificar', ['publicaciones/update', 'id' => $model->publicacion_id], ['class' => 'dropdown-item']);?>
+                            <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]) . 'Borrar', ['publicaciones/delete', 'id' => $model->publicacion_id], [
+                                'class' => 'dropdown-item',
+                                'data' => [
+                                    'confirm' => '¿Eliminar publicacion?',
+                                    'method' => 'post',
+                                ],
+                                ])?>
+                        </div> 
+                    <?php endif ?>
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <div>
                 <?php 
-                if ($model->extension !== 'mp4') { ?>
-                    <?=Html::a(Html::img(Publicaciones::enlace($model->imagenUrl), ['class' => 'tamano']), Publicaciones::enlace($model->imagenUrl), ['class' => 'image'])?>
+                if ($model->publicacion->extension !== 'mp4') { ?>
+                    <?=Html::a(Html::img(Publicaciones::enlace($model->publicacion->imagenUrl), ['class' => 'tamano']), Publicaciones::enlace($model->publicacion->imagenUrl), ['class' => 'image'])?>
                 <?php } else { ?>
                     <video class="tamano" controls>
-                        <source src="<?=Publicaciones::enlace($model->imagenUrl)?>" type="video/mp4">
+                        <source src="<?=Publicaciones::enlace($model->publicacion->imagenUrl)?>" type="video/mp4">
                     </video> 
                 <?php } ?>
                 </div>
             </div>
             <div class="ml-4 mt-1">
                 <?php
-                if (count($model->getComentarios()->all()) == 0) : ?> 
+                if (count($model->publicacion->getComentarios()->all()) == 0) : ?> 
                     <?=Icon::show('comment', ['framework' => Icon::FAR])?>
                 <?php else : ?>
                     <?= Html::button(Icon::show('comment', ['framework' => Icon::FAR]), [
                     //'id' => 'modal_comentarios',
                     'class' => 'btn-ajax-modal enlace',
-                    'value' => Url::to(['comentarios/index', 'id' => $model->id]),
+                    'value' => Url::to(['comentarios/index', 'id' => $model->publicacion_id]),
                     'data-target' => '#modal_comentarios',
                 ]);
 
@@ -159,32 +161,32 @@ $this->registerJs($js);
                 ?>
                 <?php endif; ?>
 
-                <?=Html::tag('span', $model->totalComentarios); ?>
+                <?=Html::tag('span', $model->publicacion->totalComentarios); ?>
                 <?=Html::a(null, null, [
-                    'id' => 'like' . $model->id,
+                    'id' => 'like' . $model->publicacion_id,
                     'class' => 'text-danger fa-heart',
                     'data-pjax' => 0
                 ])?>
-                <?=Html::tag('span', '', ['id' => 'numLikes' . $model->id]); ?>
+                <?=Html::tag('span', '', ['id' => 'numLikes' . $model->publicacion_id]); ?>
                 
                 <?=Html::a(null, null, [
-                    'id' => 'guardado' . $model->id,
+                    'id' => 'guardado' . $model->publicacion_id,
                     'class' => 'text-dark fa-bookmark',
                     'data-pjax' => 0
                 ])?>
             </div>
             <?php 
-            if ($model->descripcion != '') : ?>
+            if ($model->publicacion->descripcion != '') : ?>
                 <div class="card-body d-flex justify-content-between align-items-center comentario">
-                    <?=Html::tag('p', Html::a($model->usuario->username, ['usuarios/perfil', 'id' => $model->usuario->id]) . ' ' . $model->descripcion)?>
+                    <?=Html::tag('p', Html::a($model->publicacion->usuario->username, ['usuarios/perfil', 'id' => $model->usuario->id]) . ' ' . $model->descripcion)?>
                 </div>
             <?php endif; ?>
             <div class="comentarios">
                 <?php
-                $filas = $model->getComentarios()->all();
+                $filas = $model->publicacion->getComentarios()->all();
                 if (count($filas) == 1) :
-                    $fila = $model->getComentarios()->one();
-                    $usuario =  $model->getUsuarioComentario($fila['usuario_id']);
+                    $fila = $model->publicacion->getComentarios()->one();
+                    $usuario =  $model->publicacion->getUsuarioComentario($fila['usuario_id']);
                     ?>
                     <div class="card-body d-flex justify-content-between align-items-center comentario">
                         <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $fila['comentario'])?>
@@ -203,9 +205,9 @@ $this->registerJs($js);
                         </div>
                     </div>
                 <?php elseif ($filas >= 2) : 
-                    $ultimos = $model->getUltimosComentarios()->all();
+                    $ultimos = $model->publicacion->getUltimosComentarios()->all();
                     foreach ($ultimos as $comentario) :
-                        $usuario = $model->getUsuarioComentario($comentario['usuario_id']);
+                        $usuario = $model->publicacion->getUsuarioComentario($comentario['usuario_id']);
                     ?>
                     <div class="card-body d-flex pt-0 pb-0 justify-content-between align-items-center comentario">
                         <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $comentario['comentario'])?>
@@ -227,7 +229,7 @@ $this->registerJs($js);
                 <?php endif ?>
             </div>
             <div class="d-flex justify-content-end align-items-center mb-4 mr-5">
-                <?=Html::a('Nuevo comentario', ['comentarios/create', 'id' => $model->id], ['class' => 'btn btn-success']); ?>
+                <?=Html::a('Nuevo comentario', ['comentarios/create', 'id' => $model->publicacion_id], ['class' => 'btn btn-success']); ?>
             </div>
         </div>
     </div>
