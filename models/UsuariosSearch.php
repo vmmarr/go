@@ -57,9 +57,8 @@ class UsuariosSearch extends Usuarios
             return $dataProvider;
         }
 
-        $query->orFilterWhere(['ilike', 'username', $this->buscar])
-            ->orFilterWhere(['ilike', 'nombre', $this->buscar]);
-            
+        $query->andFilterWhere(['ilike','CONCAT(username,nombre)', $this->buscar]);
+                    
         return $dataProvider;
     }
 }
