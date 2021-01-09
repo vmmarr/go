@@ -37,9 +37,9 @@ class LikesSearch extends Likes
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $id)
     {
-        $query = Likes::find();
+        $query = Likes::find()->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -57,9 +57,9 @@ class LikesSearch extends Likes
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'usuario_id' => $this->usuario_id,
-            'publicacion_id' => $this->publicacion_id,
+            //'id' => $this->id,
+            //'usuario_id' => $this->usuario_id,
+            'publicacion_id' => $id,
         ]);
 
         return $dataProvider;

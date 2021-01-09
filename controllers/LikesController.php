@@ -11,12 +11,12 @@ use yii\web\NotFoundHttpException;
 
 class LikesController extends \yii\web\Controller
 {
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new LikesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
 
-        return $this->render('index', [
+        return $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

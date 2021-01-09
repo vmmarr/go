@@ -104,7 +104,13 @@ class Publicaciones extends \yii\db\ActiveRecord
 
     public function getLikes()
     {
-        return Likes::find()->where(['publicacion_id' => $this->id])->all();
+        if ($this->getTotalLikes() > 2) {
+            return Likes::find()->where(['publicacion_id' => $this->id])->orderBy(['id' => SORT_DESC])->limit(3);
+        } else if ($this->getTotalLikes() > 0){
+            return Likes::find()->where(['publicacion_id' => $this->id])->orderBy(['id' => SORT_DESC])->all();
+        } else {
+            return Likes::find()->where(['publicacion_id' => $this->id])->all();
+        }
     }
 
     /**

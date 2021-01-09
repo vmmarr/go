@@ -166,7 +166,24 @@ $this->registerJs($js);
                     'data-pjax' => 0
                 ])?>
                 <?=Html::tag('span', '', ['id' => 'numLikes' . $model->id]); ?>
-                
+                <?php
+                foreach ($model->likes as $fila) : ?>
+                    <?=$model->getUsuarioLike(['id' => $fila['usuario_id']])->username?>
+                <?php endforeach;
+                if ($model->totalLikes > 0) : ?>
+                    <?= Html::button('y mas', [
+                    'class' => 'btn-ajax-modal enlace',
+                    'value' => Url::to(['likes/index', 'id' => $model->id]),
+                    'data-target' => '#modal_likes',
+                ]);
+
+                Modal::begin([
+                    'id' => 'modal_likes',
+                ]);
+                echo '<div class="modal-content"></div>';
+                Modal::end();
+                ?>
+                <?php endif ?>
                 <?=Html::a(null, null, [
                     'id' => 'guardado' . $model->id,
                     'class' => 'text-dark fa-bookmark',
