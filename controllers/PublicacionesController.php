@@ -5,7 +5,6 @@ namespace app\controllers;
 use app\models\Publicaciones;
 use app\models\PublicacionesSearch;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
@@ -35,7 +34,7 @@ class PublicacionesController extends \yii\web\Controller
             if ($model->save()) {
                 if ($model->subida($model->id) && $model->subidaAws($model->id)) {
                     Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
-                    $model->borradoLocal();
+                    $model->borradoLocal(Yii::$app->user->id);
                     return $this->redirect(['index']);
                 }
             }
@@ -60,33 +59,12 @@ class PublicacionesController extends \yii\web\Controller
         ]);
     }
 
-    // public function actionSubida($id)
-    // {
-    //     $model = new ImagenPublicacion();
-    //     // var_dump('Estes en subir imagen publicacion');
-        
-    //     if (Yii::$app->request->isPost) {
-    //         $model->imagen = UploadedFile::getInstance($model, 'imagen');
-    //         if ($model->subida($id) && $model->subidaAws($id)) {
-    //             Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
-    //             $model->borradoLocal();
-    //             return $this->redirect(['index']);
-    //         }
-    //     }
-
-    //     return $this->render('_form', [
-    //         'model' => $model,
-    //     ]);
-    // }
-
-    // public function actionDownload($fichero)
-    // {
-    //     $model = new Publicaciones();
-    //     $f = $model->descarga($fichero);
-    //     //download the file
-    //     header('Content-Type: ' . $f['ContentType']);
-    //     echo $f['Body'];
-    // }
+    public function actionDownload($fichero, $id)
+    {
+        $model = new Publicaciones();
+        $p = $model->descarga($fichero, $id);
+        return Yii::$app->response->sendFile($p) && $model->borradoLocal($id);
+    }
 
     public function actionDelete($id)
     {
@@ -99,13 +77,13 @@ class PublicacionesController extends \yii\web\Controller
         return $this->redirect(['index']);
     }
 
-    public function actionDescargar($id){
-        $model = $this->findPublicacion($id);
-        $url = Publicaciones::enlace($model->imagenUrl);
-        $file = file_get_contents($url);
+    // public function actionDescargar($id){
+    //     $model = $this->findPublicacion($id);
+    //     $url = Publicaciones::enlace($model->imagenUrl);
+    //     $file = file_get_contents($url);
         
-        return Yii::$app->response->sendFile($url);
-    }
+    //     return Yii::$app->response->sendFile($url);
+    // }
 
     protected function findPublicacion($id)
     {
