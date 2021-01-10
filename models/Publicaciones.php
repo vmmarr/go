@@ -199,10 +199,6 @@ class Publicaciones extends \yii\db\ActiveRecord
             $origen = Yii::getAlias('@uploads/' . $filename);
             $destino = Yii::getAlias('@img/' . $iduser  . '/' . $filename);
             $this->imagen->saveAs($origen);
-            // if (file_exists($destino)) :
-                //     unlink($destino);
-                // endif;
-                
             rename($origen, $destino);
             return true;
         } else {
@@ -237,9 +233,9 @@ class Publicaciones extends \yii\db\ActiveRecord
         return true;
     }
 
-    public function borradoLocal()
+    public function borradoLocal($id)
     {
-        $carpeta = Yii::getAlias('@img/' . Yii::$app->user->id);
+        $carpeta = Yii::getAlias('@img/' . $id);
         foreach (glob($carpeta . '/*') as $archivos_carpeta) :
             if (is_dir($archivos_carpeta)) :
                 $this->borradoLocal($archivos_carpeta);
@@ -261,19 +257,25 @@ class Publicaciones extends \yii\db\ActiveRecord
         ]);
     }
 
-    public function descarga($key)
+    public function descarga($fichero, $id)
     {
-        $aws = Yii::$app->awssdk->getAwsSdk();
-        $s3 = $aws->createS3();
-        //get the last object from s3
-        //$object = end($result['Contents']);1
-        // $key = $object['Key'];
-        $file = $s3->getObject([
-            'Bucket' => 'go00',
-            'Key' => $key,
-        ]);
-        return $file;
-        // save it to disk
+        $f = $this->enlace($fichero);
+        
+        $downloadedFileContents = file_get_contents($f);
+        if (!file_exists(Yii::getAlias('@img'))) {
+            mkdir(Yii::getAlias('@img'));
+        }
+
+        $carpeta = Yii::getAlias('@img/' . $id);
+        
+        if (!file_exists($carpeta)) {
+            mkdir($carpeta);
+        }
+        $fileName = Yii::getAlias('@img' . $this->usuario_id . '/' . $fichero);
+        
+        file_put_contents($fileName, $downloadedFileContents);
+
+        return $fileName;
     }
 
     public static function enlace($fichero) {

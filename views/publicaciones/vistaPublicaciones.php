@@ -145,7 +145,6 @@ $this->registerJs($js);
                     <?=Icon::show('comment', ['framework' => Icon::FAR])?>
                 <?php else : ?>
                     <?= Html::button(Icon::show('comment', ['framework' => Icon::FAR]), [
-                    //'id' => 'modal_comentarios',
                     'class' => 'btn-ajax-modal enlace',
                     'value' => Url::to(['comentarios/index', 'id' => $model->id]),
                     'data-target' => '#modal_comentarios',
@@ -162,21 +161,22 @@ $this->registerJs($js);
                 <?=Html::tag('span', $model->totalComentarios); ?>
                 <?=Html::a(null, null, [
                     'id' => 'like' . $model->id,
-                    'class' => 'text-danger fa-heart',
+                    'class' => 'text-danger fa-heart enlace ml-2',
                     'data-pjax' => 0
                 ])?>
                 <?=Html::tag('span', '', ['id' => 'numLikes' . $model->id]); ?>
-                <?php
+                <?php if ($model->totalLikes > 0) : ?>
+                (<?php
                 foreach ($model->likes as $fila) : ?>
                     <?=$model->getUsuarioLike(['id' => $fila['usuario_id']])->username?>
-                <?php endforeach;
-                if ($model->totalLikes > 0) : ?>
-                    <?= Html::button('y mas', [
-                    'class' => 'btn-ajax-modal enlace',
+                <?php endforeach ?>
+                )
+                    <?= Html::button('+', [
+                    'class' => 'btn-ajax-modal enlace ml-2',
                     'value' => Url::to(['likes/index', 'id' => $model->id]),
                     'data-target' => '#modal_likes',
                 ]);
-
+                
                 Modal::begin([
                     'id' => 'modal_likes',
                 ]);
@@ -184,11 +184,12 @@ $this->registerJs($js);
                 Modal::end();
                 ?>
                 <?php endif ?>
-                <?=Html::a(null, null, [
+                <?=Html::a('', null, [
                     'id' => 'guardado' . $model->id,
-                    'class' => 'text-dark fa-bookmark',
+                    'class' => 'text-dark fa-bookmark ml-2',
                     'data-pjax' => 0
                 ])?>
+                <?=Html::a(Icon::show('download', ['framework' => Icon::FAS]), ['publicaciones/download', 'fichero' => $model->imagenUrl, 'id' => $model->usuario_id], ['class' => 'enlace ml-2']); ?>
             </div>
             <?php 
             if ($model->descripcion != '') : ?>
