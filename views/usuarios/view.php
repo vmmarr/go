@@ -42,11 +42,12 @@ $this->registerJs($js);
                                 <?=Html::img(Usuarios::enlace('perfil.png'))?>
                         <?php endif; ?>
                     </div>
-                    <?php
-                    if(Yii::$app->user->id === $model->id || Usuarios::isAdmin()) : ?>
-                        <div class="profile-user-settings">
-                            <h1 class="profile-user-name"><?= Html::encode($this->title) ?></h1>
+                    <div class="profile-user-settings">
+                        <h1 class="profile-user-name" itemscope itemtype="https://schema.org/Person">
+                            <span itemprop="additionalName"> <?= Html::encode($model->username) ?> </span>
+                        </h1>
                                             
+                        <?php if(Yii::$app->user->id === $model->id || Usuarios::isAdmin()) : ?>
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?=Icon::show('user-cog', ['framework' => Icon::FAS])?>
                             </button>
@@ -61,8 +62,8 @@ $this->registerJs($js);
                                     ],
                                     ])?>
                             </div>   
-                        </div>
                     <?php endif;?>
+                        </div>
                     
                     <div class="profile-stats">
                         <ul>
@@ -95,9 +96,9 @@ $this->registerJs($js);
                             </li>
                         </ul>
                     </div>
-                    <?php if ($model->biografia !== '') : ?>
-                        <div class="profile-bio">
-                            <h4><?= Html::encode($model->nombre) ?></h4>
+                    <div class="profile-bio">
+                        <h4><?= Html::encode($model->nombre) ?></h4>
+                        <?php if ($model->biografia !== '') : ?>
                             <br>
                             <?= Html::tag('p', Html::encode($model->biografia)) ?>
                         </div>

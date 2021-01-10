@@ -3,7 +3,6 @@
 use app\models\Usuarios;
 use kartik\icons\Icon;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 $archivo = $model->comprobarImagen($model->id . '.png');
 ?>
@@ -16,8 +15,8 @@ $archivo = $model->comprobarImagen($model->id . '.png');
                 <?=Html::img(Usuarios::enlace('perfil.png'))?>
         <?php endif; ?>
     </div>
-    <div class="col-md-6 mt-5">
-        <?=Html::a(Html::encode($model->username), ['usuarios/perfil', 'id' => $model->id])?>
+    <div class="col-md-6 mt-5" itemscope itemtype="https://schema.org/Person">
+        <?=Html::a('<span itemprop="additionalName">' . Html::encode($model->username) . '</span>', ['usuarios/perfil', 'id' => $model->id])?>
     </div>
     <div class="col-md-4 mt-5 mb-3">
         <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]) . 'Eliminar', ['delete', 'id' => $model->id], [
