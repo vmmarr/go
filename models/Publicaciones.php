@@ -80,11 +80,21 @@ class Publicaciones extends \yii\db\ActiveRecord
         return $total->count();
     }
 
+    /**
+     * Gets query for [[Comentarios]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getUltimosComentarios()
     {
         return Comentarios::find()->where(['publicacion_id' => $this->id])->orderBy(['created_at' => SORT_DESC])->limit(2);
     }
 
+    /**
+     * Gets query for [[Comentarios]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getComentarios()
     {
         return Comentarios::find()->where(['publicacion_id' => $this->id])->orderBy(['created_at' => SORT_DESC]);
@@ -102,6 +112,11 @@ class Publicaciones extends \yii\db\ActiveRecord
         return $total->count();
     }
 
+     /**
+     * Gets query for [[Likes]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getLikes()
     {
         if ($this->getTotalLikes() > 2) {
@@ -133,11 +148,21 @@ class Publicaciones extends \yii\db\ActiveRecord
         return $this->hasOne(Direcciones::className(), ['id' => 'direccion_id']);
     }
 
+     /**
+     * Devuelve el usuario del comentario
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getUsuarioComentario($id)
     {
         return Usuarios::find()->where(['id' => $id])->one();
     }
 
+    /**
+     * Devuelve el usuario del like
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getUsuarioLike($id)
     {
         return Usuarios::find()->where(['id' => $id])->one();
@@ -147,6 +172,11 @@ class Publicaciones extends \yii\db\ActiveRecord
         return Publicaciones::find()->where(['usuario_id' => $id])->all(); 
     }
 
+    /**
+     * Devuelve la imagen
+     *
+     * @return object
+     */
     public function getImagen()
     {
         if ($this->_imagen !== null) {
@@ -157,12 +187,16 @@ class Publicaciones extends \yii\db\ActiveRecord
         return $this->_imagen;
     }
 
-
     public function setImagen($imagen)
     {
         $this->_imagen = $imagen;
     }
 
+    /**
+     * Devuelve la url imagen
+     *
+     * @return object
+     */
     public function getImagenUrl()
     {
         if ($this->_imagenUrl !== null) {
@@ -178,6 +212,12 @@ class Publicaciones extends \yii\db\ActiveRecord
         $this->_imagenUrl = $imagenUrl;
     }
 
+    /**
+     * Guarda archivo en local
+     *
+     * @param integer $id
+     * @return boolean
+     */
     public function subida($id)
     {
         if (!file_exists(Yii::getAlias('@img'))) {
@@ -205,7 +245,13 @@ class Publicaciones extends \yii\db\ActiveRecord
             return false;
         }
     }
-        
+    
+    /**
+     * Guarda archivo en AWS
+     *
+     * @param integer $id
+     * @return boolean
+     */
     public function subidaAws($id)
     {
         $iduser = Yii::$app->user->id;
@@ -233,6 +279,12 @@ class Publicaciones extends \yii\db\ActiveRecord
         return true;
     }
 
+    /**
+     * Borra archivo en local
+     *
+     * @param integer $id
+     * @return void
+     */
     public function borradoLocal($id)
     {
         $carpeta = Yii::getAlias('@img/' . $id);
@@ -246,6 +298,12 @@ class Publicaciones extends \yii\db\ActiveRecord
         rmdir($carpeta);
     }
 
+    /**
+     * Borra archivo en AWS
+     *
+     * @param integer $id
+     * @return void
+     */
     public function borradoAmazon($id)
     {
         $fichero = Yii::$app->user->id . '/' . $id;
@@ -257,6 +315,12 @@ class Publicaciones extends \yii\db\ActiveRecord
         ]);
     }
 
+    /**
+     * Descarga un archivo del servidor
+     *
+     * @param integer $id
+     * @return string
+     */
     public function descarga($fichero, $id)
     {
         $f = $this->enlace($fichero);
@@ -278,6 +342,12 @@ class Publicaciones extends \yii\db\ActiveRecord
         return $fileName;
     }
 
+    /**
+     * Devuelve el enlace de un archivo del servidor
+     *
+     * @param integer $id
+     * @return string
+     */
     public static function enlace($fichero) {
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();

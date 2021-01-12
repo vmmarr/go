@@ -1,6 +1,5 @@
 <?php
 
-use app\models\Likes;
 use app\models\Publicaciones;
 use app\models\Usuarios;
 use kartik\icons\Icon;
@@ -112,7 +111,7 @@ $this->registerJs($js);
                 </div>
                 <div class="prueba">
                     <?=Yii::$app->formatter->asRelativeTime($model->publicacion->created_at)?>
-                    <?php if (Yii::$app->user->identity->username === $model->publicacion->usuario->username) : ?>
+                    <?php if (Yii::$app->user->identity->username === $model->publicacion->usuario->username || Usuarios::isAdmin()) : ?>
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
                         </button>
@@ -168,12 +167,31 @@ $this->registerJs($js);
                     'data-pjax' => 0
                 ])?>
                 <?=Html::tag('span', '', ['id' => 'numLikes' . $model->publicacion_id]); ?>
+                <?php if ($model->publicacion->totalLikes > 0) : ?>
+                (<?php
+                foreach ($model->publicacion->likes as $fila) : ?>
+                    <?=$model->publicacion->getUsuarioLike(['id' => $fila['usuario_id']])->username?>
+                <?php endforeach ?>
+                )
+                    <?= Html::button('+', [
+                    'class' => 'btn-ajax-modal enlace ml-2',
+                    'value' => Url::to(['likes/index', 'id' => $model->publicacion_id]),
+                    'data-target' => '#modal_likes',
+                ]);
                 
+                Modal::begin([
+                    'id' => 'modal_likes',
+                ]);
+                echo '<div class="modal-content"></div>';
+                Modal::end();
+                ?>
+                <?php endif ?>
                 <?=Html::a(null, null, [
                     'id' => 'guardado' . $model->publicacion_id,
                     'class' => 'text-dark fa-bookmark',
                     'data-pjax' => 0
                 ])?>
+                <?=Html::a(Icon::show('download', ['framework' => Icon::FAS]), ['publicaciones/download', 'fichero' => $model->publicacion->imagenUrl, 'id' => $model->publicacion->usuario_id], ['class' => 'enlace ml-2']); ?>
             </div>
             <?php 
             if ($model->publicacion->descripcion != '') : ?>
@@ -201,7 +219,7 @@ $this->registerJs($js);
                                     'confirm' => '¿Eliminar Comentario?',
                                     'method' => 'post',
                                 ],
-                                ])?>
+                            ])?>
                         </div>
                     </div>
                 <?php elseif ($filas >= 2) : 

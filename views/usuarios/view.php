@@ -9,9 +9,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
 
-
-//$this->title = $model->username;
 $this->registerCssFile('@web/css/perfil.css');
+
 $js = <<<EOT
 $(document).ready(function() {
     $('.btn-ajax-modal').click(function (){
@@ -114,19 +113,21 @@ $this->registerJs($js);
         $total = count($p);
         if ($total !== 0) : ?>
             <div class="row d-flex justify-content-center">
-                <?php foreach ($p as $fila) : ?>       
-                    <div class="col-4 col-md-6 col-lg-10 mb-2">
-                        <div class="gallery-item" tabindex="0">
-                            <?= Html::img(Usuarios::enlace($fila->imagenUrl), ['class' => 'gallery-image']) ?>
-                            <div class="gallery-item-info">
-                                <ul>
-                                    <?= Html::tag('li', Icon::show('heart', ['framework' => Icon::FAR]), ['class' => 'd-inline-block']) ?>
-                                 <?= Html::tag('li', Icon::show('comment', ['framework' => Icon::FA]), ['class' => 'd-inline-block']) ?>
-                                </ul>
-                            </div>
-                        </div>
+                <?php foreach ($p as $fila) : ?> 
+                <div class="col-4 col-md-6 col-lg-8 mb-2">
+                    <div class="gallery-item" tabindex="0">
+                    <?php 
+                    $array = explode('.', $fila->imagenUrl);
+                    $ext = end($array);
+                    if ($ext !== 'mp4') { ?>
+                        <?=Html::img(Usuarios::enlace($fila->imagenUrl), ['class' => 'gallery-image'])?>
+                    <?php } else { ?>
+                        <video class="gallery-image" controls>
+                            <source src="<?=Usuarios::enlace($fila->imagenUrl)?>" type="video/mp4">
+                        </video> 
+                    <?php } ?>
                     </div>
-            </div>
+                </div>
             <?php 
                 endforeach;
             else : ?>

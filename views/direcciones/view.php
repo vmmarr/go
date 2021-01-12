@@ -1,8 +1,5 @@
 <?php
 
-use yii\bootstrap4\Html;
-use yii\widgets\DetailView;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Direcciones */
 

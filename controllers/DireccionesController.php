@@ -32,7 +32,7 @@ class DireccionesController extends Controller
     }
 
     /**
-     * Lists all Direcciones models.
+     * Lista todas las direcciones.
      * @return mixed
      */
     public function actionIndex()
@@ -47,7 +47,7 @@ class DireccionesController extends Controller
     }
 
     /**
-     * Displays a single Direcciones model.
+     * Muestra la vista de una direccion.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,8 +60,8 @@ class DireccionesController extends Controller
     }
 
     /**
-     * Creates a new Direcciones model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Crea nueva Direccion.
+     * Si la creaccion es correcta, el navegador nos redirecciona a la pagina view
      * @return mixed
      */
     public function actionCreate()
@@ -87,8 +87,8 @@ class DireccionesController extends Controller
     }
 
     /**
-     * Updates an existing Direcciones model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Modifica una direccion existente.
+     * Si la modificacion es correcta, el navegador nos redirecciona a la pagina view
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -107,22 +107,7 @@ class DireccionesController extends Controller
     }
 
     /**
-     * Deletes an existing Direcciones model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Direcciones model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * Busca uns direccion por id
      * @param integer $id
      * @return Direcciones the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -136,6 +121,12 @@ class DireccionesController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * Buscar una direccion por nombre
+     *
+     * @param [type] $nombre
+     * @return void
+     */
     public function actionBuscar($nombre) {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $result = Direcciones::find()->where(['ilike', 'nombre', $nombre])

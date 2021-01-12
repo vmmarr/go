@@ -10,6 +10,10 @@ use yii\web\UploadedFile;
 
 class PublicacionesController extends \yii\web\Controller
 {
+    /**
+     * Lista todas las Publicaciones.
+     * @return mixed
+     */
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
@@ -25,6 +29,11 @@ class PublicacionesController extends \yii\web\Controller
         }
     }
 
+    /**
+     * Crear una publicacion
+     *
+     * @return mixed
+     */
     public function actionCreate()
     {
         $model = new Publicaciones();
@@ -45,6 +54,12 @@ class PublicacionesController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Modificar una publicacion
+     *
+     * @param integer $id
+     * @return mixed
+     */
     public function actionUpdate($id)
     {
         $model = $this->findPublicacion($id);
@@ -59,6 +74,13 @@ class PublicacionesController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Descargar un archivo que se encuentra en una publicacion
+     *
+     * @param string $fichero
+     * @param integer $id
+     * @return mixed
+     */
     public function actionDownload($fichero, $id)
     {
         $model = new Publicaciones();
@@ -66,6 +88,12 @@ class PublicacionesController extends \yii\web\Controller
         return Yii::$app->response->sendFile($p) && $model->borradoLocal($id);
     }
 
+    /**
+     * Borrar una publicacion
+     *
+     * @param integer $id
+     * @return mixed
+     */
     public function actionDelete($id)
     {
         $model = $this->findPublicacion($id);
@@ -77,14 +105,12 @@ class PublicacionesController extends \yii\web\Controller
         return $this->redirect(['index']);
     }
 
-    // public function actionDescargar($id){
-    //     $model = $this->findPublicacion($id);
-    //     $url = Publicaciones::enlace($model->imagenUrl);
-    //     $file = file_get_contents($url);
-        
-    //     return Yii::$app->response->sendFile($url);
-    // }
-
+    /**
+     * Busqueda de una publicacion
+     *
+     * @param integer $id
+     * @return mixed
+     */
     protected function findPublicacion($id)
     {
         if (($publicacion = Publicaciones::findOne($id)) === null) {

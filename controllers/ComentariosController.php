@@ -12,8 +12,9 @@ use yii\web\NotFoundHttpException;
 class ComentariosController extends \yii\web\Controller
 {
     /**
+     * Muestra el index de los comentarios
      *
-     * @return void
+     * @return mixed
      */
     public function actionIndex($id)
     {
@@ -26,9 +27,9 @@ class ComentariosController extends \yii\web\Controller
         ]);
     }
     /**
-     * Crea un nuevo comentario
+     * Crea un nuevo comentario a una publicacion que se le pasa por parametro
      *
-     * @return void
+     * @return mixed
      */
     public function actionCreate($id)
     {
@@ -50,6 +51,12 @@ class ComentariosController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Actualizar un comentario pasado por parametro
+     *
+     * @param [type] $id
+     * @return mixed
+     */
     public function actionUpdate($id)
     {
         $model = $this->findComentario($id);
@@ -64,6 +71,12 @@ class ComentariosController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Borrar un comentario pasado por parametro
+     *
+     * @param [type] $id
+     * @return mixed
+     */
     public function actionDelete($id)
     {
         $model = $this->findComentario($id);
@@ -73,6 +86,12 @@ class ComentariosController extends \yii\web\Controller
         return $this->redirect(['publicaciones/index']);
     }
 
+    /**
+     * Busqueda de un comentario posado por parametro
+     *
+     * @param [type] $id
+     * @return void
+     */
     protected function findComentario($id)
     {
         if (($comentario = Comentarios::findOne($id)) === null) {
@@ -82,6 +101,12 @@ class ComentariosController extends \yii\web\Controller
         return $comentario;
     }
 
+    /**
+     * Busca una publicacion pasada por parametro
+     *
+     * @param [type] $id
+     * @return void
+     */
     protected function findPublicacion($id)
     {
         if (($publicacion = Publicaciones::findOne($id)) === null) {

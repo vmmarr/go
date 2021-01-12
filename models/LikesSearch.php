@@ -34,6 +34,7 @@ class LikesSearch extends Likes
      * Creates data provider instance with search query applied
      *
      * @param array $params
+     * @param integer $id
      *
      * @return ActiveDataProvider
      */

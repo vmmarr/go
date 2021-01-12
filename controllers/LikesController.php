@@ -10,7 +10,11 @@ use Yii;
 use yii\web\NotFoundHttpException;
 
 class LikesController extends \yii\web\Controller
-{
+{   
+    /**
+     * Lista todas los Likes.
+     * @return mixed
+     */
     public function actionIndex($id)
     {
         $searchModel = new LikesSearch();
@@ -21,23 +25,13 @@ class LikesController extends \yii\web\Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    // public function actionCreate($id)
-    // {
-    //     $model = new Likes();
-    //     $publi = $this->findPublicacion($id);
-
-    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    //         Yii::$app->session->setFlash('success', 'Like añadido.');
-    //         return $this->redirect(['publicaciones/index']);
-    //     }
-
-    //     return $this->render('create', [
-    //         'model' => $model,
-    //         'publi' => $publi,
-    //     ]);
-    // }
-
+    /**
+     * Guardar un Like
+     *
+     * @param integer $usuario_id
+     * @param integer $publicacion_id
+     * @return mixed
+     */
     public function actionLikes($usuario_id, $publicacion_id) 
     {
         
@@ -70,23 +64,12 @@ class LikesController extends \yii\web\Controller
         endif;
     }
 
-    public function actionDelete($id)
-    {
-        $model = $this->findLike($id);
-        $model->delete();
-
-        return $this->redirect(['publicaciones/index']);
-    }
-
-    protected function findLike($id)
-    {
-        if (($like = Likes::findOne($id)) === null) {
-            throw new NotFoundHttpException('No se ha encontrado es comentario.');
-        }
-
-        return $like;
-    }
-
+    /**
+     * Busqueda de una publicacion por id
+     *
+     * @param integer $id
+     * @return mixed
+     */
     protected function findPublicacion($id)
     {
         if (($publicacion = Publicaciones::findOne($id)) === null) {

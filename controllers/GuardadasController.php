@@ -30,7 +30,7 @@ class GuardadasController extends Controller
     }
 
     /**
-     * Lists all Guardadas models.
+     * Lista de todas las Guardadas
      * @return mixed
      */
     public function actionIndex()
@@ -49,8 +49,7 @@ class GuardadasController extends Controller
     }
 
     /**
-     * Creates a new Guardadas model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Crear Guardada
      * @return mixed
      */
     public function actionCreate($publicacion_id)
@@ -79,11 +78,10 @@ class GuardadasController extends Controller
     }
 
     /**
-     * Deletes an existing Guardadas model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Borrar una Guardada existente
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException Si no se encuentra
      */
     public function actionDelete($id)
     {
@@ -93,11 +91,10 @@ class GuardadasController extends Controller
     }
 
     /**
-     * Finds the Guardadas model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * Buscar en las Guardadas a traves del id
      * @param integer $id
      * @return Guardadas the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException si no se encuentra
      */
     protected function findModel($id)
     {
