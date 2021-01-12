@@ -24,7 +24,7 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
-    <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="logo.ico" alt="inicio" type="image/x-icon" />
     <title><?= Html::encode(Yii::$app->name) ?></title>
     <?php $this->head() ?>
 </head>
@@ -42,7 +42,6 @@ AppAsset::register($this);
     
     if ($existe) :
         $imagen = Usuarios::enlace(Yii::$app->user->id . '.*');
-        //$imagen = ['usuarios/download', 'fichero' => Yii::$app->user->id . '.jpg'];
     else :
         $imagen = Usuarios::enlace('perfil.png');
     endif;
