@@ -8,7 +8,6 @@ use app\models\Publicaciones;
 use app\models\Usuarios;
 use app\models\UsuariosSearch;
 use Yii;
-use yii\base\Model;
 use yii\bootstrap4\ActiveForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -44,6 +43,11 @@ class UsuariosController extends Controller
         ];
     }
 
+    /**
+     * LIsta todos los usuarios
+     *
+     * @return mixed
+     */
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
@@ -58,16 +62,15 @@ class UsuariosController extends Controller
         }
         
     }
-    
+
     /**
-     * Displays a single Usuarios model.
-     * @param int $id
+     * Muestra la vista de un usuario.
+     * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException si el modelo no ha sido encontrado
      */
     public function actionPerfil($id)
     {
-        // $model = new Usuarios();
         $publicaciones = new Publicaciones();
         if (Usuarios::estaBloqueado($id))  {
             Yii::$app->session->setFlash('danger', 'El usuario le tiene bloqueado y no deja ver su perfil.');
@@ -79,7 +82,11 @@ class UsuariosController extends Controller
         ]);
     }
 
-
+    /**
+     * Registro de un usuario
+     *
+     * @return mixed
+     */
     public function actionRegistrar()
     {
         $model = new Usuarios(['scenario' => Usuarios::SCENARIO_CREAR]);
@@ -111,6 +118,13 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Manda email
+     *
+     * @param string $body
+     * @param string $correo
+     * @return void
+     */
     public function enviarEmail($body, $correo)
     {
         Yii::$app->mailer->compose()
@@ -121,6 +135,12 @@ class UsuariosController extends Controller
             ->send();
     }
 
+    /**
+     * Mdifica un usuario
+     *
+     * @param integer $id
+     * @return mixed
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -149,6 +169,12 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Borrar un usuario
+     *
+     * @param integer $id
+     * @return mixed
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -161,6 +187,13 @@ class UsuariosController extends Controller
         }
     }
 
+    /**
+     * Activa un usuario recien registrado
+     *
+     * @param integer $id
+     * @param string $token
+     * @return void
+     */
     public function actionActivar($id, $token)
     {
         $usuario = $this->findModel($id);
@@ -174,6 +207,12 @@ class UsuariosController extends Controller
         return $this->redirect(['site/login']);
     }
 
+    /**
+     * Sube la imagen de perfil 
+     *
+     * @param integer $id
+     * @return mixed
+     */
     public function actionSubida($id)
     {
         $model = $this->findModel($id);
@@ -184,7 +223,7 @@ class UsuariosController extends Controller
             if ($model->save()) {
 
                 if ($model->subida($id) && $model->subidaAws($id)) {
-                    Yii::$app->session->setFlash('success', 'Publicacion subida con exito');
+                    Yii::$app->session->setFlash('success', 'Subida con exito');
                     $model->borradoLocal();
                     return $this->redirect(['usuarios/perfil' , 'id' => $id]);
                 }
@@ -198,15 +237,11 @@ class UsuariosController extends Controller
         ]);
     }
 
-    // public function actionDownload($fichero)
-    // {
-    //     $model = new Usuarios();
-    //     $f = $model->descarga($fichero);
-
-    //     header('Content-Type: ' . $f['ContentType']);
-    //     echo $f['Body'];
-    // }
-
+    /**
+     * Recuperar contraseña
+     *
+     * @return void
+     */
     public function actionRecoverpass()
     {
         $model = new FormRecoverPass();
@@ -263,6 +298,11 @@ class UsuariosController extends Controller
         ]);
     }
 
+    /**
+     * Muestra todos los usuarios
+     *
+     * @return void
+     */
     public function actionAllusuarios() 
     {
         if (!Yii::$app->user->isGuest) {
@@ -283,7 +323,12 @@ class UsuariosController extends Controller
             return $this->redirect(['/site/login']);
         }
     }
-            
+    
+    /**
+     * Resetear la contraseña
+     *
+     * @return void
+     */
     public function actionResetpass()
     {
         $model = new FormResetPass();
@@ -338,7 +383,12 @@ class UsuariosController extends Controller
         ]);
     }
 
-
+    /**
+     * Busqueda de un usuario
+     *
+     * @param integer $id
+     * @return void
+     */
     protected function findModel($id)
     {
         if (($model = Usuarios::findOne($id)) !== null) {

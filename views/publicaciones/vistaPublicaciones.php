@@ -101,8 +101,8 @@ $this->registerJs($js);
                     <?php  else : ?>
                         <?=Html::img(Publicaciones::enlace('perfil.png'))?>
                     <?php endif; ?>
-                    
-                    <?=Html::a($model->usuario->username)?>
+
+                    <?=Html::a($model->usuario->username, ['usuarios/perfil', 'id' => $model->usuario_id])?>
                     <?php 
                         if ($model->direccion !== null) : ?>
                             <div class="ml-5 mt-0">
@@ -112,19 +112,21 @@ $this->registerJs($js);
                 </div>
                 <div class="prueba">
                     <?=Yii::$app->formatter->asRelativeTime($model->created_at)?>
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
-                    </button>
-                    <div class="dropdown-menu">
-                        <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]) . 'Modificar', ['update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
-                        <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]) . 'Borrar', ['delete', 'id' => $model->id], [
-                            'class' => 'dropdown-item',
-                            'data' => [
-                                'confirm' => '¿Eliminar publicacion?',
-                                'method' => 'post',
-                            ],
-                        ])?>
-                    </div> 
+                    <?php if (Yii::$app->user->identity->username === $model->usuario->username || Usuarios::isAdmin()) : ?>
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
+                        </button>
+                        <div class="dropdown-menu">
+                            <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]) . 'Modificar', ['publicaciones/update', 'id' => $model->id], ['class' => 'dropdown-item']);?>
+                            <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]) . 'Borrar', ['publicaciones/delete', 'id' => $model->id], [
+                                'class' => 'dropdown-item',
+                                'data' => [
+                                    'confirm' => '¿Eliminar publicacion?',
+                                    'method' => 'post',
+                                ],
+                                ])?>
+                        </div> 
+                    <?php endif ?>
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-center align-items-center">
@@ -206,19 +208,21 @@ $this->registerJs($js);
                     ?>
                     <div class="card-body d-flex justify-content-between align-items-center comentario">
                         <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $fila['comentario'])?>
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]), ['comentarios/update', 'id' =>  $fila['id']], ['class' => 'dropdown-item']);?>
-                            <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]), ['comentarios/delete', 'id' => $fila['id']], [
-                                'class' => 'dropdown-item',
-                                'data' => [
-                                    'confirm' => '¿Eliminar Comentario?',
-                                    'method' => 'post',
-                                ],
-                                ])?>
-                        </div>
+                        <?php if (Yii::$app->user->identity->username === $usuario->username || Usuarios::isAdmin()) : ?>
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]) . 'Modificar', ['comentarios/update', 'id' =>  $fila['id']], ['class' => 'dropdown-item']);?>
+                                <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]) . 'Borrar', ['comentarios/delete', 'id' => $fila['id']], [
+                                    'class' => 'dropdown-item',
+                                    'data' => [
+                                        'confirm' => '¿Eliminar Comentario?',
+                                        'method' => 'post',
+                                    ],
+                                    ])?>
+                            </div>
+                        <?php endif ?>
                     </div>
                 <?php elseif ($filas >= 2) : 
                     $ultimos = $model->getUltimosComentarios()->all();
@@ -227,19 +231,21 @@ $this->registerJs($js);
                     ?>
                     <div class="card-body d-flex pt-0 pb-0 justify-content-between align-items-center comentario">
                         <?=Html::tag('p', Html::a($usuario->username, ['usuarios/perfil', 'id' => $usuario->id]) . ' ' . $comentario['comentario'])?>
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]), ['comentarios/update', 'id' =>  $comentario['id']], ['class' => 'dropdown-item']);?>
-                            <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]), ['comentarios/delete', 'id' => $comentario['id']], [
-                                'class' => 'dropdown-item',
-                                'data' => [
-                                    'confirm' => '¿Eliminar Comentario?',
-                                    'method' => 'post',
-                                ],
-                            ])?>
-                        </div>
+                        <?php if (Yii::$app->user->identity->username === $usuario->username || Usuarios::isAdmin()) : ?>
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?=Icon::show('ellipsis-v', ['framework' => Icon::FA])?>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <?=Html::a(Icon::show('edit', ['framework' => Icon::FA]), ['comentarios/update', 'id' =>  $comentario['id']], ['class' => 'dropdown-item']);?>
+                                <?=Html::a(Icon::show('trash', ['framework' => Icon::FA]), ['comentarios/delete', 'id' => $comentario['id']], [
+                                    'class' => 'dropdown-item',
+                                    'data' => [
+                                        'confirm' => '¿Eliminar Comentario?',
+                                        'method' => 'post',
+                                    ],
+                                ])?>
+                            </div>
+                        <?php endif ?>
                     </div>
                     <?php endforeach; ?>
                 <?php endif ?>

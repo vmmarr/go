@@ -61,30 +61,40 @@ class Direcciones extends \yii\db\ActiveRecord
         return $this->hasMany(Publicaciones::className(), ['direccion_id' => 'id']);
     }
 
+    /**
+     * Validacion de Latitud
+     *
+     * @return void
+     */
     public function validaLatitud() {
         if (preg_match('/^(-?)([\d]{1,2})(\.)(\d{1,7})$/', $this->latitud)) {
             list($entero, $decimal) = explode('.',$this->latitud);
             if($entero <= 90 && $entero >= -90){
 
             } else  {
-                $this->addError('latitud',"Debe ser una latitud 90");
+                $this->addError('latitud',"Maximo permitido es 90.9999999");
             }
         } else {
-            $this->addError('latitud',"Debe ser una latitud ");
+            $this->addError('latitud',"Debe ser una latitud valida");
         }
     }
 
+    /**
+     * Validadion de Longitud
+     *
+     * @return void
+     */
     public function validaLongitud()
     {
         if (preg_match('/^(-?)([\d]{1,3})(\.)(\d{1,7})$/', $this->longitud)) {
             list($entero, $decimal) = explode('.',$this->longitud);
             if($entero <= 180 && $entero >= -180){
-//pasa
+                //pasa
             } else  {
-                $this->addError('longitud',"Debe ser una latitud 90");
+                $this->addError('longitud',"Maximo permitido es 180.9999999");
             }
         } else {
-            $this->addError('longitud',"Debe ser una latitud ");
+            $this->addError('longitud',"Debe ser una logitud valida");
         }
     }
 }

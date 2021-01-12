@@ -9,8 +9,6 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use app\assets\AppAsset;
-use app\models\ImagenForm;
-use app\models\User;
 use app\models\Usuarios;
 use kartik\icons\Icon;
 
@@ -38,10 +36,13 @@ AppAsset::register($this);
         $aws = Yii::$app->awssdk->getAwsSdk();
         $s3 = $aws->createS3();
         $bukect = 'go00';
-        $existe = $s3->doesObjectExist($bukect, Yii::$app->user->id . '.*');
-    
-    if ($existe) :
-        $imagen = Usuarios::enlace(Yii::$app->user->id . '.*');
+        $existePng = $s3->doesObjectExist($bukect, Yii::$app->user->id . '.png');
+        $existeJpg = $s3->doesObjectExist($bukect, Yii::$app->user->id . '.jpg');
+
+    if ($existePng) :
+        $imagen = Usuarios::enlace(Yii::$app->user->id . '.png');
+    elseif ($existeJpg) :
+        $imagen = Usuarios::enlace(Yii::$app->user->id . '.jpg');
     else :
         $imagen = Usuarios::enlace('perfil.png');
     endif;
@@ -95,14 +96,6 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
-<!-- <footer class="footer">
-    <div class="container">
-        <p class="float-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="float-right"><?= Yii::powered() ?></p>
-    </div>
-</footer> -->
 
 <?php $this->endBody() ?>
 </body>

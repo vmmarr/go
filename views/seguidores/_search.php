@@ -1,5 +1,6 @@
 <?php
 
+use kartik\icons\Icon;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -10,22 +11,25 @@ use yii\bootstrap4\ActiveForm;
 
 <div class="seguidores-search">
 
-    <?php $form = ActiveForm::begin([
+<?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
+        'layout' => 'horizontal',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'usuario_id') ?>
-
-    <?= $form->field($model, 'seguidor_id') ?>
-
-    <?= $form->field($model, 'aceptacion')->checkbox() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    <div class="row">
+        <div class="col-md-10">
+            <?= $form->field($model, 'buscar') ?>
+        </div>
+            
+            <div class="col-md-2">
+                <div class="form-group">
+                    <?= Html::submitButton(Icon::show('search', ['framework' => Icon::FA]), ['class' => 'btn btn-primary']) ?>
+                </div>
+            </div>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -92,30 +92,11 @@
         cursor: pointer;
     }
     
-    .gallery-item:hover .gallery-item-info,
-    .gallery-item:focus .gallery-item-info {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-    
-    .gallery-item-info {
-        display: none;
-    }
-    
-    .gallery-item-info li {
-        font-size: 1.7rem;
-        font-weight: 600;
-    }
-    
     .gallery-image {
         width: 100%;
         height: 100%;
+        max-width: 600px;
+        max-height: 600px;
     }
     /* Media Query */
     

@@ -8,7 +8,13 @@ use app\models\Usuarios;
 use Yii;
 
 class SeguidoresController extends \yii\web\Controller
-{
+{   
+    /**
+     * Lista todos los seguidores
+     *
+     * @param string $opcion
+     * @return mixed
+     */
     public function actionIndex($opcion)
     {
         $searchModel = new SeguidoresSearch();
@@ -20,6 +26,12 @@ class SeguidoresController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Borrado de un seguidor
+     *
+     * @param integer $id
+     * @return mixed
+     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -27,6 +39,13 @@ class SeguidoresController extends \yii\web\Controller
         return $this->redirect(['index']);
     }
 
+    /**
+     * Seguir
+     *
+     * @param integer $usuario_id
+     * @param integer $seguidor_id
+     * @return mixed
+     */
     public function actionSeguir($usuario_id, $seguidor_id) 
     {
         $model = new Seguidores();
