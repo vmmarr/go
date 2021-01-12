@@ -1,0 +1,1074 @@
+Array
+(
+    [0] => Array
+        (
+            [line] => 20
+            [file] => ./assets/AppAsset.php
+            [message] => No docblock for element '$basePath'
+        )
+
+    [1] => Array
+        (
+            [line] => 20
+            [file] => ./assets/AppAsset.php
+            [message] => No short description for element '$basePath'
+        )
+
+    [2] => Array
+        (
+            [line] => 21
+            [file] => ./assets/AppAsset.php
+            [message] => No docblock for element '$baseUrl'
+        )
+
+    [3] => Array
+        (
+            [line] => 21
+            [file] => ./assets/AppAsset.php
+            [message] => No short description for element '$baseUrl'
+        )
+
+    [4] => Array
+        (
+            [line] => 22
+            [file] => ./assets/AppAsset.php
+            [message] => No docblock for element '$css'
+        )
+
+    [5] => Array
+        (
+            [line] => 22
+            [file] => ./assets/AppAsset.php
+            [message] => No short description for element '$css'
+        )
+
+    [6] => Array
+        (
+            [line] => 25
+            [file] => ./assets/AppAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [7] => Array
+        (
+            [line] => 25
+            [file] => ./assets/AppAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [8] => Array
+        (
+            [line] => 27
+            [file] => ./assets/AppAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [9] => Array
+        (
+            [line] => 27
+            [file] => ./assets/AppAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [10] => Array
+        (
+            [line] => 8
+            [file] => ./components/HerokuTarget.php
+            [message] => No docblock for element 'app\components\HerokuTarget'
+        )
+
+    [11] => Array
+        (
+            [line] => 12
+            [file] => ./controllers/ComentariosController.php
+            [message] => No docblock for element 'app\controllers\ComentariosController'
+        )
+
+    [12] => Array
+        (
+            [line] => 12
+            [file] => ./controllers/LikesController.php
+            [message] => No docblock for element 'app\controllers\LikesController'
+        )
+
+    [13] => Array
+        (
+            [line] => 11
+            [file] => ./controllers/PublicacionesController.php
+            [message] => No docblock for element 'app\controllers\PublicacionesController'
+        )
+
+    [14] => Array
+        (
+            [line] => 10
+            [file] => ./controllers/SeguidoresController.php
+            [message] => No docblock for element 'app\controllers\SeguidoresController'
+        )
+
+    [15] => Array
+        (
+            [line] => 14
+            [file] => ./controllers/SiteController.php
+            [message] => No docblock for element 'app\controllers\SiteController'
+        )
+
+    [16] => Array
+        (
+            [line] => 20
+            [file] => ./controllers/UsuariosController.php
+            [message] => No docblock for element 'app\controllers\UsuariosController'
+        )
+
+    [17] => Array
+        (
+            [line] => 22
+            [file] => ./controllers/UsuariosController.php
+            [message] => No docblock for element 'behaviors'
+        )
+
+    [18] => Array
+        (
+            [line] => 13
+            [file] => ./models/ContactarForm.php
+            [message] => No docblock for element '$nombre'
+        )
+
+    [19] => Array
+        (
+            [line] => 13
+            [file] => ./models/ContactarForm.php
+            [message] => No short description for element '$nombre'
+        )
+
+    [20] => Array
+        (
+            [line] => 14
+            [file] => ./models/ContactarForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [21] => Array
+        (
+            [line] => 14
+            [file] => ./models/ContactarForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [22] => Array
+        (
+            [line] => 15
+            [file] => ./models/ContactarForm.php
+            [message] => No docblock for element '$asunto'
+        )
+
+    [23] => Array
+        (
+            [line] => 15
+            [file] => ./models/ContactarForm.php
+            [message] => No short description for element '$asunto'
+        )
+
+    [24] => Array
+        (
+            [line] => 16
+            [file] => ./models/ContactarForm.php
+            [message] => No docblock for element '$body'
+        )
+
+    [25] => Array
+        (
+            [line] => 16
+            [file] => ./models/ContactarForm.php
+            [message] => No short description for element '$body'
+        )
+
+    [26] => Array
+        (
+            [line] => 17
+            [file] => ./models/ContactarForm.php
+            [message] => No docblock for element '$verifyCode'
+        )
+
+    [27] => Array
+        (
+            [line] => 17
+            [file] => ./models/ContactarForm.php
+            [message] => No short description for element '$verifyCode'
+        )
+
+    [28] => Array
+        (
+            [line] => 8
+            [file] => ./models/FormRecoverPass.php
+            [message] => No docblock for element 'app\models\FormRecoverPass'
+        )
+
+    [29] => Array
+        (
+            [line] => 10
+            [file] => ./models/FormRecoverPass.php
+            [message] => No docblock for element '$email'
+        )
+
+    [30] => Array
+        (
+            [line] => 10
+            [file] => ./models/FormRecoverPass.php
+            [message] => No short description for element '$email'
+        )
+
+    [31] => Array
+        (
+            [line] => 12
+            [file] => ./models/FormRecoverPass.php
+            [message] => No docblock for element 'rules'
+        )
+
+    [32] => Array
+        (
+            [line] => 8
+            [file] => ./models/FormResetPass.php
+            [message] => No docblock for element 'app\models\FormResetPass'
+        )
+
+    [33] => Array
+        (
+            [line] => 11
+            [file] => ./models/FormResetPass.php
+            [message] => No docblock for element '$email'
+        )
+
+    [34] => Array
+        (
+            [line] => 11
+            [file] => ./models/FormResetPass.php
+            [message] => No short description for element '$email'
+        )
+
+    [35] => Array
+        (
+            [line] => 12
+            [file] => ./models/FormResetPass.php
+            [message] => No docblock for element '$password'
+        )
+
+    [36] => Array
+        (
+            [line] => 12
+            [file] => ./models/FormResetPass.php
+            [message] => No short description for element '$password'
+        )
+
+    [37] => Array
+        (
+            [line] => 13
+            [file] => ./models/FormResetPass.php
+            [message] => No docblock for element '$password_repeat'
+        )
+
+    [38] => Array
+        (
+            [line] => 13
+            [file] => ./models/FormResetPass.php
+            [message] => No short description for element '$password_repeat'
+        )
+
+    [39] => Array
+        (
+            [line] => 14
+            [file] => ./models/FormResetPass.php
+            [message] => No docblock for element '$verification_code'
+        )
+
+    [40] => Array
+        (
+            [line] => 14
+            [file] => ./models/FormResetPass.php
+            [message] => No short description for element '$verification_code'
+        )
+
+    [41] => Array
+        (
+            [line] => 15
+            [file] => ./models/FormResetPass.php
+            [message] => No docblock for element '$recover'
+        )
+
+    [42] => Array
+        (
+            [line] => 15
+            [file] => ./models/FormResetPass.php
+            [message] => No short description for element '$recover'
+        )
+
+    [43] => Array
+        (
+            [line] => 17
+            [file] => ./models/FormResetPass.php
+            [message] => No docblock for element 'rules'
+        )
+
+    [44] => Array
+        (
+            [line] => 15
+            [file] => ./models/GuardadasSearch.php
+            [message] => No docblock for element '$buscar'
+        )
+
+    [45] => Array
+        (
+            [line] => 15
+            [file] => ./models/GuardadasSearch.php
+            [message] => No short description for element '$buscar'
+        )
+
+    [46] => Array
+        (
+            [line] => 16
+            [file] => ./models/LoginForm.php
+            [message] => No docblock for element '$username'
+        )
+
+    [47] => Array
+        (
+            [line] => 16
+            [file] => ./models/LoginForm.php
+            [message] => No short description for element '$username'
+        )
+
+    [48] => Array
+        (
+            [line] => 17
+            [file] => ./models/LoginForm.php
+            [message] => No docblock for element '$password'
+        )
+
+    [49] => Array
+        (
+            [line] => 17
+            [file] => ./models/LoginForm.php
+            [message] => No short description for element '$password'
+        )
+
+    [50] => Array
+        (
+            [line] => 18
+            [file] => ./models/LoginForm.php
+            [message] => No docblock for element '$rememberMe'
+        )
+
+    [51] => Array
+        (
+            [line] => 18
+            [file] => ./models/LoginForm.php
+            [message] => No short description for element '$rememberMe'
+        )
+
+    [52] => Array
+        (
+            [line] => 83
+            [file] => ./models/LoginForm.php
+            [message] => No docblock for element 'validarUsuario'
+        )
+
+    [53] => Array
+        (
+            [line] => 171
+            [file] => ./models/Publicaciones.php
+            [message] => No docblock for element 'publicacionLike'
+        )
+
+    [54] => Array
+        (
+            [line] => 190
+            [file] => ./models/Publicaciones.php
+            [message] => No docblock for element 'setImagen'
+        )
+
+    [55] => Array
+        (
+            [line] => 210
+            [file] => ./models/Publicaciones.php
+            [message] => No docblock for element 'setImagenUrl'
+        )
+
+    [56] => Array
+        (
+            [line] => 20
+            [file] => ./models/PublicacionesSearch.php
+            [message] => No docblock for element 'rules'
+        )
+
+    [57] => Array
+        (
+            [line] => 29
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element '$password_repeat'
+        )
+
+    [58] => Array
+        (
+            [line] => 29
+            [file] => ./models/Usuarios.php
+            [message] => No short description for element '$password_repeat'
+        )
+
+    [59] => Array
+        (
+            [line] => 32
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element '$verification_code'
+        )
+
+    [60] => Array
+        (
+            [line] => 32
+            [file] => ./models/Usuarios.php
+            [message] => No short description for element '$verification_code'
+        )
+
+    [61] => Array
+        (
+            [line] => 105
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'findIdentity'
+        )
+
+    [62] => Array
+        (
+            [line] => 110
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'findIdentityByAccessToken'
+        )
+
+    [63] => Array
+        (
+            [line] => 114
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'getId'
+        )
+
+    [64] => Array
+        (
+            [line] => 119
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'getImagen'
+        )
+
+    [65] => Array
+        (
+            [line] => 129
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'comprobarImagen'
+        )
+
+    [66] => Array
+        (
+            [line] => 138
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'setImagen'
+        )
+
+    [67] => Array
+        (
+            [line] => 143
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'getImagenUrl'
+        )
+
+    [68] => Array
+        (
+            [line] => 153
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'setImagenUrl'
+        )
+
+    [69] => Array
+        (
+            [line] => 158
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'getAuthKey'
+        )
+
+    [70] => Array
+        (
+            [line] => 163
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'validateAuthKey'
+        )
+
+    [71] => Array
+        (
+            [line] => 168
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'findByUsername'
+        )
+
+    [72] => Array
+        (
+            [line] => 174
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'validatePassword'
+        )
+
+    [73] => Array
+        (
+            [line] => 179
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'validateEmail'
+        )
+
+    [74] => Array
+        (
+            [line] => 184
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'beforeSave'
+        )
+
+    [75] => Array
+        (
+            [line] => 238
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'estaBloqueado'
+        )
+
+    [76] => Array
+        (
+            [line] => 245
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'Bloqueado'
+        )
+
+    [77] => Array
+        (
+            [line] => 252
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'subida'
+        )
+
+    [78] => Array
+        (
+            [line] => 267
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'subidaAws'
+        )
+
+    [79] => Array
+        (
+            [line] => 309
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'borradoLocal'
+        )
+
+    [80] => Array
+        (
+            [line] => 314
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'descarga'
+        )
+
+    [81] => Array
+        (
+            [line] => 325
+            [file] => ./models/Usuarios.php
+            [message] => No docblock for element 'enlace'
+        )
+
+    [82] => Array
+        (
+            [line] => 19
+            [file] => ./models/UsuariosSearch.php
+            [message] => No docblock for element 'rules'
+        )
+
+    [83] => Array
+        (
+            [line] => 8
+            [file] => ./widgets/DataColumn.php
+            [message] => No docblock for element 'app\widgets\DataColumn'
+        )
+
+    [84] => Array
+        (
+            [line] => 10
+            [file] => ./widgets/DataColumn.php
+            [message] => No docblock for element 'renderFilterCellContent'
+        )
+
+    [85] => Array
+        (
+            [line] => 65
+            [file] => vendor/yiisoft/yii2/base/ErrorHandler.php
+            [message] => No docblock for element 'init'
+        )
+
+    [86] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/captcha/CaptchaAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [87] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/captcha/CaptchaAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [88] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/captcha/CaptchaAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [89] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/captcha/CaptchaAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [90] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/captcha/CaptchaAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [91] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/captcha/CaptchaAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [92] => Array
+        (
+            [line] => 80
+            [file] => vendor/yiisoft/yii2/console/Controller.php
+            [message] => No docblock for element 'beforeAction'
+        )
+
+    [93] => Array
+        (
+            [line] => 28
+            [file] => vendor/yiisoft/yii2/console/UnknownCommandException.php
+            [message] => No short description for element '$application'
+        )
+
+    [94] => Array
+        (
+            [line] => 200
+            [file] => vendor/yiisoft/yii2/data/ActiveDataProvider.php
+            [message] => No docblock for element '__clone'
+        )
+
+    [95] => Array
+        (
+            [line] => 22
+            [file] => vendor/yiisoft/yii2/db/ExpressionBuilderTrait.php
+            [message] => No short description for element '$queryBuilder'
+        )
+
+    [96] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/db/conditions/ConjunctionCondition.php
+            [message] => No short description for element '$expressions'
+        )
+
+    [97] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/grid/GridViewAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [98] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/grid/GridViewAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [99] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/grid/GridViewAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [100] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/grid/GridViewAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [101] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/grid/GridViewAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [102] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/grid/GridViewAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [103] => Array
+        (
+            [line] => 30
+            [file] => vendor/yiisoft/yii2/helpers/BaseJson.php
+            [message] => No short description for element '$jsonErrorMessages'
+        )
+
+    [104] => Array
+        (
+            [line] => 37
+            [file] => vendor/yiisoft/yii2/i18n/GettextMessageSource.php
+            [message] => No short description for element '$basePath'
+        )
+
+    [105] => Array
+        (
+            [line] => 41
+            [file] => vendor/yiisoft/yii2/i18n/GettextMessageSource.php
+            [message] => No short description for element '$catalog'
+        )
+
+    [106] => Array
+        (
+            [line] => 45
+            [file] => vendor/yiisoft/yii2/i18n/GettextMessageSource.php
+            [message] => No short description for element '$useMoFile'
+        )
+
+    [107] => Array
+        (
+            [line] => 49
+            [file] => vendor/yiisoft/yii2/i18n/GettextMessageSource.php
+            [message] => No short description for element '$useBigEndian'
+        )
+
+    [108] => Array
+        (
+            [line] => 980
+            [file] => vendor/yiisoft/yii2/rbac/DbManager.php
+            [message] => No docblock for element 'invalidateCache'
+        )
+
+    [109] => Array
+        (
+            [line] => 991
+            [file] => vendor/yiisoft/yii2/rbac/DbManager.php
+            [message] => No docblock for element 'loadFromCache'
+        )
+
+    [110] => Array
+        (
+            [line] => 67
+            [file] => vendor/yiisoft/yii2/rbac/PhpManager.php
+            [message] => No short description for element '$items'
+        )
+
+    [111] => Array
+        (
+            [line] => 71
+            [file] => vendor/yiisoft/yii2/rbac/PhpManager.php
+            [message] => No short description for element '$children'
+        )
+
+    [112] => Array
+        (
+            [line] => 75
+            [file] => vendor/yiisoft/yii2/rbac/PhpManager.php
+            [message] => No short description for element '$assignments'
+        )
+
+    [113] => Array
+        (
+            [line] => 79
+            [file] => vendor/yiisoft/yii2/rbac/PhpManager.php
+            [message] => No short description for element '$rules'
+        )
+
+    [114] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/validators/PunycodeAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [115] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/validators/PunycodeAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [116] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/validators/PunycodeAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [117] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/validators/PunycodeAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [118] => Array
+        (
+            [line] => 86
+            [file] => vendor/yiisoft/yii2/validators/UniqueValidator.php
+            [message] => No short description for element '$comboNotUnique'
+        )
+
+    [119] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/validators/ValidationAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [120] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/validators/ValidationAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [121] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/validators/ValidationAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [122] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/validators/ValidationAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [123] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/validators/ValidationAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [124] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/validators/ValidationAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [125] => Array
+        (
+            [line] => 18
+            [file] => vendor/yiisoft/yii2/web/JqueryAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [126] => Array
+        (
+            [line] => 18
+            [file] => vendor/yiisoft/yii2/web/JqueryAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [127] => Array
+        (
+            [line] => 19
+            [file] => vendor/yiisoft/yii2/web/JqueryAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [128] => Array
+        (
+            [line] => 19
+            [file] => vendor/yiisoft/yii2/web/JqueryAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [129] => Array
+        (
+            [line] => 18
+            [file] => vendor/yiisoft/yii2/web/YiiAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [130] => Array
+        (
+            [line] => 18
+            [file] => vendor/yiisoft/yii2/web/YiiAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [131] => Array
+        (
+            [line] => 19
+            [file] => vendor/yiisoft/yii2/web/YiiAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [132] => Array
+        (
+            [line] => 19
+            [file] => vendor/yiisoft/yii2/web/YiiAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [133] => Array
+        (
+            [line] => 22
+            [file] => vendor/yiisoft/yii2/web/YiiAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [134] => Array
+        (
+            [line] => 22
+            [file] => vendor/yiisoft/yii2/web/YiiAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [135] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/widgets/ActiveFormAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [136] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/widgets/ActiveFormAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [137] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/widgets/ActiveFormAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [138] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/widgets/ActiveFormAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [139] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/widgets/ActiveFormAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [140] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/widgets/ActiveFormAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [141] => Array
+        (
+            [line] => 22
+            [file] => vendor/yiisoft/yii2/widgets/MaskedInputAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [142] => Array
+        (
+            [line] => 22
+            [file] => vendor/yiisoft/yii2/widgets/MaskedInputAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [143] => Array
+        (
+            [line] => 23
+            [file] => vendor/yiisoft/yii2/widgets/MaskedInputAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [144] => Array
+        (
+            [line] => 23
+            [file] => vendor/yiisoft/yii2/widgets/MaskedInputAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [145] => Array
+        (
+            [line] => 26
+            [file] => vendor/yiisoft/yii2/widgets/MaskedInputAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [146] => Array
+        (
+            [line] => 26
+            [file] => vendor/yiisoft/yii2/widgets/MaskedInputAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [147] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/widgets/PjaxAsset.php
+            [message] => No docblock for element '$sourcePath'
+        )
+
+    [148] => Array
+        (
+            [line] => 20
+            [file] => vendor/yiisoft/yii2/widgets/PjaxAsset.php
+            [message] => No short description for element '$sourcePath'
+        )
+
+    [149] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/widgets/PjaxAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [150] => Array
+        (
+            [line] => 21
+            [file] => vendor/yiisoft/yii2/widgets/PjaxAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [151] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/widgets/PjaxAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [152] => Array
+        (
+            [line] => 24
+            [file] => vendor/yiisoft/yii2/widgets/PjaxAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+)
