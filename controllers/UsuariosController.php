@@ -257,7 +257,6 @@ class UsuariosController extends Controller
 
                 if ($usuario->count() == 1) :
                     Yii::$app->session['recover'] = Yii::$app->security->generateRandomString(8);
-                    // $recover = Yii::$app->session['recover'];
 
                     $usuario = Usuarios::findOne(['email' => $model->email]);
                     Yii::$app->session['id_recover'] = $usuario->id;
@@ -285,10 +284,10 @@ class UsuariosController extends Controller
                     $model->email = null;
 
                     Yii::$app->session->setFlash('success', 'Le hemos enviado un mensaje a su cuenta de correo para que pueda resetear su contraseña');
-                    return $this->redirect('site/login');
+                    return $this->redirect('/site/login');
                 else :
                     Yii::$app->session->setFlash('danger', 'No hay ningun usuario con ese email');
-                    return $this->redirect('site/login');
+                    return $this->redirect('/site/login');
                 endif;
             endif;
         endif;

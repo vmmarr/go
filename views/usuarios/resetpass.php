@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'recover')->hiddenInput()->label(false) ?>  
         
         <div class="form-group">
-            <?= Html::submitButton('Reset password', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('Resetear password', ['class' => 'btn btn-primary']) ?>
         </div>
     <?php ActiveForm::end(); ?>
 </div>

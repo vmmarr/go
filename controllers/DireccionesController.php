@@ -73,7 +73,7 @@ class DireccionesController extends Controller
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);      
             }
-
+            $model->save();
             if(Yii::$app->request->get('resp', false)){
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return $model;
